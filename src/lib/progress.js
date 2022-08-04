@@ -27,7 +27,7 @@ function next({ to, shouldPrefetch, nextStep, data }) {
 		JSON.stringify({
 			step: nextStep,
 			finished: false,
-			data: { ...progress.data, ...data }
+			data: progress ? { ...progress.data, ...data } : { data }
 		})
 	);
 

@@ -93,11 +93,11 @@
 		<button
 			disabled
 			on:click={() => {
-				if (step !== 2) {
+				if (step !== 1) {
 					step = -1;
 				} else {
 					shouldShow = false;
-					next({ to: '/app/survey' });
+					next({ to: '/app/plan', nextStep: '/app/plan', data: { goal: data.goal } });
 				}
 			}}
 			in:fly={{ y: 8, duration: 1000, delay: 2000 }}
