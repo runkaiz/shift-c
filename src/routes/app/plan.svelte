@@ -4,6 +4,8 @@
 	import { next } from '$lib/progress';
 
 	let shouldShow = false;
+	let lightTreatment = false;
+	let bioTreatment = false;
 
 	onMount(() => {
 		shouldShow = true;
@@ -46,26 +48,17 @@
 			<button class="text-indigo-800">Learn more</button>
 		</div>
 
-		<!-- 
-      TODO:
-        When selected, the following classes should take effect:
-          - ring-indigo-800
-     -->
 		<div
-			class="basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 ring-stone-200 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+			class="{lightTreatment ? "ring-indigo-800" : "ring-stone-200"} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
 		>
 			<div>
-				<!-- 
-          TODO:
-          When selected, the following classes should take effect:
-            - text-indigo-800
-        -->
 				<svg
-					class="w-8 h-8 fill-current text-stone-300 cursor-pointer"
+					class="{lightTreatment ? "text-indigo-800" : "text-stone-300"} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
+					on:click={() => lightTreatment = !lightTreatment}
 				>
 					<path
 						fill-rule="evenodd"
@@ -82,26 +75,17 @@
 			<button class="text-indigo-800">Learn more</button>
 		</div>
 
-		<!-- 
-      TODO:
-        When selected, the following classes should take effect:
-          - ring-indigo-800
-     -->
 		<div
-			class="basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 ring-stone-200 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+			class="{bioTreatment ? "ring-indigo-800" : "ring-stone-200"} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 3000 }}
 		>
 			<div>
-				<!-- 
-          TODO:
-          When selected, the following classes should take effect:
-            - text-indigo-800
-        -->
 				<svg
-					class="w-8 h-8 fill-current text-stone-300 cursor-pointer"
+					class="{bioTreatment ? "text-indigo-800" : "text-stone-300"} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
+					on:click={() => bioTreatment = !bioTreatment}
 				>
 					<path
 						fill-rule="evenodd"
