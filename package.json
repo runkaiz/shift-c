@@ -13,9 +13,9 @@
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.2",
-    "eslint": "^7.32.0",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-svelte3": "^3.2.1",
+    "eslint-plugin-svelte3": "^4.0.0",
     "postcss": "^8.4.5",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
@@ -26,6 +26,7 @@
   "type": "module",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "ical-generator": "^3.5.2",
     "vite": "^3.1.2"
   }
 }
