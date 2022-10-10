@@ -34,23 +34,50 @@
     day14.setDate(day1.getDate() + 13);
 </script>
 
-<div class="flow-root">
-	<ul class="-mb-8">
-		<WakeTime date={day1.toDateString()} time="10:00AM" />
-		<SleepTime date={day1.toDateString()} time="9:20PM" />
-		<WakeTime date={day2.toDateString()} time="10:00AM" />
-		<SleepTime date={day2.toDateString()} time="9:20PM" />
-		<WakeTime date={day3.toDateString()} time="10:00AM" />
-		<WakeTime date={day3.toDateString()} time="10:00AM" />
-		<SleepTime date={day4.toDateString()} time="9:20PM" />
-		<WakeTime date={day4.toDateString()} time="10:00AM" />
-		<SleepTime date={day5.toDateString()} time="9:20PM" />
-		<WakeTime date={day5.toDateString()} time="10:00AM" />
-		<WakeTime date={day6.toDateString()} time="10:00AM" />
-		<SleepTime date={day6.toDateString()} time="9:20PM" />
-		<WakeTime date={day7.toDateString()} time="10:00AM" />
-		<SleepTime date={day7.toDateString()} time="9:20PM" />
-		<WakeTime date={day8.toDateString()} time="10:00AM" />
-		<SleepTime date={day8.toDateString()} time="9:20PM" isLast />
-	</ul>
+<!-- Web view -->
+<div class="print:hidden">
+    <div class="flow-root">
+        <ul class="-mb-8">
+            <WakeTime date={day1.toDateString()} time="10:00AM" />
+            <SleepTime date={day1.toDateString()} time="9:20PM" />
+            <WakeTime date={day2.toDateString()} time="10:00AM" />
+            <SleepTime date={day2.toDateString()} time="9:20PM" />
+            <WakeTime date={day3.toDateString()} time="10:00AM" />
+            <WakeTime date={day3.toDateString()} time="10:00AM" />
+            <SleepTime date={day4.toDateString()} time="9:20PM" />
+            <WakeTime date={day4.toDateString()} time="10:00AM" />
+            <SleepTime date={day5.toDateString()} time="9:20PM" />
+            <WakeTime date={day5.toDateString()} time="10:00AM" />
+            <WakeTime date={day6.toDateString()} time="10:00AM" />
+            <SleepTime date={day6.toDateString()} time="9:20PM" />
+            <WakeTime date={day7.toDateString()} time="10:00AM" />
+            <SleepTime date={day7.toDateString()} time="9:20PM" />
+            <WakeTime date={day8.toDateString()} time="10:00AM" />
+            <SleepTime date={day8.toDateString()} time="9:20PM" isLast />
+        </ul>
+    </div>
+</div>
+
+<!-- Print view -->
+<div class="hidden print:block">
+    <div class="flow-root">
+        <ul class="-mb-8">
+            <WakeTime date={day1.toDateString()} time="10:00AM" />
+            <SleepTime date={day1.toDateString()} time="9:20PM" />
+            <WakeTime date={day2.toDateString()} time="10:00AM" />
+            <SleepTime date={day2.toDateString()} time="9:20PM" />
+            <WakeTime date={day3.toDateString()} time="10:00AM" />
+            <WakeTime date={day3.toDateString()} time="10:00AM" />
+            <SleepTime date={day4.toDateString()} time="9:20PM" />
+            <WakeTime date={day4.toDateString()} time="10:00AM" />
+            <SleepTime date={day5.toDateString()} time="9:20PM" />
+            <WakeTime date={day5.toDateString()} time="10:00AM" />
+            <WakeTime date={day6.toDateString()} time="10:00AM" />
+            <SleepTime date={day6.toDateString()} time="9:20PM" />
+            <WakeTime date={day7.toDateString()} time="10:00AM" />
+            <SleepTime date={day7.toDateString()} time="9:20PM" />
+            <WakeTime date={day8.toDateString()} time="10:00AM" />
+            <SleepTime date={day8.toDateString()} time="9:20PM" isLast />
+        </ul>
+    </div>
 </div>
