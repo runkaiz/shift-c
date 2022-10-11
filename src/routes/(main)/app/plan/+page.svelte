@@ -49,16 +49,20 @@
 		</div>
 
 		<div
-			class="{lightTreatment ? "ring-indigo-800" : "ring-stone-200"} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+			class="{lightTreatment
+				? 'ring-indigo-800'
+				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
 		>
 			<div>
 				<svg
-					class="{lightTreatment ? "text-indigo-800" : "text-stone-300"} w-8 h-8 fill-current cursor-pointer"
+					class="{lightTreatment
+						? 'text-indigo-800'
+						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => lightTreatment = !lightTreatment}
+					on:click={() => (lightTreatment = !lightTreatment)}
 				>
 					<path
 						fill-rule="evenodd"
@@ -76,16 +80,20 @@
 		</div>
 
 		<div
-			class="{bioTreatment ? "ring-indigo-800" : "ring-stone-200"} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+			class="{bioTreatment
+				? 'ring-indigo-800'
+				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 3000 }}
 		>
 			<div>
 				<svg
-					class="{bioTreatment ? "text-indigo-800" : "text-stone-300"} w-8 h-8 fill-current cursor-pointer"
+					class="{bioTreatment
+						? 'text-indigo-800'
+						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => bioTreatment = !bioTreatment}
+					on:click={() => (bioTreatment = !bioTreatment)}
 				>
 					<path
 						fill-rule="evenodd"

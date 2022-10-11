@@ -11,7 +11,8 @@
 	<!-- Top Bar -->
 	<div class="fixed z-50 top-0 left-0 right-0 p-4 flex flex-row justify-between">
 		<p class="text-lg font-medium"><a href="/">Shift</a></p>
-		<button label=""
+		<button
+			label=""
 			on:click={() => {
 				soundOn = !soundOn;
 			}}
@@ -62,7 +63,7 @@
 	<div class="flex min-h-screen justify-center items-center">
 		<div class="flex justify-center mx-auto max-w-5xl px-8 py-16">
 			<div class="relative flex flex-col justify-center items-center">
-				<slot></slot>
+				<slot />
 			</div>
 		</div>
 	</div>

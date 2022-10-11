@@ -1,5 +1,5 @@
 <script>
-	import Line from "./Line.svelte";
+	import Line from './Line.svelte';
 
 	export let time = '';
 	export let date = '';
@@ -17,7 +17,7 @@
 					class="h-12 w-12 rounded-full bg-orange-400 flex items-center justify-center ring-8 ring-white"
 				>
 					<svg
-                        class="h-8 w-8 text-white"
+						class="h-8 w-8 text-white"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
 						viewBox="0 0 24 24"

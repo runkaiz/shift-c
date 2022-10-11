@@ -15,7 +15,8 @@
 	<div class="fixed z-50 top-0 left-0 right-0 p-4 flex flex-row justify-between">
 		<p class="text-lg font-medium"><a href="/">Shift</a></p>
 		<p class="text-lg text-indigo-600">
-			<button class="{hide ? "hidden" : ""}"
+			<button
+				class={hide ? 'hidden' : ''}
 				on:click={() => {
 					hide = true;
 					resume({ data: { learn: 'finished' } });

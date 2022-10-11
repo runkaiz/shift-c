@@ -1,6 +1,6 @@
 <script>
-	import Line from "./Line.svelte";
-	
+	import Line from './Line.svelte';
+
 	export let time = '';
 	export let date = '';
 	export let isLast = false;
