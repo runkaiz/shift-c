@@ -1,4 +1,5 @@
 <script>
+	import Blt from './Entries/BLT.svelte';
 	import SleepTime from './Entries/SleepTime.svelte';
 	import WakeTime from './Entries/WakeTime.svelte';
 
@@ -38,6 +39,7 @@
 	<div class="flow-root">
 		<ul class="-mb-8">
 			<WakeTime date={day1.toDateString()} time="10:00AM" />
+            <Blt date={day1.toDateString()} time="10:30AM"/>
 			<SleepTime date={day1.toDateString()} time="9:20PM" />
 			<WakeTime date={day2.toDateString()} time="10:00AM" />
 			<SleepTime date={day2.toDateString()} time="9:20PM" />

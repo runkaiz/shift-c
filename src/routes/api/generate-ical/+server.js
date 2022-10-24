@@ -9,10 +9,8 @@ export async function GET({ url }) {
 	calendar.createEvent({
 		start: startTime,
 		end: endTime,
-		summary: 'Example Event',
-		description: 'It works ;)',
-		location: 'my room',
-		url: 'http://sebbo.net/'
+		summary: '',
+		description: 'Remember to set your alarm.'
 	});
 
 	const res = new Response(await calendar);
