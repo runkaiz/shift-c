@@ -15,6 +15,8 @@ export function GET({ url }) {
     );
     const targetWakeTime = moment(url.searchParams.get('tWake'), ['h:m a', 'H:m']).format('HH:mm');
 
+    const bltOffset = moment.duration(url.searchParams.get('bltOffset'), "minutes");
+
     const enableBLT = true; // Determine whether to use BLT
     let testBLTOffset = null;
 

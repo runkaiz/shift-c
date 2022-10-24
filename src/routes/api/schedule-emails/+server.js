@@ -4,7 +4,7 @@ import sgMail from '@sendgrid/mail';
 // sgMail.setApiKey(import.meta.env.VITE_SENDGRID);
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET() {
+export async function GET({ url }) {
 	const msg = {
 		to: 'test@example.com',
 		from: 'test@example.com',

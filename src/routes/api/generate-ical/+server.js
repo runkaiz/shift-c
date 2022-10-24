@@ -1,7 +1,7 @@
 import ical from 'ical-generator';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET() {
+export async function GET({ url }) {
 	const calendar = ical({ name: 'my first iCal' });
 	const startTime = new Date();
 	const endTime = new Date();
