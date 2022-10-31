@@ -9,7 +9,9 @@ export function GET({ url }) {
     const currentSleepDuration = moment(url.searchParams.get('cDuration'), ['h:m a', 'H:m']).format(
         'HH:mm'
     );
+
     const currentWakeTime = moment(url.searchParams.get('cWake'), ['h:m a', 'H:m']).format('HH:mm');
+
     const targetSleepDuration = moment(url.searchParams.get('tDuration'), ['h:m a', 'H:m']).format(
         'HH:mm'
     );
@@ -63,7 +65,7 @@ export function GET({ url }) {
         }
         wakeIntervention[0].year(testInterventionStart.year());
         wakeIntervention[0].month(testInterventionStart.month());
-        wakeIntervention[0].date(testInterventionStart.date());
+        wakeIntervention[0].date(testInterventionStart.date() + 1);
 
         if (enableBLT) {
             bltIntervention[0] = moment(wakeIntervention[0]).add(testBLTOffset);
@@ -85,31 +87,41 @@ export function GET({ url }) {
         sleepIntervention[0].date(testInterventionStart.date());
     }
 
-    for (let i = 1; i < wakeShiftDays; i++) {
-        if (wakeShift > 0) {
-            wakeIntervention[i] = moment(wakeIntervention[i - 1])
-                .add(moment.duration(testIncrement, 'minutes'))
-                .add(moment.duration(1, 'days'));
+    // Calculate the rest of the days
+    for (let i = 1; i < interventionDays; i++) {
+        if (i < wakeShiftDays) {
+            if (wakeShift > 0) {
+                wakeIntervention[i] = moment(wakeIntervention[i - 1])
+                    .add(moment.duration(testIncrement, 'minutes'))
+                    .add(moment.duration(1, 'days'));
+            } else {
+                let shift = moment(wakeIntervention[i - 1]);
+                shift.add(moment.duration(1, 'days'));
+                shift.subtract(moment.duration(testIncrement, 'minutes'));
+                console.log(wakeIntervention[i - 1]);
+                console.log(shift);
+                wakeIntervention[i] = shift;
+            }
         } else {
-            wakeIntervention[i] = moment(wakeIntervention[i - 1])
-                .subtract(moment.duration(testIncrement, 'minutes'))
-                .add(moment.duration(1, 'days'));
+            wakeIntervention[i] = moment(wakeIntervention[i - 1]).add(1, "days");
+        }
+
+        if (i < sleepShiftDays) {
+            if (sleepShift > 0) {
+                sleepIntervention[i] = moment(sleepIntervention[i - 1])
+                    .add(moment.duration(testIncrement, 'minutes'))
+                    .add(moment.duration(1, 'days'));
+            } else {
+                sleepIntervention[i] = moment(sleepIntervention[i - 1])
+                    .subtract(moment.duration(testIncrement, 'minutes'))
+                    .add(moment.duration(1, 'days'));
+            }
+        } else {
+            sleepIntervention[i] = moment(sleepIntervention[i - 1]).add(1, "days");
         }
 
         if (enableBLT) {
-            bltIntervention[i] = wakeIntervention[i].add(testBLTOffset);
-        }
-    }
-
-    for (let i = 1; i < sleepShiftDays; i++) {
-        if (sleepShift > 0) {
-            sleepIntervention[i] = moment(sleepIntervention[i - 1])
-                .add(moment.duration(testIncrement, 'minutes'))
-                .add(moment.duration(1, 'days'));
-        } else {
-            sleepIntervention[i] = moment(sleepIntervention[i - 1])
-                .subtract(moment.duration(testIncrement, 'minutes'))
-                .add(moment.duration(1, 'days'));
+            bltIntervention[i] = moment(wakeIntervention[i]).add(testBLTOffset);
         }
     }
 
