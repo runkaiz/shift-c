@@ -3,6 +3,8 @@
 import sgMail from '@sendgrid/mail';
 // sgMail.setApiKey(import.meta.env.VITE_SENDGRID);
 
+// User UNIX timestamp to schedule.
+
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
 	const msg = {
@@ -10,7 +12,8 @@ export async function GET({ url }) {
 		from: 'test@example.com',
 		subject: 'Sending with SendGrid is Fun',
 		text: 'and easy to do anywhere, even with Node.js',
-		html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+		html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        send_at: ''
 	};
 	console.log('Form submitted');
 	// const output = await sgMail.send(msg);

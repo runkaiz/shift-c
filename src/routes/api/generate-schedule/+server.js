@@ -98,8 +98,6 @@ export function GET({ url }) {
                 let shift = moment(wakeIntervention[i - 1]);
                 shift.add(moment.duration(1, 'days'));
                 shift.subtract(moment.duration(testIncrement, 'minutes'));
-                console.log(wakeIntervention[i - 1]);
-                console.log(shift);
                 wakeIntervention[i] = shift;
             }
         } else {
