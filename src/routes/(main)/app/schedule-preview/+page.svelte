@@ -90,7 +90,7 @@
 							clip-rule="evenodd"
 						/>
 					</svg>
-					Day 1.</span
+					Day 1</span
 				>
 				<span class="text-3xl font-bold mt-10">22:15-7:00</span>
 			</div>
