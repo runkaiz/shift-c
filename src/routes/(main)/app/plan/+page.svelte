@@ -73,7 +73,7 @@
 			</div>
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Morning bright light exposure</span>
-				is a good way to get more alertness in the morning---and it helps to shift your circadian clock
+				is a good way to get more alertness in the morning—and it helps to shift your circadian clock
 				forward.
 			</p>
 			<button class="text-indigo-800">Learn more</button>
