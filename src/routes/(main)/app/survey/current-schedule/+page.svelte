@@ -6,7 +6,7 @@
 
 	let shouldShow = false;
 	let data = {
-		goal: {
+		current: {
 			wakeup: '08:00',
 			bedtime: '23:30'
 		}
@@ -44,7 +44,7 @@
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fly={{ y: -5, duration: 500 }}
 	>
-		Let's set a goal.<br />
+		What about right now?<br />
 	</h2>
 	<div class="relative max-w-2xl space-x-8 my-16" out:fade={{ duration: 400 }}>
 		{#if step === 0}
@@ -56,16 +56,16 @@
 					step = 1;
 				}}
 			>
-				<h3 class="font-medium text-gray-800">When do you want to wake up?</h3>
-				<TimeField bind:time={data.goal.wakeup} placeholder={data.goal.wakeup} />
+				<h3 class="font-medium text-gray-800">When do you usually wake up?</h3>
+				<TimeField bind:time={data.current.wakeup} placeholder={data.current.wakeup} />
 			</div>
 		{:else if step === 1}
 			<div
 				class="flex flex-col rounded-lg shadow bg-stone-50 p-6 mx-auto"
 				in:fly={{ x: 8, duration: 500 }}
 			>
-				<h3 class="font-medium text-gray-800">What's your ideal bedtime?</h3>
-				<TimeField bind:time={data.goal.bedtime} placeholder={data.goal.bedtime} />
+				<h3 class="font-medium text-gray-800">When do you usually go to sleep?</h3>
+				<TimeField bind:time={data.current.bedtime} placeholder={data.current.bedtime} />
 			</div>
 		{/if}
 	</div>
@@ -76,15 +76,15 @@
 	>
 		{#if step === 0}
 			<span out:fade={{ duration: 500 }}>
-				Your wakeup time should be feasible for you.
+				If you do not have a consistent wake-up time,
 				<br />
-				Pick a time that can best fit your existing schedule.
+				just think about the last 1 or 2 days.
 			</span>
 		{:else if step === 1}
 			<span in:fade={{ duration: 500 }}>
-				For 8 hours of sleep, your bedtime should be earlier than {calcBedtime(data.goal.wakeup)}.
+				If you do not have a consistent bed time,
 				<br />
-				Be sure to consider the time you need to fall asleep.
+				just think about the last 1 or 2 days.
 			</span>
 		{/if}
 	</p>
@@ -97,7 +97,11 @@
 					step = -1;
 				} else {
 					shouldShow = false;
-					next({ to: '/app/plan', nextStep: '/app/plan', data: { goal: data.goal } });
+					next({
+						to: '/app/schedule-preview',
+						nextStep: '/app/schedule-preview',
+						data: { current: data.current }
+					});
 				}
 			}}
 			in:fly={{ y: 8, duration: 1000, delay: 2000 }}

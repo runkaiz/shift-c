@@ -68,7 +68,7 @@
 			disabled
 			on:click={() => {
 				shouldShow = false;
-				next({ to: '/app/survey' });
+				next({ to: '/app/survey/ideal-schedule' });
 			}}
 			in:fly={{ y: 8, duration: 1000, delay: 9000 }}
 			on:introend={(e) => {

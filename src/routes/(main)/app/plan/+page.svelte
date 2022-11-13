@@ -138,7 +138,7 @@
 			disabled
 			on:click={() => {
 				shouldShow = false;
-				next({ to: '/app/schedule-preview' });
+				next({ to: '/app/survey/current-schedule' });
 			}}
 			in:fly={{ y: 8, duration: 1000, delay: 5000 }}
 			on:introend={(e) => {
@@ -146,7 +146,7 @@
 			}}
 			class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-800 transition-colors"
 		>
-			🗓 Show the plan
+			Next
 		</button>
 	</div>
 {/if}
