@@ -3,9 +3,20 @@
 	import { fade, fly } from 'svelte/transition';
 	import { next } from '$lib/progress';
 
+    import { lightTreatment, bioTreatment } from '$lib/stores';
+
+    let enableBLT;
+    let enableBio;
+
 	let shouldShow = false;
-	let lightTreatment = false;
-	let bioTreatment = false;
+
+    lightTreatment.subscribe(value => {
+        enableBLT = value;
+    })
+
+    bioTreatment.subscribe(value => {
+        enableBio = value;
+    })
 
 	onMount(() => {
 		shouldShow = true;
@@ -49,20 +60,21 @@
 		</div>
 
 		<div
-			class="{lightTreatment
+			class="{enableBLT
 				? 'ring-indigo-800'
 				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
 		>
 			<div>
 				<svg
-					class="{lightTreatment
+					class="{enableBLT
 						? 'text-indigo-800'
 						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => (lightTreatment = !lightTreatment)}
+					on:click={() => (lightTreatment.update(v => !v))}
+                    on:keyup={() => (lightTreatment.update(v => !v))}
 				>
 					<path
 						fill-rule="evenodd"
@@ -80,20 +92,21 @@
 		</div>
 
 		<div
-			class="{bioTreatment
+			class="{enableBio
 				? 'ring-indigo-800'
 				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 3000 }}
 		>
 			<div>
 				<svg
-					class="{bioTreatment
+					class="{enableBio
 						? 'text-indigo-800'
 						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => (bioTreatment = !bioTreatment)}
+					on:click={() => (bioTreatment.update(v => !v))}
+                    on:keyup={() => (bioTreatment.update(v => !v))}
 				>
 					<path
 						fill-rule="evenodd"
@@ -105,7 +118,7 @@
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Chronobiotics</span>
 				are probiotics for your biological clock! This involves taking melatonin in a scheduled way.
-				No stress. We will get to the details later.
+				No stress. We will get to the details later. (Work in Progress)
 			</p>
 			<button class="text-indigo-800">Learn more</button>
 		</div>
