@@ -142,7 +142,7 @@
 			<div class="mt-2 max-w-xl text-gray-500">
 				<p>
 					Filling in your email will automatically sign you up for a daily email-based tracking
-					system. If you fail to stay with the plan, the following days will be adjusted
+					system. If you find it difficult to stay with the plan, the following days will be adjusted
 					automatically to get you back on track.
 				</p>
 			</div>
