@@ -56,4 +56,10 @@ function resume({ data }) {
 	}, 400);
 }
 
-export { next, resume };
+function read() {
+	const progress = JSON.parse(localStorage.getItem('progress'));
+
+	return progress;
+}
+
+export { next, resume, read };
