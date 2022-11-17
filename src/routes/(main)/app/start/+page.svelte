@@ -82,7 +82,11 @@
 			disabled
 			on:click={() => {
 				shouldShow = false;
-				next({ to: '/learn/circadian', nextStep: '/app/survey', data: { learn: 'started' } });
+				next({
+					to: '/learn/circadian',
+					nextStep: '/app/survey/ideal-schedule',
+					data: { learn: 'started' }
+				});
 			}}
 			in:fly={{ y: 8, duration: 1000, delay: 9400 }}
 			on:introend={(e) => {
