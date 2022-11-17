@@ -65,19 +65,17 @@
 		<div
 			class="{enableBLT
 				? 'ring-indigo-800'
-				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+				: 'ring-stone-200'} cursor-pointer basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
+			on:click={() => lightTreatment.update((v) => !v)}
+			on:keyup={() => lightTreatment.update((v) => !v)}
 		>
 			<div>
 				<svg
-					class="{enableBLT
-						? 'text-indigo-800'
-						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
+					class="{enableBLT ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => lightTreatment.update((v) => !v)}
-					on:keyup={() => lightTreatment.update((v) => !v)}
 				>
 					<path
 						fill-rule="evenodd"
@@ -97,19 +95,17 @@
 		<div
 			class="{enableBio
 				? 'ring-indigo-800'
-				: 'ring-stone-200'} basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
+				: 'ring-stone-200'} cursor-pointer basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 3000 }}
+			on:click={() => bioTreatment.update((v) => !v)}
+			on:keyup={() => bioTreatment.update((v) => !v)}
 		>
 			<div>
 				<svg
-					class="{enableBio
-						? 'text-indigo-800'
-						: 'text-stone-300'} w-8 h-8 fill-current cursor-pointer"
+					class="{enableBio ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => bioTreatment.update((v) => !v)}
-					on:keyup={() => bioTreatment.update((v) => !v)}
 				>
 					<path
 						fill-rule="evenodd"
