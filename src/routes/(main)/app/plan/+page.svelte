@@ -3,20 +3,20 @@
 	import { fade, fly } from 'svelte/transition';
 	import { next } from '$lib/progress';
 
-    import { lightTreatment, bioTreatment } from '$lib/stores';
+	import { lightTreatment, bioTreatment } from '$lib/stores';
 
-    let enableBLT;
-    let enableBio;
+	let enableBLT;
+	let enableBio;
 
 	let shouldShow = false;
 
-    lightTreatment.subscribe(value => {
-        enableBLT = value;
-    })
+	lightTreatment.subscribe((value) => {
+		enableBLT = value;
+	});
 
-    bioTreatment.subscribe(value => {
-        enableBio = value;
-    })
+	bioTreatment.subscribe((value) => {
+		enableBio = value;
+	});
 
 	onMount(() => {
 		shouldShow = true;
@@ -25,13 +25,16 @@
 
 {#if shouldShow}
 	<h2
-		class=" text-2xl font-semibold text-gray-800 text-center"
+		class="text-2xl font-semibold text-gray-800 text-center"
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fly={{ y: -5, duration: 500 }}
 	>
 		Pick your evidence-based strategies.<br />
 	</h2>
-	<div class="flex flex-row space-x-8 my-16" out:fade={{ duration: 400 }}>
+	<div
+		class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8 my-16"
+		out:fade={{ duration: 400 }}
+	>
 		<!-- This cannot be deselected -->
 		<div
 			class="basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 ring-indigo-800 p-8 space-y-8"
@@ -73,8 +76,8 @@
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => (lightTreatment.update(v => !v))}
-                    on:keyup={() => (lightTreatment.update(v => !v))}
+					on:click={() => lightTreatment.update((v) => !v)}
+					on:keyup={() => lightTreatment.update((v) => !v)}
 				>
 					<path
 						fill-rule="evenodd"
@@ -105,8 +108,8 @@
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
-					on:click={() => (bioTreatment.update(v => !v))}
-                    on:keyup={() => (bioTreatment.update(v => !v))}
+					on:click={() => bioTreatment.update((v) => !v)}
+					on:keyup={() => bioTreatment.update((v) => !v)}
 				>
 					<path
 						fill-rule="evenodd"

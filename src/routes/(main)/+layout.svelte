@@ -9,7 +9,9 @@
 
 <div class="h-full overflow-auto bg-stone-100">
 	<!-- Top Bar -->
-	<div class="fixed z-50 top-0 left-0 right-0 p-4 flex flex-row justify-between">
+	<div
+		class="fixed z-50 top-0 left-0 right-0 p-4 flex flex-row justify-between bg-stone-100/80 backdrop-blur-3xl"
+	>
 		<p class="text-lg font-medium"><a href="/">Shift</a></p>
 		<button
 			label=""
@@ -61,7 +63,7 @@
 	</div>
 	<!-- Content area -->
 	<div class="flex min-h-screen justify-center items-center">
-		<div class="flex justify-center mx-auto max-w-5xl px-8 py-16">
+		<div class="flex justify-center mx-auto max-w-5xl px-4 lg:px-8 py-16">
 			<div class="relative flex flex-col justify-center items-center">
 				<slot />
 			</div>

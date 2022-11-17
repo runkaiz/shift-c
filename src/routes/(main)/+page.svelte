@@ -12,21 +12,21 @@
 
 {#if shouldShow}
 	<h1
-		class="text-8xl font-semibold text-indigo-800"
+		class="text-3xl lg:text-8xl text-center font-semibold text-indigo-800"
 		in:fade={{ duration: 1000, delay: 400 }}
 		out:fade={{ duration: 400 }}
 	>
 		Hey, night owl.
 	</h1>
 	<h1
-		class="mt-4 text-8xl font-semibold text-indigo-800"
+		class="mt-4 text-5xl lg:text-8xl text-center font-semibold text-indigo-800"
 		in:fade={{ duration: 1000, delay: 1400 }}
 		out:fade={{ duration: 400 }}
 	>
 		Ready for a change?
 	</h1>
 	<p
-		class="mt-32 max-w-3xl text-center"
+		class="mt-16 lg:mt-32 max-w-3xl text-center"
 		in:fade={{ duration: 1000, delay: 2400 }}
 		out:fade={{ duration: 400 }}
 	>

@@ -18,7 +18,10 @@
 	>
 		Your sleep-wake cycle is governed by two forces.<br />
 	</h2>
-	<div class="flex flex-row max-w-2xl space-x-8 my-16" out:fade={{ duration: 400 }}>
+	<div
+		class="flex flex-col lg:flex-row max-w-2xl space-y-4 lg:space-y-0 lg:space-x-8 my-8 lg:my-16"
+		out:fade={{ duration: 400 }}
+	>
 		<div
 			class="basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 ring-stone-200 p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 1000 }}
@@ -58,12 +61,12 @@
 		in:fly={{ y: 5, duration: 1000, delay: 3000 }}
 		out:fade={{ duration: 400 }}
 	>
-		To establish a new sleep schedule, we need to plan for both
+		To establish a new sleep schedule, we need to plan for both,
 		<br />
 		so the transition will be easier for you.
 	</p>
 
-	<div class="mt-8 z-10 flex flex-col space-y-4" out:fade={{ duration: 400 }}>
+	<div class="mt-8 z-10 flex flex-col space-y-2 lg:space-y-4" out:fade={{ duration: 400 }}>
 		<button
 			disabled
 			on:click={() => {
