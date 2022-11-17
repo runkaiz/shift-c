@@ -213,10 +213,18 @@
 			<div>
 				<div
 					class="{position == 0
-						? 'invisible'
-						: ''} bg-gray-50 rounded-full p-4 w-14 h-14 cursor-pointer"
-					on:click={() => displayDay(position - 1)}
-					on:keypress={() => displayDay(position - 1)}
+						? 'text-gray-300 cursor-default'
+						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
+					on:click={() => {
+						if (position > 0) {
+							displayDay(position - 1);
+						}
+					}}
+					on:keypress={() => {
+						if (position > 0) {
+							displayDay(position - 1);
+						}
+					}}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -232,10 +240,19 @@
 				<br />
 				<div
 					class="{position == interventionDays - 1
-						? 'invisible'
-						: ''} bg-gray-50 rounded-full p-4 w-14 h-14 cursor-pointer"
-					on:click={() => displayDay(position + 1)}
-					on:keypress={() => displayDay(position + 1)}
+						? 'text-gray-300 cursor-default'
+						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
+					disabled={position == interventionDays - 1}
+					on:click={() => {
+						if (position < interventionDays - 1) {
+							displayDay(position + 1);
+						}
+					}}
+					on:keypress={() => {
+						if (position < interventionDays - 1) {
+							displayDay(position + 1);
+						}
+					}}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
