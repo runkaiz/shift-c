@@ -2,6 +2,10 @@
 
 A web app to help night owls shift their sleep-wake cycles to an earlier time with evidence-based methods.
 
+Analysis:
+
+https://umami.y3.ink/share/1BMLIQ0H/Shift%20C
+
 ## Disclaimer
 
 This app is not intended to diagnose, treat, or cure medical conditions. You should always talk to a doctor for any physical or psychiatric concerns. **Please do not trust** any online app or information unless _your_ doctor approves it.
