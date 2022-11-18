@@ -5,12 +5,6 @@
 
 <svelte:head>
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
-	<script
-		async
-		defer
-		data-website-id="7f58609e-0ca4-4ece-a15b-e863ba42bf51"
-		src="https://umami.y3.ink/umami.js"
-	></script>
 </svelte:head>
 
 <div class="h-full overflow-auto bg-stone-100">
