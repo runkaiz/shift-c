@@ -10,90 +10,94 @@ export async function GET({ url }) {
 	let bltIntervention = [];
 
 	const enableBLT = url.searchParams.get('blt') == 1; // Determine whether to use BLT
-	let testBLTOffset = null;
+	let BLTOffset = null;
 
 	if (enableBLT) {
-		testBLTOffset = moment.duration(30, 'minutes'); // For example, the user indicates they want to do BLT 30 minutes after waking up.
+		BLTOffset = moment.duration(30, 'minutes'); // For example, the user indicates they want to do BLT 30 minutes after waking up.
 	}
 
-	const testIncrement = 30; // In minutes, I am using this because duration is too complicated
+	const increment = 30; // In minutes, I am using this because duration is too complicated
 
-	const testInterventionStart = moment(new Date().toISOString(), moment.ISO_8601).add(1, 'days');
+	const interventionStart = moment(new Date().toISOString(), moment.ISO_8601).add(1, 'days');
 
-	const testCurrentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
-	const testCurrentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
-	if (testCurrentWakeTime.diff(testCurrentSleepTime) > 0) {
-		testCurrentSleepTime.subtract(moment.duration(1, 'days'));
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
+	if (currentWakeTime.diff(currentSleepTime) < 0) {
+		currentSleepTime.subtract(moment.duration(1, 'days'));
 	}
 
-	const testTargetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
-	const testTargetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
-	if (testTargetWakeTime.diff(testTargetSleepTime) > 0) {
-		testTargetSleepTime.subtract(moment.duration(1, 'days'));
+	console.log(currentWakeTime.diff(currentSleepTime));
+
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
+	if (targetWakeTime.diff(targetSleepTime) < 0) {
+		targetSleepTime.subtract(moment.duration(1, 'days'));
 	}
+
+	console.log(targetWakeTime.diff(targetSleepTime));
 
 	// Algorithm Time
 	if (
-		testCurrentWakeTime.diff(testTargetWakeTime) == 0 &&
-		testCurrentSleepTime.diff(testTargetSleepTime) == 0
+		currentWakeTime.diff(targetWakeTime) == 0 &&
+		currentSleepTime.diff(targetSleepTime) == 0
 	) {
 		console.log("Don't need no changes!");
 		return false;
 	}
-	const wakeShift = testTargetWakeTime.diff(testCurrentWakeTime) / 60000; // Convert from milliseconds to minutes
-	const sleepShift = testTargetSleepTime.diff(testCurrentSleepTime) / 60000;
+	const wakeShift = targetWakeTime.diff(currentWakeTime) / 60000; // Convert from milliseconds to minutes
+	const sleepShift = targetSleepTime.diff(currentSleepTime) / 60000;
 
-	const wakeShiftDays = Math.abs(Math.ceil(wakeShift / testIncrement)); // Round up so we don't have half days.
-	const sleepShiftDays = Math.abs(Math.ceil(sleepShift / testIncrement));
+	const wakeShiftDays = Math.abs(Math.ceil(wakeShift / increment)); // Round up so we don't have half days.
+	const sleepShiftDays = Math.abs(Math.ceil(sleepShift / increment));
 
 	const interventionDays = wakeShiftDays > sleepShiftDays ? wakeShiftDays : sleepShiftDays; // Max number of days for the intervention
 
 	// Initialize the first items
 	if (wakeShiftDays != 0) {
 		if (wakeShift > 0) {
-			wakeIntervention[0] = moment(testCurrentWakeTime).add(
-				moment.duration(testIncrement, 'minutes')
+			wakeIntervention[0] = moment(currentWakeTime).add(
+				moment.duration(increment, 'minutes')
 			);
 		} else {
-			wakeIntervention[0] = moment(testCurrentWakeTime).subtract(
-				moment.duration(testIncrement, 'minutes')
+			wakeIntervention[0] = moment(currentWakeTime).subtract(
+				moment.duration(increment, 'minutes')
 			);
 		}
-		wakeIntervention[0].year(testInterventionStart.year());
-		wakeIntervention[0].month(testInterventionStart.month());
-		wakeIntervention[0].date(testInterventionStart.date() + 1);
+		wakeIntervention[0].year(interventionStart.year());
+		wakeIntervention[0].month(interventionStart.month());
+		wakeIntervention[0].date(interventionStart.date());
 
 		if (enableBLT) {
-			bltIntervention[0] = moment(wakeIntervention[0]).add(testBLTOffset);
+			bltIntervention[0] = moment(wakeIntervention[0]).add(BLTOffset);
 		}
 	} else {
 		for (let i = 0; i < interventionDays; i++) {
-			wakeIntervention[i] = moment(testCurrentWakeTime);
-			wakeIntervention[i].year(testInterventionStart.year());
-			wakeIntervention[i].month(testInterventionStart.month());
-			wakeIntervention[i].date(testInterventionStart.date());
+			wakeIntervention[i] = moment(currentWakeTime);
+			wakeIntervention[i].year(interventionStart.year());
+			wakeIntervention[i].month(interventionStart.month());
+			wakeIntervention[i].date(interventionStart.date());
 		}
 	}
 
 	if (sleepShiftDays != 0) {
 		if (sleepShift > 0) {
-			sleepIntervention[0] = moment(testCurrentSleepTime).add(
-				moment.duration(testIncrement, 'minutes')
+			sleepIntervention[0] = moment(currentSleepTime).add(
+				moment.duration(increment, 'minutes')
 			);
 		} else {
-			sleepIntervention[0] = moment(testCurrentSleepTime).subtract(
-				moment.duration(testIncrement, 'minutes')
+			sleepIntervention[0] = moment(currentSleepTime).subtract(
+				moment.duration(increment, 'minutes')
 			);
 		}
-		sleepIntervention[0].year(testInterventionStart.year());
-		sleepIntervention[0].month(testInterventionStart.month());
-		sleepIntervention[0].date(testInterventionStart.date());
+		sleepIntervention[0].year(interventionStart.year());
+		sleepIntervention[0].month(interventionStart.month());
+		sleepIntervention[0].date(interventionStart.date());
 	} else {
 		for (let i = 0; i < interventionDays; i++) {
-			sleepIntervention[i] = moment(testCurrentSleepTime);
-			sleepIntervention[i].year(testInterventionStart.year());
-			sleepIntervention[i].month(testInterventionStart.month());
-			sleepIntervention[i].date(testInterventionStart.date());
+			sleepIntervention[i] = moment(currentSleepTime);
+			sleepIntervention[i].year(interventionStart.year());
+			sleepIntervention[i].month(interventionStart.month());
+			sleepIntervention[i].date(interventionStart.date());
 		}
 	}
 
@@ -102,12 +106,12 @@ export async function GET({ url }) {
 		if (i < wakeShiftDays) {
 			if (wakeShift > 0) {
 				wakeIntervention[i] = moment(wakeIntervention[i - 1])
-					.add(moment.duration(testIncrement, 'minutes'))
+					.add(moment.duration(increment, 'minutes'))
 					.add(moment.duration(1, 'days'));
 			} else {
 				let shift = moment(wakeIntervention[i - 1]);
 				shift.add(moment.duration(1, 'days'));
-				shift.subtract(moment.duration(testIncrement, 'minutes'));
+				shift.subtract(moment.duration(increment, 'minutes'));
 				wakeIntervention[i] = shift;
 			}
 		} else {
@@ -117,11 +121,11 @@ export async function GET({ url }) {
 		if (i < sleepShiftDays) {
 			if (sleepShift > 0) {
 				sleepIntervention[i] = moment(sleepIntervention[i - 1])
-					.add(moment.duration(testIncrement, 'minutes'))
+					.add(moment.duration(increment, 'minutes'))
 					.add(moment.duration(1, 'days'));
 			} else {
 				sleepIntervention[i] = moment(sleepIntervention[i - 1])
-					.subtract(moment.duration(testIncrement, 'minutes'))
+					.subtract(moment.duration(increment, 'minutes'))
 					.add(moment.duration(1, 'days'));
 			}
 		} else {
@@ -129,7 +133,7 @@ export async function GET({ url }) {
 		}
 
 		if (enableBLT) {
-			bltIntervention[i] = moment(wakeIntervention[i]).add(testBLTOffset);
+			bltIntervention[i] = moment(wakeIntervention[i]).add(BLTOffset);
 		}
 	}
 
