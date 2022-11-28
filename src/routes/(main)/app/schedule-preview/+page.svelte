@@ -187,16 +187,14 @@
 	</h2>
 
 	<div
-		class="relative max-w-md mt-4 mb-8"
+		class="relative max-w-md my-8"
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fade={{ y: -5, duration: 400 }}
 	>
-		<div
+		<!-- <div
 			class="flex flex-col rounded-lg shadow bg-stone-50 p-6 mx-auto my-8"
 			in:fly={{ x: 8, duration: 500 }}
-		>
-			<h3 class="font-medium text-gray-800">place holder</h3>
-		</div>
+		/> -->
 		Over the next 7 days, you will be shifting your circadian clock forward by 30 minutes each day. This
 		will be easier for you to go to sleep earlier and wake up earlier. At the same time, a conservative
 		plan will help you to maintain your energy level. No dramatic ups and downs.
@@ -292,7 +290,7 @@
 		easily copy it to other devices should you need to.
 	</div>
 
-	<div
+	<!-- <div
 		class="relative max-w-md my-8"
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fade={{ y: -5, duration: 400 }}
@@ -330,5 +328,5 @@
 				>
 			</form>
 		</div>
-	</div>
+	</div> -->
 {/if}
