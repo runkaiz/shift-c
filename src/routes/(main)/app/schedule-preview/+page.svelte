@@ -38,13 +38,13 @@
 
 		const testCurrentWakeTime = moment(data.current.wakeup, ['HH:mm']);
 		const testCurrentSleepTime = moment(data.current.bedtime, ['HH:mm']);
-		if (testCurrentWakeTime.diff(testCurrentSleepTime) > 0) {
+		if (testCurrentWakeTime.diff(testCurrentSleepTime) < 0) {
 			testCurrentSleepTime.subtract(moment.duration(1, 'days'));
 		}
 
 		const testTargetWakeTime = moment(data.goal.wakeup, ['HH:mm']);
 		const testTargetSleepTime = moment(data.goal.bedtime, ['HH:mm']);
-		if (testTargetWakeTime.diff(testTargetSleepTime) > 0) {
+		if (testTargetWakeTime.diff(testTargetSleepTime) < 0) {
 			testTargetSleepTime.subtract(moment.duration(1, 'days'));
 		}
 
@@ -77,7 +77,7 @@
 			}
 			wakeIntervention[0].year(testInterventionStart.year());
 			wakeIntervention[0].month(testInterventionStart.month());
-			wakeIntervention[0].date(testInterventionStart.date() + 1);
+			wakeIntervention[0].date(testInterventionStart.date());
 
 			if (enableBLT) {
 				bltIntervention[0] = moment(wakeIntervention[0]).add(testBLTOffset);

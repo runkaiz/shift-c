@@ -26,15 +26,11 @@ export async function GET({ url }) {
 		currentSleepTime.subtract(moment.duration(1, 'days'));
 	}
 
-	console.log(currentWakeTime.diff(currentSleepTime));
-
 	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
 	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
 	if (targetWakeTime.diff(targetSleepTime) < 0) {
 		targetSleepTime.subtract(moment.duration(1, 'days'));
 	}
-
-	console.log(targetWakeTime.diff(targetSleepTime));
 
 	// Algorithm Time
 	if (
