@@ -20,8 +20,8 @@ export async function GET({ url }) {
 
 	const interventionStart = moment(new Date().toISOString(), moment.ISO_8601).add(1, 'days');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).utcOffset(5);
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).utcOffset(5);
 	if (currentWakeTime.diff(currentSleepTime) < 0) {
 		currentSleepTime.subtract(moment.duration(1, 'days'));
 	}
