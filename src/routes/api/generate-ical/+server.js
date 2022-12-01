@@ -143,7 +143,7 @@ export async function GET({ url }) {
 			start: sleep,
 			end: wake,
 			summary: 'Sleep',
-			description: 'Please try to sleep during this time ;)',
+			description: `Please try to sleep during this time ;) TZ offset = ${tz}`,
 			url: 'https://shiftc.app/'
 		});
 	}
