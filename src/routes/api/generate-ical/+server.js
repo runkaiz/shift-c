@@ -19,21 +19,14 @@ export async function GET({ url }) {
 	const increment = 30; // In minutes, I am using this because duration is too complicated
 
     const tz = moment().utcOffset() + Number(url.searchParams.get('tz'));
-    console.log(tz)
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
+	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(moment.duration(tz, 'minutes'));
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(tz, 'minutes');
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(tz, 'minutes');
-	if (currentWakeTime.diff(currentSleepTime) < 0) {
-		currentSleepTime.subtract(moment.duration(1, 'days'));
-	}
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(tz, 'minutes');
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(tz, 'minutes');
-	if (targetWakeTime.diff(targetSleepTime) < 0) {
-		targetSleepTime.subtract(moment.duration(1, 'days'));
-	}
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
 
 	// Algorithm Time
 	if (
@@ -64,7 +57,11 @@ export async function GET({ url }) {
 		}
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
-		wakeIntervention[0].date(interventionStart.date());
+        if (currentWakeTime.diff(currentSleepTime) < 0) {
+            wakeIntervention[0].date(interventionStart.date()).add(1, "day");
+        } else {
+            wakeIntervention[0].date(interventionStart.date());
+        }
 
 		if (enableBLT) {
 			bltIntervention[0] = moment(wakeIntervention[0]).add(BLTOffset);
