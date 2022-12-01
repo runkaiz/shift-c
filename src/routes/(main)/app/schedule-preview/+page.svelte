@@ -158,25 +158,16 @@
 		time = `${sleepIntervention[p].format('HH:mm')} - ${wakeIntervention[p].format('HH:mm')}`;
 	}
 
-	function getTimezoneOffset() {
-		function z(n) {
-			return (n < 10 ? '0' : '') + n;
-		}
-		var offset = new Date().getTimezoneOffset();
-		var sign = offset < 0 ? '+' : '-';
-		offset = Math.abs(offset);
-		return sign + z((offset / 60) | 0) + z(offset % 60);
-	}
-
 	async function downloadSchedule(data) {
+        let now = new Date()
 		let calendarURL = new URLSearchParams();
 		calendarURL.append('blt', enableBLT ? '1' : '0');
 		calendarURL.append('cWake', data.current.wakeup);
 		calendarURL.append('cSleep', data.current.bedtime);
 		calendarURL.append('gWake', data.goal.wakeup);
 		calendarURL.append('gSleep', data.goal.bedtime);
-		calendarURL.append('tz', getTimezoneOffset());
-        calendarURL.append('n', new Date().toISOString())
+		calendarURL.append('tz', now.getTimezoneOffset());
+        calendarURL.append('n', now.toISOString())
 
 		goto('/api/generate-ical?' + calendarURL.toString());
 	}

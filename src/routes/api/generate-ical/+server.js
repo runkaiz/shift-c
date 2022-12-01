@@ -18,18 +18,18 @@ export async function GET({ url }) {
 
 	const increment = 30; // In minutes, I am using this because duration is too complicated
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days');
-
     const tz = url.searchParams.get('tz');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
+	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').utcOffset(tz);
+
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).utcOffset(tz);
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).utcOffset(tz);
 	if (currentWakeTime.diff(currentSleepTime) < 0) {
 		currentSleepTime.subtract(moment.duration(1, 'days'));
 	}
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).utcOffset(tz);
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).utcOffset(tz);
 	if (targetWakeTime.diff(targetSleepTime) < 0) {
 		targetSleepTime.subtract(moment.duration(1, 'days'));
 	}
