@@ -79,7 +79,8 @@ export async function GET({ url }) {
 		}
 		sleepIntervention[0].year(interventionStart.year());
 		sleepIntervention[0].month(interventionStart.month());
-        if (sleepTimeModded && (targetSleepTime.diff(currentSleepTime, "hours") < 12)) {
+        if (sleepTimeModded && (targetSleepTime.diff(currentSleepTime, "hours") < 0)) {
+            console.log(targetSleepTime.diff(currentSleepTime, "hours"));
             sleepIntervention[0].date(interventionStart.date()).add(1, "day");
         } else {
             sleepIntervention[0].date(interventionStart.date());
