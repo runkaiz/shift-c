@@ -20,13 +20,13 @@ export async function GET({ url }) {
 
     const tz = moment().utcOffset() - Number(url.searchParams.get('tz'));
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').add(tz, 'minutes');
+	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).add(tz, 'minutes');
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).add(tz, 'minutes');
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).add(tz, 'minutes');
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).add(tz, 'minutes');
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
     let sleepTimeModded = false;
     if (targetSleepTime.diff(currentSleepTime, "hours") > 12) {
         targetSleepTime.subtract(1, "day");
@@ -139,8 +139,8 @@ export async function GET({ url }) {
 	let wake = null;
 
 	for (let i = 0; i < wakeIntervention.length; i++) {
-		if (sleepIntervention[i]) sleep = sleepIntervention[i].toDate();
-		if (wakeIntervention[i]) wake = wakeIntervention[i].toDate();
+		if (sleepIntervention[i]) sleep = sleepIntervention[i].add(tz, 'minutes').toDate();
+		if (wakeIntervention[i]) wake = wakeIntervention[i].add(tz, 'minutes').toDate();
 		calendar.createEvent({
 			start: sleep,
 			end: wake,
