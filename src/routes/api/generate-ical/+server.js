@@ -27,10 +27,8 @@ export async function GET({ url }) {
 
 	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
 	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
-    let sleepTimeModded = false;
     if (targetSleepTime.diff(currentSleepTime, "hours") > 12) {
         targetSleepTime.subtract(1, "day");
-        sleepTimeModded = true;
     }
 
 	// Algorithm Time
@@ -58,6 +56,7 @@ export async function GET({ url }) {
 		}
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
+        wakeIntervention[0].date(interventionStart.date());
 
 		if (enableBLT) {
 			bltIntervention[0] = moment(wakeIntervention[0]).add(BLTOffset);
@@ -79,12 +78,7 @@ export async function GET({ url }) {
 		}
 		sleepIntervention[0].year(interventionStart.year());
 		sleepIntervention[0].month(interventionStart.month());
-        if (sleepTimeModded && (targetSleepTime.diff(currentSleepTime, "hours") < 0)) {
-            console.log(targetSleepTime.diff(currentSleepTime, "hours"));
-            sleepIntervention[0].date(interventionStart.date()).add(1, "day");
-        } else {
-            sleepIntervention[0].date(interventionStart.date());
-        }
+		sleepIntervention[0].date(interventionStart.date());
 	} else {
 		for (let i = 0; i < interventionDays; i++) {
 			sleepIntervention[i] = moment(currentSleepTime);
@@ -94,10 +88,8 @@ export async function GET({ url }) {
 		}
 	}
 
-    if (wakeIntervention[0].diff(sleepIntervention[0]) > 0) {
+    if (wakeIntervention[0].diff(sleepIntervention[0]) < 0) {
         wakeIntervention[0].date(interventionStart.date()).add(1, "day");
-    } else {
-        wakeIntervention[0].date(interventionStart.date());
     }
 
 	// Calculate the rest of the days
