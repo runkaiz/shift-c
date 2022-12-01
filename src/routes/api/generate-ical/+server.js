@@ -53,11 +53,6 @@ export async function GET({ url }) {
 		}
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
-        if (currentWakeTime.diff(currentSleepTime) < 0) {
-            wakeIntervention[0].date(interventionStart.date()).add(1, "day");
-        } else {
-            wakeIntervention[0].date(interventionStart.date());
-        }
 
 		if (enableBLT) {
 			bltIntervention[0] = moment(wakeIntervention[0]).add(BLTOffset);
@@ -88,6 +83,12 @@ export async function GET({ url }) {
 			sleepIntervention[i].date(interventionStart.date());
 		}
 	}
+
+    if (wakeIntervention[0].diff(sleepIntervention[0]) > 0) {
+        wakeIntervention[0].date(interventionStart.date()).add(1, "day");
+    } else {
+        wakeIntervention[0].date(interventionStart.date());
+    }
 
 	// Calculate the rest of the days
 	for (let i = 1; i < interventionDays; i++) {
