@@ -18,7 +18,8 @@ export async function GET({ url }) {
 
 	const increment = 30; // In minutes, I am using this because duration is too complicated
 
-    const tz = url.searchParams.get('tz');
+    const tz = moment().utcOffset() + Number(url.searchParams.get('tz'));
+    console.log(tz)
 
 	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
 
