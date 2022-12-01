@@ -20,16 +20,16 @@ export async function GET({ url }) {
 
     const tz = url.searchParams.get('tz');
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').utcOffset(tz);
+	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).utcOffset(tz);
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).utcOffset(tz);
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(tz, 'minutes');
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(tz, 'minutes');
 	if (currentWakeTime.diff(currentSleepTime) < 0) {
 		currentSleepTime.subtract(moment.duration(1, 'days'));
 	}
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).utcOffset(tz);
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).utcOffset(tz);
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(tz, 'minutes');
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(tz, 'minutes');
 	if (targetWakeTime.diff(targetSleepTime) < 0) {
 		targetSleepTime.subtract(moment.duration(1, 'days'));
 	}
