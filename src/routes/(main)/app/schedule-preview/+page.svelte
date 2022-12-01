@@ -166,7 +166,7 @@
 		calendarURL.append('cSleep', data.current.bedtime);
 		calendarURL.append('gWake', data.goal.wakeup);
 		calendarURL.append('gSleep', data.goal.bedtime);
-		calendarURL.append('tz', now.getTimezoneOffset());
+		calendarURL.append('tz', new moment().utcOffset());
         calendarURL.append('n', now.toISOString())
 
 		goto('/api/generate-ical?' + calendarURL.toString());

@@ -18,15 +18,15 @@ export async function GET({ url }) {
 
 	const increment = 30; // In minutes, I am using this because duration is too complicated
 
-    const tz = moment().utcOffset() + Number(url.searchParams.get('tz'));
+    const tz = moment().utcOffset() - Number(url.searchParams.get('tz'));
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(moment.duration(tz, 'minutes'));
+	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(tz, 'minutes');
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(tz, 'minutes');
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(moment.duration(tz, 'minutes'));
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(tz, 'minutes');
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(tz, 'minutes');
 
 	// Algorithm Time
 	if (
