@@ -27,6 +27,11 @@ export async function GET({ url }) {
 
 	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).add(tz, 'minutes');
 	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).add(tz, 'minutes');
+    let sleepTimeModded = false;
+    if (targetSleepTime.diff(currentSleepTime, "hours") > 12) {
+        targetSleepTime.subtract(1, "day");
+        sleepTimeModded = true;
+    }
 
 	// Algorithm Time
 	if (
@@ -74,7 +79,11 @@ export async function GET({ url }) {
 		}
 		sleepIntervention[0].year(interventionStart.year());
 		sleepIntervention[0].month(interventionStart.month());
-		sleepIntervention[0].date(interventionStart.date());
+        if (sleepTimeModded) {
+            sleepIntervention[0].date(interventionStart.date()).add(1, "day");
+        } else {
+            sleepIntervention[0].date(interventionStart.date());
+        }
 	} else {
 		for (let i = 0; i < interventionDays; i++) {
 			sleepIntervention[i] = moment(currentSleepTime);
