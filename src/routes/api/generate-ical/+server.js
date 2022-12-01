@@ -20,13 +20,21 @@ export async function GET({ url }) {
 
     const tz = moment().utcOffset() - Number(url.searchParams.get('tz'));
 
-	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
+	// const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days').subtract(tz, 'minutes');
 
-	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(tz, 'minutes');
-	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(tz, 'minutes');
+	// const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']).subtract(tz, 'minutes');
+	// const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']).subtract(tz, 'minutes');
 
-	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(tz, 'minutes');
-	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(tz, 'minutes');
+	// const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']).subtract(tz, 'minutes');
+	// const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']).subtract(tz, 'minutes');
+
+    const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days');
+
+	const currentWakeTime = moment(url.searchParams.get('cWake'), ['HH:mm']);
+	const currentSleepTime = moment(url.searchParams.get('cSleep'), ['HH:mm']);
+
+	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
+	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
 
 	// Algorithm Time
 	if (
@@ -47,13 +55,9 @@ export async function GET({ url }) {
 	// Initialize the first items
 	if (wakeShiftDays != 0) {
 		if (wakeShift > 0) {
-			wakeIntervention[0] = moment(currentWakeTime).add(
-				moment.duration(increment, 'minutes')
-			);
+			wakeIntervention[0] = moment(currentWakeTime).add(increment, 'minutes');
 		} else {
-			wakeIntervention[0] = moment(currentWakeTime).subtract(
-				moment.duration(increment, 'minutes')
-			);
+			wakeIntervention[0] = moment(currentWakeTime).subtract(increment, 'minutes');
 		}
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
@@ -77,13 +81,9 @@ export async function GET({ url }) {
 
 	if (sleepShiftDays != 0) {
 		if (sleepShift > 0) {
-			sleepIntervention[0] = moment(currentSleepTime).add(
-				moment.duration(increment, 'minutes')
-			);
+			sleepIntervention[0] = moment(currentSleepTime).add(increment, 'minutes');
 		} else {
-			sleepIntervention[0] = moment(currentSleepTime).subtract(
-				moment.duration(increment, 'minutes')
-			);
+			sleepIntervention[0] = moment(currentSleepTime).subtract(increment, 'minutes');
 		}
 		sleepIntervention[0].year(interventionStart.year());
 		sleepIntervention[0].month(interventionStart.month());
@@ -102,12 +102,12 @@ export async function GET({ url }) {
 		if (i < wakeShiftDays) {
 			if (wakeShift > 0) {
 				wakeIntervention[i] = moment(wakeIntervention[i - 1])
-					.add(moment.duration(increment, 'minutes'))
-					.add(moment.duration(1, 'days'));
+					.add(increment, 'minutes')
+					.add(1, 'days');
 			} else {
 				let shift = moment(wakeIntervention[i - 1]);
-				shift.add(moment.duration(1, 'days'));
-				shift.subtract(moment.duration(increment, 'minutes'));
+				shift.add(1, 'days');
+				shift.subtract(increment, 'minutes');
 				wakeIntervention[i] = shift;
 			}
 		} else {
@@ -117,12 +117,12 @@ export async function GET({ url }) {
 		if (i < sleepShiftDays) {
 			if (sleepShift > 0) {
 				sleepIntervention[i] = moment(sleepIntervention[i - 1])
-					.add(moment.duration(increment, 'minutes'))
-					.add(moment.duration(1, 'days'));
+					.add(increment, 'minutes')
+					.add(1, 'days');
 			} else {
 				sleepIntervention[i] = moment(sleepIntervention[i - 1])
-					.subtract(moment.duration(increment, 'minutes'))
-					.add(moment.duration(1, 'days'));
+					.subtract(increment, 'minutes')
+					.add(1, 'days');
 			}
 		} else {
 			sleepIntervention[i] = moment(sleepIntervention[i - 1]).add(1, 'days');
@@ -148,7 +148,7 @@ export async function GET({ url }) {
 		});
 	}
 
-	const res = new Response(await calendar);
+	const res = new Response(calendar);
 	res.headers.set('Content-Type', 'text/calendar;charset=utf-8');
 
 	return res;
