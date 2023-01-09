@@ -1,8 +1,8 @@
 <script>
 	import { fly } from 'svelte/transition';
 
-    export let day = "Unknown Day";
-    export let time = "22:15-7:00";
+	export let day = 'Unknown Day';
+	export let time = '22:15-7:00';
 </script>
 
 <div class="flex flex-col rounded-lg shadow bg-stone-50 p-6 grow" in:fly={{ x: 8, duration: 500 }}>

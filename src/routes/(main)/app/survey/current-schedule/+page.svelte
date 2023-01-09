@@ -17,25 +17,25 @@
 		shouldShow = true;
 	});
 
-	function calcBedtime(wakeup) {
-		// Calculate bedtime based on hour and minute in string format (e.g. '8:00')
-		// Bedtime should minus 8 hours
-		const wakeupHour = parseInt(wakeup.split(':')[0]);
-		const wakeupMinute = wakeup.split(':')[1];
-		const bedtimeHour = wakeupHour - 8;
+	// function calcBedtime(wakeup) {
+	// 	// Calculate bedtime based on hour and minute in string format (e.g. '8:00')
+	// 	// Bedtime should minus 8 hours
+	// 	const wakeupHour = parseInt(wakeup.split(':')[0]);
+	// 	const wakeupMinute = wakeup.split(':')[1];
+	// 	const bedtimeHour = wakeupHour - 8;
 
-		// If bedtime is less than 0, add 24 hours to it
-		if (bedtimeHour < 0) {
-			return `${24 + bedtimeHour}:${wakeupMinute}`;
-		}
+	// 	// If bedtime is less than 0, add 24 hours to it
+	// 	if (bedtimeHour < 0) {
+	// 		return `${24 + bedtimeHour}:${wakeupMinute}`;
+	// 	}
 
-		// If bedtime is less than 10, add 0 to it
-		if (bedtimeHour < 10) {
-			return `0${bedtimeHour}:${wakeupMinute}`;
-		}
+	// 	// If bedtime is less than 10, add 0 to it
+	// 	if (bedtimeHour < 10) {
+	// 		return `0${bedtimeHour}:${wakeupMinute}`;
+	// 	}
 
-		return `${bedtimeHour}:${wakeupMinute}`;
-	}
+	// 	return `${bedtimeHour}:${wakeupMinute}`;
+	// }
 </script>
 
 {#if shouldShow}

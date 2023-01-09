@@ -159,7 +159,7 @@
 	}
 
 	async function downloadSchedule(data) {
-        let now = new Date()
+		let now = new Date();
 		let calendarURL = new URLSearchParams();
 		calendarURL.append('blt', enableBLT ? '1' : '0');
 		calendarURL.append('cWake', data.current.wakeup);
@@ -167,7 +167,7 @@
 		calendarURL.append('gWake', data.goal.wakeup);
 		calendarURL.append('gSleep', data.goal.bedtime);
 		calendarURL.append('tz', new moment().utcOffset());
-        calendarURL.append('n', now.toISOString())
+		calendarURL.append('n', now.toISOString());
 
 		goto('/api/generate-ical?' + calendarURL.toString());
 	}

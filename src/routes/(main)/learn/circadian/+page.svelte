@@ -1,6 +1,4 @@
 <script>
-	import { goto } from '$app/navigation';
-
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 

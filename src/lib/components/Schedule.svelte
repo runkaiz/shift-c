@@ -39,7 +39,7 @@
 	<div class="flow-root">
 		<ul class="-mb-8">
 			<WakeTime date={day1.toDateString()} time="10:00AM" />
-            <Blt date={day1.toDateString()} time="10:30AM"/>
+			<Blt date={day1.toDateString()} time="10:30AM" />
 			<SleepTime date={day1.toDateString()} time="9:20PM" />
 			<WakeTime date={day2.toDateString()} time="10:00AM" />
 			<SleepTime date={day2.toDateString()} time="9:20PM" />

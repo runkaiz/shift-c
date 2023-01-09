@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 export async function GET({ url }) {
 	const calendar = ical({ name: 'Intervention Protocol' });
 
-    let wakeIntervention = [];
+	let wakeIntervention = [];
 	let sleepIntervention = [];
 	let bltIntervention = [];
 
@@ -18,7 +18,7 @@ export async function GET({ url }) {
 
 	const increment = 30; // In minutes, I am using this because duration is too complicated
 
-    const tz = moment().utcOffset() - Number(url.searchParams.get('tz'));
+	const tz = moment().utcOffset() - Number(url.searchParams.get('tz'));
 
 	const interventionStart = moment(url.searchParams.get('n'), moment.ISO_8601).add(1, 'days');
 
@@ -27,15 +27,12 @@ export async function GET({ url }) {
 
 	const targetWakeTime = moment(url.searchParams.get('gWake'), ['HH:mm']);
 	const targetSleepTime = moment(url.searchParams.get('gSleep'), ['HH:mm']);
-    if (targetSleepTime.diff(currentSleepTime, "hours") > 12) {
-        targetSleepTime.subtract(1, "day");
-    }
+	if (targetSleepTime.diff(currentSleepTime, 'hours') > 12) {
+		targetSleepTime.subtract(1, 'day');
+	}
 
 	// Algorithm Time
-	if (
-		currentWakeTime.diff(targetWakeTime) == 0 &&
-		currentSleepTime.diff(targetSleepTime) == 0
-	) {
+	if (currentWakeTime.diff(targetWakeTime) == 0 && currentSleepTime.diff(targetSleepTime) == 0) {
 		console.log("Don't need no changes!");
 		return false;
 	}
@@ -56,7 +53,7 @@ export async function GET({ url }) {
 		}
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
-        wakeIntervention[0].date(interventionStart.date());
+		wakeIntervention[0].date(interventionStart.date());
 
 		if (enableBLT) {
 			bltIntervention[0] = moment(wakeIntervention[0]).add(BLTOffset);
@@ -88,9 +85,9 @@ export async function GET({ url }) {
 		}
 	}
 
-    if (wakeIntervention[0].diff(sleepIntervention[0]) < 0) {
-        wakeIntervention[0].date(interventionStart.date()).add(1, "day");
-    }
+	if (wakeIntervention[0].diff(sleepIntervention[0]) < 0) {
+		wakeIntervention[0].date(interventionStart.date()).add(1, 'day');
+	}
 
 	// Calculate the rest of the days
 	for (let i = 1; i < interventionDays; i++) {
