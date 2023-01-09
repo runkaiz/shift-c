@@ -1,8 +1,8 @@
-import { goto, prefetch } from '$app/navigation';
+import { goto, preloadData } from '$app/navigation';
 
 function next({ to, shouldPrefetch, nextStep, data }) {
 	if (shouldPrefetch) {
-		prefetch(to);
+		preloadData(to);
 	}
 
 	if (!nextStep || !to) {
