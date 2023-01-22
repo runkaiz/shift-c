@@ -53,6 +53,7 @@
 				in:fly={{ y: 5, duration: 1000, delay: 1000 }}
 				out:fly={{ x: -8, duration: 500 }}
 				on:outroend={() => {
+					data.goal.bedtime = calcBedtime(data.goal.wakeup);
 					step = 1;
 				}}
 			>
@@ -94,7 +95,7 @@
 			disabled
 			on:click={() => {
 				if (step !== 1) {
-					step = -1;
+					step = -1; // This is an intermidiate step to trigger outroend, so that step can be set to 1 without two transitions appearing at the same time.
 				} else {
 					shouldShow = false;
 					next({
