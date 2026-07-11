@@ -4,6 +4,32 @@ import moment from 'moment/moment';
 import { computeIntervention } from '$lib/schedule';
 
 const BLT_DURATION_MINUTES = 15;
+const MELATONIN_DURATION_MINUTES = 5;
+const MELATONIN_DISCLAIMER =
+	'General estimate, not medical advice — check with a clinician if you are pregnant, on other medications, or have a health condition.';
+
+// BLT/melatonin descriptions are keyed off the regime computeIntervention()
+// already classified (see src/lib/melatonin.js) rather than recomputed here,
+// so the light/dose guidance always matches the actual timing that was used.
+function describeBlt(regime) {
+	if (regime === 'delay') {
+		return 'Get some bright light exposure in the evening to help shift your circadian clock later. Avoid bright light after waking, until your target wake time.';
+	}
+	if (regime === 'extension') {
+		return 'Get some bright light exposure shortly after waking for alertness. Your plan mainly needs more sleep opportunity rather than a clock shift, so this step is optional.';
+	}
+	return 'Get some bright light exposure shortly after waking to help shift your circadian clock earlier. Keep the 2-3 hours before your bedtime dim to reinforce the shift.';
+}
+
+function describeMelatonin(melatonin, regime) {
+	if (!melatonin.chronobiotic) {
+		return `Take ${melatonin.doseMg} mg melatonin now as a sleep aid before bed. This dose is for falling asleep, not for shifting your clock. ${MELATONIN_DISCLAIMER}`;
+	}
+	if (regime === 'delay') {
+		return `Take ${melatonin.doseMg} mg melatonin now, right on waking, to help shift your circadian clock later (optional — light is the stronger signal for a delay). Avoid bright light after waking until your target wake time. ${MELATONIN_DISCLAIMER}`;
+	}
+	return `Take ${melatonin.doseMg} mg melatonin now to help shift your circadian clock earlier. Keep lights dim for the next 2-3 hours, especially close to bedtime. ${MELATONIN_DISCLAIMER}`;
+}
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -46,6 +72,7 @@ export async function GET({ url }) {
 	}
 
 	const enableBLT = url.searchParams.get('blt') == 1; // Determine whether to use BLT
+	const enableMelatonin = url.searchParams.get('bio') == 1; // Determine whether to use Chronobiotics (melatonin)
 	const tz = moment().utcOffset() - Number(tzParam);
 
 	let result;
@@ -56,7 +83,8 @@ export async function GET({ url }) {
 			goalWake: gWake,
 			goalSleep: gSleep,
 			startDate: n,
-			enableBLT
+			enableBLT,
+			enableMelatonin
 		});
 	} catch {
 		return new Response('Unable to compute intervention schedule from the given parameters.', {
@@ -91,7 +119,22 @@ export async function GET({ url }) {
 				start: bltStart,
 				end: bltEnd,
 				summary: 'Bright Light Therapy',
-				description: 'Get some bright light exposure to help shift your circadian clock.',
+				description: describeBlt(result.regime),
+				url: 'https://shiftc.app/'
+			});
+		}
+
+		if (day.melatonin) {
+			const melatoninStart = moment(day.melatonin.time).add(tz, 'minutes').toDate();
+			const melatoninEnd = moment(melatoninStart)
+				.add(MELATONIN_DURATION_MINUTES, 'minutes')
+				.toDate();
+
+			calendar.createEvent({
+				start: melatoninStart,
+				end: melatoninEnd,
+				summary: `Take Melatonin (${day.melatonin.doseMg} mg)`,
+				description: describeMelatonin(day.melatonin, result.regime),
 				url: 'https://shiftc.app/'
 			});
 		}
