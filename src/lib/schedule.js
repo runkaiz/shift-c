@@ -1,4 +1,5 @@
 import moment from 'moment/moment';
+import { classifyRegime, computeBltTime, computeMelatoninDose } from './melatonin';
 
 export const MS_PER_MINUTE = 60000;
 export const DEFAULT_INCREMENT_MINUTES = 30;
@@ -19,9 +20,11 @@ export const WRAPAROUND_THRESHOLD_HOURS = 12;
  *   intervention begins the day after this date.
  * @param {boolean} [params.enableBLT=false] - Whether to compute Bright
  *   Light Therapy times.
+ * @param {boolean} [params.enableMelatonin=false] - Whether to compute
+ *   melatonin dose times.
  * @param {number} [params.incrementMinutes=DEFAULT_INCREMENT_MINUTES]
  * @param {number} [params.bltOffsetMinutes=DEFAULT_BLT_OFFSET_MINUTES]
- * @returns {{ changed: boolean, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null }> }}
+ * @returns {{ changed: boolean, regime: ('advance'|'delay'|'extension')|null, midpointShiftMinutes: number|null, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseMg: number, chronobiotic: boolean}|null }> }}
  */
 export function computeIntervention({
 	currentWake,
@@ -30,6 +33,7 @@ export function computeIntervention({
 	goalSleep,
 	startDate,
 	enableBLT = false,
+	enableMelatonin = false,
 	incrementMinutes = DEFAULT_INCREMENT_MINUTES,
 	bltOffsetMinutes = DEFAULT_BLT_OFFSET_MINUTES
 }) {
@@ -47,20 +51,26 @@ export function computeIntervention({
 		throw new Error('invalid-time');
 	}
 
-	const bltOffset = enableBLT ? moment.duration(bltOffsetMinutes, 'minutes') : null;
-
 	const interventionStart = (
 		startDate instanceof Date ? moment(startDate) : moment(startDate, moment.ISO_8601)
 	).add(1, 'days');
 
-	// Midnight wraparound heuristic, applied symmetrically to both the
-	// wake pair and the sleep pair (bug fix: previously only the sleep
-	// pair got this correction).
+	// Midnight wraparound heuristic, applied symmetrically to both the wake
+	// pair and the sleep pair (bug fix: previously only the sleep pair got
+	// this correction), and in both directions (bug fix: previously only
+	// "target looks much later than current" was corrected by subtracting a
+	// day; "target looks much earlier than current" - e.g. a bedtime moving
+	// from 23:00 to 00:30, which needs to wrap forward - was never
+	// corrected, silently flipping the shift's sign).
 	if (targetWakeTime.diff(currentWakeTime, 'hours') > WRAPAROUND_THRESHOLD_HOURS) {
 		targetWakeTime.subtract(1, 'day');
+	} else if (targetWakeTime.diff(currentWakeTime, 'hours') < -WRAPAROUND_THRESHOLD_HOURS) {
+		targetWakeTime.add(1, 'day');
 	}
 	if (targetSleepTime.diff(currentSleepTime, 'hours') > WRAPAROUND_THRESHOLD_HOURS) {
 		targetSleepTime.subtract(1, 'day');
+	} else if (targetSleepTime.diff(currentSleepTime, 'hours') < -WRAPAROUND_THRESHOLD_HOURS) {
+		targetSleepTime.add(1, 'day');
 	}
 
 	const wakeShift = targetWakeTime.diff(currentWakeTime) / MS_PER_MINUTE; // Convert from milliseconds to minutes
@@ -79,14 +89,15 @@ export function computeIntervention({
 	// non-zero shift that still rounds to zero days, leaving the day
 	// arrays empty and crashing downstream indexing).
 	if (wakeShiftDays === 0 && sleepShiftDays === 0) {
-		return { changed: false, days: [] };
+		return { changed: false, regime: null, midpointShiftMinutes: null, days: [] };
 	}
+
+	const { regime, midpointShiftMinutes } = classifyRegime(wakeShift, sleepShift);
 
 	const interventionDays = wakeShiftDays > sleepShiftDays ? wakeShiftDays : sleepShiftDays; // Max number of days for the intervention
 
 	const wakeIntervention = [];
 	const sleepIntervention = [];
-	const bltIntervention = [];
 
 	// Initialize the first items
 	if (wakeShiftDays !== 0) {
@@ -98,10 +109,6 @@ export function computeIntervention({
 		wakeIntervention[0].year(interventionStart.year());
 		wakeIntervention[0].month(interventionStart.month());
 		wakeIntervention[0].date(interventionStart.date());
-
-		if (enableBLT) {
-			bltIntervention[0] = moment(wakeIntervention[0]).add(bltOffset);
-		}
 	} else {
 		for (let i = 0; i < interventionDays; i++) {
 			wakeIntervention[i] = moment(currentWakeTime);
@@ -163,20 +170,27 @@ export function computeIntervention({
 		} else {
 			sleepIntervention[i] = moment(sleepIntervention[i - 1]).add(1, 'days');
 		}
-
-		if (enableBLT) {
-			bltIntervention[i] = moment(wakeIntervention[i]).add(bltOffset);
-		}
 	}
 
+	// BLT/melatonin times are derived here, after wakeIntervention/
+	// sleepIntervention are fully finalized (including the day-0
+	// wake-before-sleep correction above), and always by cloning rather
+	// than mutating those arrays. Deriving them earlier, inline during
+	// array construction, previously caused day 0's BLT time to be cloned
+	// from a wake moment that was *not yet* corrected, silently landing it
+	// ~24h off from the actual wake event for a normal PM-bedtime user.
 	const days = [];
 	for (let i = 0; i < interventionDays; i++) {
+		const wake = wakeIntervention[i];
+		const sleep = sleepIntervention[i];
+
 		days.push({
-			wake: wakeIntervention[i],
-			sleep: sleepIntervention[i],
-			blt: bltIntervention[i] || null
+			wake,
+			sleep,
+			blt: enableBLT ? computeBltTime(regime, wake, sleep, bltOffsetMinutes).time : null,
+			melatonin: enableMelatonin ? computeMelatoninDose(regime, wake, sleep) : null
 		});
 	}
 
-	return { changed: true, days };
+	return { changed: true, regime, midpointShiftMinutes, days };
 }
