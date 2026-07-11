@@ -1,25 +1,26 @@
 import { goto, preloadData } from '$app/navigation';
 
+function readProgress() {
+	try {
+		return JSON.parse(localStorage.getItem('progress'));
+	} catch {
+		return null;
+	}
+}
+
 function next({ to, shouldPrefetch, nextStep, data }) {
 	if (shouldPrefetch) {
 		preloadData(to);
 	}
 
-	if (!nextStep || !to) {
-		if (!nextStep && !to) {
-			throw new Error('to or nextStep must be defined');
-		}
-
-		if (nextStep) {
-			to = nextStep;
-		}
-
-		if (to) {
-			nextStep = to;
-		}
+	if (!nextStep && !to) {
+		throw new Error('to or nextStep must be defined');
 	}
 
-	const progress = JSON.parse(localStorage.getItem('progress'));
+	to = to || nextStep;
+	nextStep = nextStep || to;
+
+	const progress = readProgress();
 
 	// Write progress to local storage
 	localStorage.setItem(
@@ -37,8 +38,16 @@ function next({ to, shouldPrefetch, nextStep, data }) {
 	}, 400);
 }
 
-function resume({ data }) {
-	const progress = JSON.parse(localStorage.getItem('progress'));
+function resume({ data, fallback }) {
+	const progress = readProgress();
+
+	if (!progress) {
+		// Wait for 400 ms for the animation to finish
+		setTimeout(() => {
+			goto(fallback);
+		}, 400);
+		return;
+	}
 
 	// Write progress to local storage
 	localStorage.setItem(
@@ -57,7 +66,11 @@ function resume({ data }) {
 }
 
 function read() {
-	const progress = JSON.parse(localStorage.getItem('progress'));
+	const progress = readProgress();
+
+	if (!progress) {
+		return { step: null, finished: false, data: {} };
+	}
 
 	return progress;
 }

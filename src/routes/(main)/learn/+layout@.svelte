@@ -19,7 +19,7 @@
 				class={hide ? 'hidden' : ''}
 				on:click={() => {
 					hide = true;
-					resume({ data: { learn: 'finished' } });
+					resume({ data: { learn: 'finished' }, fallback: '/' });
 				}}>Continue</button
 			>
 		</p>
