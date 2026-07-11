@@ -3,6 +3,9 @@
 
 	export let day = 'Unknown Day';
 	export let time = '22:15-7:00';
+	export let bltTime = null;
+	export let melatoninTime = null;
+	export let melatoninDoseMg = null;
 </script>
 
 <div class="flex flex-col rounded-lg shadow bg-stone-50 p-6 grow" in:fly={{ x: 8, duration: 500 }}>
@@ -23,4 +26,12 @@
 		{day}</span
 	>
 	<span class="text-3xl font-bold mt-10">{time}</span>
+	{#if bltTime}
+		<span class="text-sm text-gray-500 mt-4">Bright light around {bltTime}</span>
+	{/if}
+	{#if melatoninTime}
+		<span class="text-sm text-gray-500 mt-1">
+			Melatonin ({melatoninDoseMg} mg) around {melatoninTime}
+		</span>
+	{/if}
 </div>

@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 
-	import { lightTreatment } from '$lib/stores';
+	import { lightTreatment, bioTreatment } from '$lib/stores';
 
 	import moment from 'moment/moment';
 	import DayCard from '$lib/components/DayCard.svelte';
@@ -20,8 +20,10 @@
 	let wakeIntervention = [];
 	let sleepIntervention = [];
 	let bltIntervention = [];
+	let melatoninIntervention = [];
 
 	let interventionDays = 0;
+	let regime = null;
 
 	function algoTime(data) {
 		if (
@@ -42,7 +44,8 @@
 				goalWake: data.goal.wakeup,
 				goalSleep: data.goal.bedtime,
 				startDate: new Date(),
-				enableBLT: $lightTreatment
+				enableBLT: $lightTreatment,
+				enableMelatonin: $bioTreatment
 			});
 		} catch {
 			goto('/app/start');
@@ -55,9 +58,11 @@
 		}
 
 		interventionDays = result.days.length;
+		regime = result.regime;
 		wakeIntervention = result.days.map((d) => d.wake);
 		sleepIntervention = result.days.map((d) => d.sleep);
 		bltIntervention = result.days.map((d) => d.blt);
+		melatoninIntervention = result.days.map((d) => d.melatonin);
 
 		displayDay(0);
 		shouldShow = true;
@@ -73,6 +78,7 @@
 		let now = new Date();
 		let calendarURL = new URLSearchParams();
 		calendarURL.append('blt', $lightTreatment ? '1' : '0');
+		calendarURL.append('bio', $bioTreatment ? '1' : '0');
 		calendarURL.append('cWake', data.current.wakeup);
 		calendarURL.append('cSleep', data.current.bedtime);
 		calendarURL.append('gWake', data.goal.wakeup);
@@ -106,9 +112,21 @@
 			class="flex flex-col rounded-lg shadow bg-stone-50 p-6 mx-auto my-8"
 			in:fly={{ x: 8, duration: 500 }}
 		/> -->
-		Over the next 7 days, you will be shifting your circadian clock forward by 30 minutes each day. This
-		will be easier for you to go to sleep earlier and wake up earlier. At the same time, a conservative
-		plan will help you to maintain your energy level. No dramatic ups and downs.
+		{#if regime === 'delay'}
+			Over the next {interventionDays} day{interventionDays === 1 ? '' : 's'}, you will be shifting
+			your circadian clock later by up to 30 minutes each day. This will be easier for you to go to
+			sleep later and wake up later. At the same time, a conservative plan will help you to maintain
+			your energy level. No dramatic ups and downs.
+		{:else if regime === 'advance'}
+			Over the next {interventionDays} day{interventionDays === 1 ? '' : 's'}, you will be shifting
+			your circadian clock earlier by up to 30 minutes each day. This will be easier for you to go
+			to sleep earlier and wake up earlier. At the same time, a conservative plan will help you to
+			maintain your energy level. No dramatic ups and downs.
+		{:else}
+			Over the next {interventionDays} day{interventionDays === 1 ? '' : 's'}, you will be gradually
+			adjusting your sleep and wake times by up to 30 minutes each day. A conservative plan like
+			this helps you maintain your energy level. No dramatic ups and downs.
+		{/if}
 	</div>
 
 	<div
@@ -118,7 +136,17 @@
 	>
 		<h2 class="text-xl font-bold">Daily details</h2>
 		<div class="flex flex-row space-x-6 py-8 items-center">
-			<DayCard {day} {time} />
+			<DayCard
+				{day}
+				{time}
+				bltTime={bltIntervention[position] ? bltIntervention[position].format('HH:mm') : null}
+				melatoninTime={melatoninIntervention[position]
+					? melatoninIntervention[position].time.format('HH:mm')
+					: null}
+				melatoninDoseMg={melatoninIntervention[position]
+					? melatoninIntervention[position].doseMg
+					: null}
+			/>
 			<div>
 				<button
 					type="button"
