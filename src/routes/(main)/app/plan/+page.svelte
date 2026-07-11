@@ -5,32 +5,30 @@
 
 	import { lightTreatment, bioTreatment } from '$lib/stores';
 
-	let enableBLT;
-	let enableBio;
-
 	let shouldShow = false;
-
-	lightTreatment.subscribe((value) => {
-		enableBLT = value;
-	});
-
-	bioTreatment.subscribe((value) => {
-		enableBio = value;
-	});
 
 	onMount(() => {
 		shouldShow = true;
 	});
+
+	function handleCardKeydown(e, store) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			if (e.key === ' ') {
+				e.preventDefault();
+			}
+			store.update((v) => !v);
+		}
+	}
 </script>
 
 {#if shouldShow}
-	<h2
+	<h1
 		class="text-2xl font-semibold text-gray-800 text-center"
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fly={{ y: -5, duration: 500 }}
 	>
 		Pick your evidence-based strategies.<br />
-	</h2>
+	</h1>
 	<div
 		class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8 my-16"
 		out:fade={{ duration: 400 }}
@@ -63,16 +61,19 @@
 		</div>
 
 		<div
-			class="{enableBLT
+			class="{$lightTreatment
 				? 'ring-indigo-800'
 				: 'ring-stone-200'} cursor-pointer basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
+			tabindex="0"
+			role="button"
+			aria-pressed={$lightTreatment}
 			on:click={() => lightTreatment.update((v) => !v)}
-			on:keyup={() => lightTreatment.update((v) => !v)}
+			on:keydown={(e) => handleCardKeydown(e, lightTreatment)}
 		>
 			<div>
 				<svg
-					class="{enableBLT ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
+					class="{$lightTreatment ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
@@ -89,20 +90,23 @@
 				is a good way to get more alertness in the morning—and it helps to shift your circadian clock
 				forward.
 			</p>
-			<button class="text-indigo-800">Learn more</button>
+			<button class="text-indigo-800" on:click|stopPropagation>Learn more</button>
 		</div>
 
 		<div
-			class="{enableBio
+			class="{$bioTreatment
 				? 'ring-indigo-800'
 				: 'ring-stone-200'} cursor-pointer basis-1/2 flex flex-col justify-start items-start rounded-lg bg-stone-50 ring-2 hover:ring-indigo-800 hover:shadow-lg transition-all p-8 space-y-8"
 			in:fly={{ y: 5, duration: 1000, delay: 3000 }}
+			tabindex="0"
+			role="button"
+			aria-pressed={$bioTreatment}
 			on:click={() => bioTreatment.update((v) => !v)}
-			on:keyup={() => bioTreatment.update((v) => !v)}
+			on:keydown={(e) => handleCardKeydown(e, bioTreatment)}
 		>
 			<div>
 				<svg
-					class="{enableBio ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
+					class="{$bioTreatment ? 'text-indigo-800' : 'text-stone-300'} w-8 h-8 fill-current"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
 					fill="currentColor"
@@ -119,7 +123,7 @@
 				are probiotics for your biological clock! This involves taking melatonin in a scheduled way.
 				No stress. We will get to the details later. (Work in Progress)
 			</p>
-			<button class="text-indigo-800">Learn more</button>
+			<button class="text-indigo-800" on:click|stopPropagation>Learn more</button>
 		</div>
 	</div>
 	<p

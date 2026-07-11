@@ -120,20 +120,14 @@
 		<div class="flex flex-row space-x-6 py-8 items-center">
 			<DayCard {day} {time} />
 			<div>
-				<div
+				<button
+					type="button"
 					class="{position == 0
 						? 'text-gray-300 cursor-default'
 						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
-					on:click={() => {
-						if (position > 0) {
-							displayDay(position - 1);
-						}
-					}}
-					on:keypress={() => {
-						if (position > 0) {
-							displayDay(position - 1);
-						}
-					}}
+					aria-label="Previous day"
+					disabled={position == 0}
+					on:click={() => displayDay(position - 1)}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -145,23 +139,16 @@
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
 					</svg>
-				</div>
+				</button>
 				<br />
-				<div
+				<button
+					type="button"
 					class="{position == interventionDays - 1
 						? 'text-gray-300 cursor-default'
 						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
+					aria-label="Next day"
 					disabled={position == interventionDays - 1}
-					on:click={() => {
-						if (position < interventionDays - 1) {
-							displayDay(position + 1);
-						}
-					}}
-					on:keypress={() => {
-						if (position < interventionDays - 1) {
-							displayDay(position + 1);
-						}
-					}}
+					on:click={() => displayDay(position + 1)}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +160,7 @@
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 					</svg>
-				</div>
+				</button>
 			</div>
 		</div>
 		Your sleep schedule is planned by days. It is possible to have fluctuating bedtimes. Just try your
