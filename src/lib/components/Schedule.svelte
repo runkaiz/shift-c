@@ -12,12 +12,6 @@
 	let day6 = new Date(day1);
 	let day7 = new Date(day1);
 	let day8 = new Date(day1);
-	let day9 = new Date(day1);
-	let day10 = new Date(day1);
-	let day11 = new Date(day1);
-	let day12 = new Date(day1);
-	let day13 = new Date(day1);
-	let day14 = new Date(day1);
 
 	day2.setDate(day1.getDate() + 1);
 	day3.setDate(day1.getDate() + 2);
@@ -26,12 +20,6 @@
 	day6.setDate(day1.getDate() + 5);
 	day7.setDate(day1.getDate() + 6);
 	day8.setDate(day1.getDate() + 7);
-	day9.setDate(day1.getDate() + 8);
-	day10.setDate(day1.getDate() + 9);
-	day11.setDate(day1.getDate() + 10);
-	day12.setDate(day1.getDate() + 11);
-	day13.setDate(day1.getDate() + 12);
-	day14.setDate(day1.getDate() + 13);
 </script>
 
 <!-- Web view -->
@@ -44,7 +32,7 @@
 			<WakeTime date={day2.toDateString()} time="10:00AM" />
 			<SleepTime date={day2.toDateString()} time="9:20PM" />
 			<WakeTime date={day3.toDateString()} time="10:00AM" />
-			<WakeTime date={day3.toDateString()} time="10:00AM" />
+			<SleepTime date={day3.toDateString()} time="9:20PM" />
 			<SleepTime date={day4.toDateString()} time="9:20PM" />
 			<WakeTime date={day4.toDateString()} time="10:00AM" />
 			<SleepTime date={day5.toDateString()} time="9:20PM" />
@@ -68,7 +56,7 @@
 			<WakeTime date={day2.toDateString()} time="10:00AM" />
 			<SleepTime date={day2.toDateString()} time="9:20PM" />
 			<WakeTime date={day3.toDateString()} time="10:00AM" />
-			<WakeTime date={day3.toDateString()} time="10:00AM" />
+			<SleepTime date={day3.toDateString()} time="9:20PM" />
 			<SleepTime date={day4.toDateString()} time="9:20PM" />
 			<WakeTime date={day4.toDateString()} time="10:00AM" />
 			<SleepTime date={day5.toDateString()} time="9:20PM" />
