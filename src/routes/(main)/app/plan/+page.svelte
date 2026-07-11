@@ -54,8 +54,8 @@
 			</div>
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Bed time planning</span>
-				is essential if you want to shift your circadian clock forward. It means going to bed 30 to 60
-				minutes earlier every night.
+				is essential for shifting your circadian clock. It means gradually moving your bedtime by 30
+				minutes a night, earlier or later depending on your goal.
 			</p>
 			<button class="text-indigo-800">Learn more</button>
 		</div>
@@ -86,9 +86,9 @@
 				</svg>
 			</div>
 			<p class="text-lg text-stone-600">
-				<span class="font-medium text-stone-800">Morning bright light exposure</span>
-				is a good way to get more alertness in the morning—and it helps to shift your circadian clock
-				forward.
+				<span class="font-medium text-stone-800">Bright light exposure</span>
+				helps shift your circadian clock in the right direction — we'll time it for morning or evening
+				based on your plan — and morning light also gives you a boost of alertness.
 			</p>
 			<button class="text-indigo-800" on:click|stopPropagation>Learn more</button>
 		</div>
@@ -120,8 +120,9 @@
 			</div>
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Chronobiotics</span>
-				are probiotics for your biological clock! This involves taking melatonin in a scheduled way.
-				No stress. We will get to the details later. (Work in Progress)
+				use a small, precisely-timed dose of melatonin. We'll pick the timing and amount that fits your
+				plan — not the same for everyone. General estimate, not medical advice — check with a clinician
+				if you're pregnant, on other medications, or have a health condition.
 			</p>
 			<button class="text-indigo-800" on:click|stopPropagation>Learn more</button>
 		</div>
