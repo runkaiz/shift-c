@@ -12,11 +12,20 @@
 		}
 	};
 	let step = 0;
+	let nextButton;
 
 	onMount(() => {
 		shouldShow = true;
 	});
+
+	function handleWindowKeydown(e) {
+		if (e.key === 'Enter' && nextButton && !nextButton.disabled) {
+			nextButton.click();
+		}
+	}
 </script>
+
+<svelte:window on:keydown={handleWindowKeydown} />
 
 {#if shouldShow}
 	<h2
@@ -88,6 +97,7 @@
 			on:introend={(e) => {
 				e.target.removeAttribute('disabled');
 			}}
+			bind:this={nextButton}
 			class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-800 transition-colors"
 		>
 			Next
