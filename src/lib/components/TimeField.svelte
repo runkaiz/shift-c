@@ -61,6 +61,15 @@
 			}
 		}
 	}
+
+	function handleSegmentKeydown(e, prevInputId) {
+		if (e.key !== 'Backspace' && e.key !== 'Delete') return;
+		if (e.target.value !== '' || !prevInputId) return;
+		e.preventDefault();
+		const prevInput = document.getElementById(prevInputId);
+		prevInput.value = '';
+		prevInput.focus();
+	}
 </script>
 
 <div class="flex flex-row space-x-4 mt-5">
@@ -76,6 +85,7 @@
 				? 'border-red-500'
 				: 'border-stone-200'}"
 			on:input={(e) => handleSegmentInput(e, segment.charIndex, segment.nextId)}
+			on:keydown={(e) => handleSegmentKeydown(e, i > 0 ? segments[i - 1].id : null)}
 		/>
 		{#if i === 1}
 			<p class="text-4xl my-2">:</p>
