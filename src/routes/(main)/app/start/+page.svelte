@@ -27,11 +27,7 @@
 			in:fly={{ y: 5, duration: 1000, delay: 1000 }}
 		>
 			<div>
-				<img
-					src="https://imagedelivery.net/4v3KB3Aeo_3sLg3kKoifCw/e022f310-0aec-4344-5303-fc6144e85b00/public"
-					alt="Battery"
-					class="w-16"
-				/>
+				<img src="/images/battery.png" alt="Battery" class="w-16" />
 			</div>
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Your sleep pressure</span>
@@ -44,11 +40,7 @@
 			in:fly={{ y: 5, duration: 1000, delay: 2000 }}
 		>
 			<div>
-				<img
-					src="https://imagedelivery.net/4v3KB3Aeo_3sLg3kKoifCw/8d642a09-8bcf-427e-5509-e523c2140e00/public"
-					alt="Alarm clock"
-					class="w-16"
-				/>
+				<img src="/images/moon.png" alt="Moon" class="w-16" />
 			</div>
 			<p class="text-lg text-stone-600">
 				<span class="font-medium text-stone-800">Your biological clock</span>
