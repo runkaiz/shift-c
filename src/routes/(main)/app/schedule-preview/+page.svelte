@@ -14,8 +14,11 @@
 	let shouldShow = false;
 
 	let position = 0;
-	let day = '';
-	let time = '';
+	let direction = 1;
+	let dateLabel = '';
+	let bedTime = '';
+	let wakeTime = '';
+	let durationLabel = '';
 
 	let wakeIntervention = [];
 	let sleepIntervention = [];
@@ -68,10 +71,40 @@
 		shouldShow = true;
 	}
 
+	function formatDuration(totalMinutes) {
+		const hours = Math.floor(totalMinutes / 60);
+		const minutes = totalMinutes % 60;
+		return (minutes ? `${hours}h ${minutes}m` : `${hours}h`) + ' in bed';
+	}
+
 	function displayDay(p) {
+		if (p < 0 || p >= interventionDays) return;
+		direction = p >= position ? 1 : -1;
 		position = p;
-		day = 'Day ' + (p + 1);
-		time = `${sleepIntervention[p].format('HH:mm')} - ${wakeIntervention[p].format('HH:mm')}`;
+		bedTime = sleepIntervention[p].format('HH:mm');
+		wakeTime = wakeIntervention[p].format('HH:mm');
+		dateLabel = wakeIntervention[p].format('ddd, MMM D');
+		durationLabel = formatDuration(wakeIntervention[p].diff(sleepIntervention[p], 'minutes'));
+	}
+
+	function handleKeydown(e) {
+		if (!shouldShow) return;
+		if (e.key === 'ArrowLeft') displayDay(position - 1);
+		if (e.key === 'ArrowRight') displayDay(position + 1);
+	}
+
+	let touchStartX = null;
+
+	function handleTouchStart(e) {
+		touchStartX = e.touches[0].clientX;
+	}
+
+	function handleTouchEnd(e) {
+		if (touchStartX === null) return;
+		const delta = e.changedTouches[0].clientX - touchStartX;
+		touchStartX = null;
+		if (Math.abs(delta) < 40) return;
+		displayDay(delta < 0 ? position + 1 : position - 1);
 	}
 
 	async function downloadSchedule(data) {
@@ -93,6 +126,8 @@
 		algoTime(read().data);
 	});
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 {#if shouldShow}
 	<h2
@@ -134,65 +169,98 @@
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fade={{ y: -5, duration: 400 }}
 	>
-		<h2 class="text-xl font-bold">Daily details</h2>
-		<div class="flex flex-row space-x-6 py-8 items-center">
-			<DayCard
-				{day}
-				{time}
-				bltTime={bltIntervention[position] ? bltIntervention[position].format('HH:mm') : null}
-				melatoninTime={melatoninIntervention[position]
-					? melatoninIntervention[position].time.format('HH:mm')
-					: null}
-				melatoninDoseMg={melatoninIntervention[position]
-					? melatoninIntervention[position].doseMg
-					: null}
-			/>
-			<div>
-				<button
-					type="button"
-					class="{position == 0
-						? 'text-gray-300 cursor-default'
-						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
-					aria-label="Previous day"
-					disabled={position == 0}
-					on:click={() => displayDay(position - 1)}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="w-6 h-6"
-					>
-						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-					</svg>
-				</button>
-				<br />
-				<button
-					type="button"
-					class="{position == interventionDays - 1
-						? 'text-gray-300 cursor-default'
-						: 'hover:shadow-md cursor-pointer'} bg-gray-50 rounded-full p-4 w-14 h-14 transition-all"
-					aria-label="Next day"
-					disabled={position == interventionDays - 1}
-					on:click={() => displayDay(position + 1)}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="w-6 h-6"
-					>
-						<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-					</svg>
-				</button>
-			</div>
+		<h2 class="text-xl font-bold mb-6">Daily details</h2>
+
+		<div
+			class="relative touch-pan-y"
+			on:touchstart={handleTouchStart}
+			on:touchend={handleTouchEnd}
+		>
+			{#key position}
+				<div in:fly={{ x: direction * 24, duration: 250 }}>
+					<DayCard
+						dayNumber={position + 1}
+						totalDays={interventionDays}
+						{dateLabel}
+						{bedTime}
+						{wakeTime}
+						{durationLabel}
+						bltTime={bltIntervention[position] ? bltIntervention[position].format('HH:mm') : null}
+						melatoninTime={melatoninIntervention[position]
+							? melatoninIntervention[position].time.format('HH:mm')
+							: null}
+						melatoninDoseMg={melatoninIntervention[position]
+							? melatoninIntervention[position].doseMg
+							: null}
+					/>
+				</div>
+			{/key}
 		</div>
-		Your sleep schedule is planned by days. It is possible to have fluctuating bedtimes. Just try your
-		best to stick to the wake up time.
+
+		<div class="flex items-center gap-2 mt-5">
+			<button
+				type="button"
+				class="{position == 0
+					? 'text-stone-300 cursor-default'
+					: 'text-indigo-800 hover:bg-stone-200 cursor-pointer'} shrink-0 bg-stone-50 ring-1 ring-stone-200 rounded-full p-2.5 w-10 h-10 transition-colors"
+				aria-label="Previous day"
+				disabled={position == 0}
+				on:click={() => displayDay(position - 1)}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="w-5 h-5"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+				</svg>
+			</button>
+
+			<div class="flex-1 flex items-center gap-1.5 overflow-x-auto snap-x snap-mandatory no-scrollbar py-1">
+				{#each Array(interventionDays) as _, i}
+					<button
+						type="button"
+						class="{i === position
+							? 'bg-indigo-800 text-white'
+							: 'bg-stone-200/70 text-stone-500 hover:bg-stone-300'} shrink-0 snap-center w-8 h-8 rounded-full text-xs font-medium transition-colors"
+						aria-label={`Go to day ${i + 1}`}
+						aria-current={i === position}
+						on:click={() => displayDay(i)}
+					>
+						{i + 1}
+					</button>
+				{/each}
+			</div>
+
+			<button
+				type="button"
+				class="{position == interventionDays - 1
+					? 'text-stone-300 cursor-default'
+					: 'text-indigo-800 hover:bg-stone-200 cursor-pointer'} shrink-0 bg-stone-50 ring-1 ring-stone-200 rounded-full p-2.5 w-10 h-10 transition-colors"
+				aria-label="Next day"
+				disabled={position == interventionDays - 1}
+				on:click={() => displayDay(position + 1)}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="w-5 h-5"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+				</svg>
+			</button>
+		</div>
+
+		<p class="mt-5 text-sm text-stone-500">
+			Your sleep schedule is planned by days. It is possible to have fluctuating bedtimes. Just try
+			your best to stick to the wake up time.
+		</p>
 	</div>
 
 	<div
@@ -256,3 +324,13 @@
 		</div>
 	</div> -->
 {/if}
+
+<style>
+	.no-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+</style>
