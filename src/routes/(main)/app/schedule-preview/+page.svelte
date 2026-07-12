@@ -143,10 +143,6 @@
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fade={{ y: -5, duration: 400 }}
 	>
-		<!-- <div
-			class="flex flex-col rounded-lg shadow bg-stone-50 p-6 mx-auto my-8"
-			in:fly={{ x: 8, duration: 500 }}
-		/> -->
 		{#if regime === 'delay'}
 			Over the next {interventionDays} day{interventionDays === 1 ? '' : 's'}, you will be shifting
 			your circadian clock later by up to 30 minutes each day. This will be easier for you to go to
@@ -269,15 +265,6 @@
 		out:fade={{ y: -5, duration: 400 }}
 	>
 		<h2 class="text-xl font-bold">Add to calendar</h2>
-		<!-- <div class="mt-8 mb-4">
-			<input
-				type="text"
-				class="bg-transparent p-2 border-2 border-stone-200 rounded-lg items-center placeholder:text-stone-400 w-full"
-				value="https://shiftc.app/gCAEHv2sJxlBOcIOzixVIUG0xKG0mwANLmbvkmFryOI.ical"
-			/>
-		</div>
-		<button class="underline underline-offset-3">Copy</button> the link above and add it to your calendar.
-		This will be dynamically updated as you progress. -->
 		<button class="underline underline-offset-3" on:click={() => downloadSchedule(read().data)}
 			>Download</button
 		> your schedule and add it to your calendar. The iCal file contains your sleep schedule and you can
