@@ -1,4 +1,6 @@
 <script>
+	import { MELATONIN_SAFETY_WARNING } from '$lib/melatonin';
+
 	export let dayNumber = 1;
 	export let totalDays = 1;
 	export let dateLabel = '';
@@ -7,10 +9,13 @@
 	export let durationLabel = '';
 	export let bltTime = null;
 	export let melatoninTime = null;
-	export let melatoninDoseMg = null;
+	export let melatoninDoseRangeMg = null;
+	export let melatoninChronobiotic = true;
 </script>
 
-<div class="flex flex-col rounded-2xl shadow-sm ring-1 ring-stone-200 bg-stone-50 p-6 sm:p-8 w-full">
+<div
+	class="flex flex-col rounded-2xl shadow-sm ring-1 ring-stone-200 bg-stone-50 p-6 sm:p-8 w-full"
+>
 	<div class="flex items-center justify-between">
 		<span
 			class="inline-flex items-center rounded-full bg-indigo-800/10 text-indigo-800 text-xs font-semibold px-2.5 py-1"
@@ -24,7 +29,9 @@
 
 	<div class="mt-8 flex items-stretch justify-between">
 		<div class="flex flex-col items-start">
-			<span class="inline-flex items-center gap-1.5 text-stone-500 text-xs font-medium uppercase tracking-wide">
+			<span
+				class="inline-flex items-center gap-1.5 text-stone-500 text-xs font-medium uppercase tracking-wide"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 20 20"
@@ -54,7 +61,9 @@
 		</div>
 
 		<div class="flex flex-col items-end">
-			<span class="inline-flex items-center gap-1.5 text-stone-500 text-xs font-medium uppercase tracking-wide">
+			<span
+				class="inline-flex items-center gap-1.5 text-stone-500 text-xs font-medium uppercase tracking-wide"
+			>
 				Wake
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +81,8 @@
 					/>
 				</svg>
 			</span>
-			<span class="text-3xl sm:text-4xl font-bold text-stone-800 mt-1 tabular-nums">{wakeTime}</span>
+			<span class="text-3xl sm:text-4xl font-bold text-stone-800 mt-1 tabular-nums">{wakeTime}</span
+			>
 		</div>
 	</div>
 
@@ -119,22 +129,25 @@
 							class="w-5 h-5"
 							aria-hidden="true"
 						>
-							<rect
-								x="2.5"
-								y="9.5"
-								width="19"
-								height="5"
-								rx="2.5"
-								transform="rotate(-45 12 12)"
-							/>
+							<rect x="2.5" y="9.5" width="19" height="5" rx="2.5" transform="rotate(-45 12 12)" />
 							<path d="M8.5 8.5l7 7" />
 						</svg>
 					</span>
 					<div class="flex flex-col">
-						<span class="text-sm font-medium text-stone-800">Melatonin &middot; {melatoninDoseMg} mg</span>
+						<span class="text-sm font-medium text-stone-800"
+							>Melatonin{melatoninChronobiotic ? '' : ' (optional)'} &middot; {melatoninDoseRangeMg?.[0]}&ndash;{melatoninDoseRangeMg?.[1]}
+							mg</span
+						>
 						<span class="text-xs text-stone-500">around {melatoninTime}</span>
 					</div>
 				</div>
+				{#if !melatoninChronobiotic}
+					<p class="text-xs text-stone-400">
+						Mainly a sleep-opportunity night — a consistent bedtime and a dark, cool room usually
+						help more than this.
+					</p>
+				{/if}
+				<p class="text-xs text-stone-400">{MELATONIN_SAFETY_WARNING}</p>
 			{/if}
 		</div>
 	{/if}

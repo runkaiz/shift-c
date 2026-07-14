@@ -6,6 +6,28 @@ export const DEFAULT_INCREMENT_MINUTES = 30;
 export const DEFAULT_BLT_OFFSET_MINUTES = 30;
 export const WRAPAROUND_THRESHOLD_HOURS = 12;
 
+// A sane single night's sleep, used to validate both the current and goal
+// schedules up front and every generated day as a backstop. All time inputs
+// are plain 24h HH:mm digits with no AM/PM concept (see TimeField.svelte) -
+// a user who means "11:30 PM" but types "11:30" gets 11:30 AM, which read
+// against an 08:00 wake produces a ~20.5h or negative "night." Rather than
+// silently emit a schedule with negative or day-long time-in-bed, refuse.
+export const MIN_NIGHT_DURATION_MINUTES = 120; // 2h floor
+export const MAX_NIGHT_DURATION_MINUTES = 14 * 60; // 14h ceiling
+
+// Duration of the night from sleepMoment to the next wakeMoment, treating
+// both as time-of-day only (the date components are irrelevant here) and
+// always wrapping forward across midnight - i.e. always in (-inf, 24h],
+// never using a "wake before sleep same day" reading.
+function nightDurationMinutes(sleepMoment, wakeMoment) {
+	const diff = wakeMoment.diff(sleepMoment, 'minutes');
+	return diff < 0 ? diff + 24 * 60 : diff;
+}
+
+function isSaneNightDuration(minutes) {
+	return minutes >= MIN_NIGHT_DURATION_MINUTES && minutes <= MAX_NIGHT_DURATION_MINUTES;
+}
+
 /**
  * Computes the day-by-day sleep/wake shifting schedule between a current
  * sleep/wake pair and a goal sleep/wake pair, starting the day after
@@ -24,7 +46,8 @@ export const WRAPAROUND_THRESHOLD_HOURS = 12;
  *   melatonin dose times.
  * @param {number} [params.incrementMinutes=DEFAULT_INCREMENT_MINUTES]
  * @param {number} [params.bltOffsetMinutes=DEFAULT_BLT_OFFSET_MINUTES]
- * @returns {{ changed: boolean, regime: ('advance'|'delay'|'extension')|null, midpointShiftMinutes: number|null, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseMg: number, chronobiotic: boolean}|null }> }}
+ * @returns {{ changed: boolean, regime: ('advance'|'delay'|'extension')|null, midpointShiftMinutes: number|null, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseRangeMg: [number, number], chronobiotic: boolean}|null }> }}
+ * @throws {Error} 'invalid-time' for unparseable HH:mm inputs, 'implausible-shift-request' if the current/goal pair (or a generated intermediate day) doesn't describe a plausible single night's sleep (see MIN/MAX_NIGHT_DURATION_MINUTES), or 'ambiguous-shift-direction' (see classifyRegime in ./melatonin) if the requested shift is too close to the wraparound fold boundary to reliably classify — every current caller already treats a thrown error here as "can't build a plan from these inputs" and degrades accordingly.
  */
 export function computeIntervention({
 	currentWake,
@@ -49,6 +72,15 @@ export function computeIntervention({
 		!targetSleepTime.isValid()
 	) {
 		throw new Error('invalid-time');
+	}
+
+	// Reject up front if either the current or goal pair doesn't describe a
+	// plausible single night - see MIN/MAX_NIGHT_DURATION_MINUTES above.
+	if (
+		!isSaneNightDuration(nightDurationMinutes(currentSleepTime, currentWakeTime)) ||
+		!isSaneNightDuration(nightDurationMinutes(targetSleepTime, targetWakeTime))
+	) {
+		throw new Error('implausible-shift-request');
 	}
 
 	const interventionStart = (
@@ -92,7 +124,10 @@ export function computeIntervention({
 		return { changed: false, regime: null, midpointShiftMinutes: null, days: [] };
 	}
 
-	const { regime, midpointShiftMinutes } = classifyRegime(wakeShift, sleepShift);
+	const { regime, midpointShiftMinutes, durationShiftMinutes } = classifyRegime(
+		wakeShift,
+		sleepShift
+	);
 
 	const interventionDays = wakeShiftDays > sleepShiftDays ? wakeShiftDays : sleepShiftDays; // Max number of days for the intervention
 
@@ -184,11 +219,22 @@ export function computeIntervention({
 		const wake = wakeIntervention[i];
 		const sleep = sleepIntervention[i];
 
+		// Backstop against the day-by-day walk drifting into an invalid
+		// night even though the current/goal endpoints were each sane on
+		// their own - e.g. one endpoint pinned at its (already-reached)
+		// target while the other keeps marching toward a target that's
+		// much larger than the original gap between them.
+		if (!isSaneNightDuration(nightDurationMinutes(sleep, wake))) {
+			throw new Error('implausible-shift-request');
+		}
+
 		days.push({
 			wake,
 			sleep,
 			blt: enableBLT ? computeBltTime(regime, wake, sleep, bltOffsetMinutes).time : null,
-			melatonin: enableMelatonin ? computeMelatoninDose(regime, wake, sleep) : null
+			melatonin: enableMelatonin
+				? computeMelatoninDose(regime, wake, sleep, midpointShiftMinutes, durationShiftMinutes)
+				: null
 		});
 	}
 

@@ -1,5 +1,7 @@
 import moment from 'moment/moment';
 
+import { MELATONIN_SAFETY_WARNING } from './melatonin';
+
 const BLT_DURATION_MINUTES = 15;
 const MELATONIN_DURATION_MINUTES = 5;
 const MELATONIN_DISCLAIMER =
@@ -19,13 +21,15 @@ function describeBlt(regime) {
 }
 
 function describeMelatonin(melatonin, regime) {
+	const [minDose, maxDose] = melatonin.doseRangeMg;
+
 	if (!melatonin.chronobiotic) {
-		return `Take ${melatonin.doseMg} mg melatonin now as a sleep aid before bed. This dose is for falling asleep, not for shifting your clock. ${MELATONIN_DISCLAIMER}`;
+		return `This is mainly a sleep-opportunity night, not a clock-shift night — a consistent bedtime, a dark/cool room, and cutting morning light and noise usually help more than anything you take. If you still want it, melatonin in the range of ${minDose}–${maxDose} mg is sometimes used as an optional sleep aid around this time — for falling asleep, not for shifting your clock. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
 	}
 	if (regime === 'delay') {
-		return `Take ${melatonin.doseMg} mg melatonin now, right on waking, to help shift your circadian clock later (optional — light is the stronger signal for a delay). Avoid bright light after waking until your target wake time. ${MELATONIN_DISCLAIMER}`;
+		return `Melatonin in the range of ${minDose}–${maxDose} mg is commonly used around this time, right on waking, to help shift your circadian clock later (optional — light is the stronger signal for a delay). Avoid bright light after waking until your target wake time. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
 	}
-	return `Take ${melatonin.doseMg} mg melatonin now to help shift your circadian clock earlier. Keep lights dim for the next 2-3 hours, especially close to bedtime. ${MELATONIN_DISCLAIMER}`;
+	return `Melatonin in the range of ${minDose}–${maxDose} mg is commonly used around this time to help shift your circadian clock earlier. Keep lights dim for the next 2-3 hours, especially close to bedtime. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
 }
 
 // Minimal RFC 5545 text escaping: backslash, semicolon, comma, then newlines.
@@ -106,7 +110,7 @@ export function buildIcs({ name, events }) {
  *
  * @param {object} params
  * @param {string} params.uidPrefix - Stable per-plan/download identifier, e.g. a plan token.
- * @param {{ regime: string, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseMg: number, chronobiotic: boolean}|null }> }} params.result - Output of computeIntervention().
+ * @param {{ regime: string, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseRangeMg: [number, number], chronobiotic: boolean}|null }> }} params.result - Output of computeIntervention().
  * @param {number} params.tzOffsetMinutes - Minutes to add to the (server-local) computed times to get the user's actual local wall-clock instant.
  * @param {string} [params.calendarName]
  * @param {string} [params.eventUrl]
@@ -156,7 +160,7 @@ export function buildScheduleIcs({
 				uid: `${uidPrefix}-melatonin-${dateKey}@shiftc.app`,
 				start: melatoninStart.toDate(),
 				end: melatoninEnd.toDate(),
-				summary: `Take Melatonin (${day.melatonin.doseMg} mg)`,
+				summary: `Melatonin (${day.melatonin.doseRangeMg[0]}–${day.melatonin.doseRangeMg[1]} mg)`,
 				description: describeMelatonin(day.melatonin, result.regime),
 				url: eventUrl
 			});

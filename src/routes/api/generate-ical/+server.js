@@ -2,6 +2,7 @@ import moment from 'moment/moment';
 
 import { computeIntervention } from '$lib/schedule';
 import { buildScheduleIcs } from '$lib/ical';
+import { MELATONIN_FEATURE_ENABLED } from '$lib/featureFlags';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -44,7 +45,9 @@ export async function GET({ url }) {
 	}
 
 	const enableBLT = url.searchParams.get('blt') == 1; // Determine whether to use BLT
-	const enableMelatonin = url.searchParams.get('bio') == 1; // Determine whether to use Chronobiotics (melatonin)
+	// Chronobiotics (melatonin) forced off regardless of the "bio" query param
+	// while MELATONIN_FEATURE_ENABLED is false — see src/lib/featureFlags.js.
+	const enableMelatonin = MELATONIN_FEATURE_ENABLED && url.searchParams.get('bio') == 1;
 	const tz = moment().utcOffset() - Number(tzParam);
 
 	let result;
