@@ -1,5 +1,5 @@
 <script>
-	import { MELATONIN_SAFETY_WARNING } from '$lib/melatonin';
+	import { _ } from 'svelte-i18n';
 
 	export let dayNumber = 1;
 	export let totalDays = 1;
@@ -20,7 +20,7 @@
 		<span
 			class="inline-flex items-center rounded-full bg-indigo-800/10 text-indigo-800 text-xs font-semibold px-2.5 py-1"
 		>
-			Day {dayNumber} of {totalDays}
+			{$_('components.dayCard.dayOf', { values: { day: dayNumber, total: totalDays } })}
 		</span>
 		{#if dateLabel}
 			<span class="text-sm text-stone-500">{dateLabel}</span>
@@ -45,7 +45,7 @@
 						clip-rule="evenodd"
 					/>
 				</svg>
-				Bedtime
+				{$_('components.dayCard.bedtime')}
 			</span>
 			<span class="text-3xl sm:text-4xl font-bold text-stone-800 mt-1 tabular-nums">{bedTime}</span>
 		</div>
@@ -55,8 +55,8 @@
 				<span class="text-xs text-stone-400 mb-1.5 whitespace-nowrap">{durationLabel}</span>
 			{/if}
 			<div class="w-full h-px bg-stone-300 relative">
-				<span class="absolute left-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-stone-400" />
-				<span class="absolute right-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-indigo-800" />
+				<span class="absolute start-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-stone-400" />
+				<span class="absolute end-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-indigo-800" />
 			</div>
 		</div>
 
@@ -64,7 +64,7 @@
 			<span
 				class="inline-flex items-center gap-1.5 text-stone-500 text-xs font-medium uppercase tracking-wide"
 			>
-				Wake
+				{$_('components.dayCard.wake')}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -110,8 +110,12 @@
 						</svg>
 					</span>
 					<div class="flex flex-col">
-						<span class="text-sm font-medium text-stone-800">Bright light</span>
-						<span class="text-xs text-stone-500">around {bltTime}</span>
+						<span class="text-sm font-medium text-stone-800"
+							>{$_('components.dayCard.brightLight')}</span
+						>
+						<span class="text-xs text-stone-500"
+							>{$_('components.dayCard.around', { values: { time: bltTime } })}</span
+						>
 					</div>
 				</div>
 			{/if}
@@ -135,19 +139,24 @@
 					</span>
 					<div class="flex flex-col">
 						<span class="text-sm font-medium text-stone-800"
-							>Melatonin{melatoninChronobiotic ? '' : ' (optional)'} &middot; {melatoninDoseRangeMg?.[0]}&ndash;{melatoninDoseRangeMg?.[1]}
-							mg</span
+							>{melatoninChronobiotic
+								? $_('components.dayCard.melatonin')
+								: $_('components.dayCard.melatoninOptional')} &middot; {$_(
+								'components.dayCard.doseRange',
+								{ values: { min: melatoninDoseRangeMg?.[0], max: melatoninDoseRangeMg?.[1] } }
+							)}</span
 						>
-						<span class="text-xs text-stone-500">around {melatoninTime}</span>
+						<span class="text-xs text-stone-500"
+							>{$_('components.dayCard.around', { values: { time: melatoninTime } })}</span
+						>
 					</div>
 				</div>
 				{#if !melatoninChronobiotic}
 					<p class="text-xs text-stone-400">
-						Mainly a sleep-opportunity night — a consistent bedtime and a dark, cool room usually
-						help more than this.
+						{$_('components.dayCard.sleepOpportunityHint')}
 					</p>
 				{/if}
-				<p class="text-xs text-stone-400">{MELATONIN_SAFETY_WARNING}</p>
+				<p class="text-xs text-stone-400">{$_('melatonin.safetyWarning')}</p>
 			{/if}
 		</div>
 	{/if}

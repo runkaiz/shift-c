@@ -1,0 +1,234 @@
+{
+	"common": {
+		"learnMore": "En savoir plus",
+		"next": "Suivant",
+		"no": "Non",
+		"yes": "Oui"
+	},
+	"nav": {
+		"languageSwitcher": {
+			"label": "Changer de langue"
+		}
+	},
+	"melatonin": {
+		"safetyWarning": "La mélatonine peut provoquer une somnolence — évite de conduire ou d'utiliser des machines pendant quelques heures après en avoir pris."
+	},
+	"landing": {
+		"hero": {
+			"greeting": "Salut, oiseau de nuit.",
+			"prompt": "Prêt pour un changement ?",
+			"description": "Il existe une méthode fondée sur des preuves pour décaler ton rythme circadien, afin de t'endormir et de te réveiller plus tôt sans galérer.",
+			"cta": "Commencer"
+		}
+	},
+	"learn": {
+		"layout": {
+			"continue": "Continuer"
+		},
+		"circadian": {
+			"title": "Ton rythme circadien.",
+			"intro": "La clé pour maîtriser ton rythme de sommeil (ou le décalage horaire), c'est de comprendre que ton rythme circadien est... en fait deux choses ! Elles fonctionnent ensemble pour te rendre somnolent ou bien éveillé.",
+			"biologicalClock": "Ton horloge biologique. Si l'heure à laquelle tu t'endors et te réveilles est relativement constante, ton horloge biologique te rendra plus ou moins alerte de façon prévisible. Si tu te réveilles habituellement à 7h00 et t'endors à 22h00, ton horloge biologique te rendra alerte autour de 7h00 et moins alerte autour de 22h00. Mais ton horloge biologique seule ne peut généralement pas t'endormir. Tu auras aussi besoin de ta pression de sommeil.",
+			"sleepPressure": "Ta pression de sommeil s'accumule à mesure que tu passes du temps éveillé. Généralement, on commence à se sentir fatigué après être resté éveillé pendant 16 heures d'affilée. La pression de sommeil, c'est un peu comme une batterie qui se décharge. C'est pour ça qu'après une nuit tardive suivie d'une grasse matinée, tu peux avoir l'impression de ne pas arriver à t'endormir à ton heure de coucher habituelle. Tu n'es pas resté éveillé assez longtemps pour accumuler ta pression de sommeil, donc une baisse de vigilance ne suffit pas à t'endormir. C'est difficile de s'endormir quand il te reste encore 50 % de batterie.",
+			"batteryAnalogy": "Donc, ta pression de sommeil et ton horloge biologique fonctionnent un peu comme une batterie et un chargeur. Pour t'éteindre, il te faut une batterie presque vide et le chargeur débranché. Ton horloge biologique contrôle le moment où l'on débranche, mais elle ne te laisse qu'une petite fenêtre de temps avant de recommencer à charger pendant ta période de sommeil habituelle. C'est pour ça que tu as tendance à te sentir moins somnolent une fois passée ton heure de coucher habituelle (du moins pendant un moment).",
+			"adjustment": "Hmmm... Mais que se passe-t-il si tu commences à te réveiller à 11h00 et à t'endormir à 3h00 du matin ? Ton horloge biologique s'adaptera pour te rendre alerte autour de 11h00 et somnolent autour de 3h00. Elle se moque complètement de l'heure objective de la journée. Tout tourne autour de ton heure personnelle de la journée. C'est pour ça qu'au bout d'un moment, tu remarqueras qu'il est difficile de te rendormir à 23h00 ; ton horloge biologique pense que 23h00, c'est juste le début de ta soirée. C'est l'heure de faire la fête !"
+		}
+	},
+	"survey": {
+		"start": {
+			"title": "Ton cycle veille-sommeil est régi par deux forces.",
+			"pressure": {
+				"label": "Ta pression de sommeil",
+				"text": "s'accumule à mesure que tu passes du temps éveillé. Plus tu restes éveillé longtemps, plus tu te sens somnolent."
+			},
+			"clock": {
+				"label": "Ton horloge biologique",
+				"text": "te rend plus alerte autour de l'heure où tu te réveilles habituellement, et moins alerte autour de ton heure de coucher."
+			},
+			"explanationLine1": "Pour établir un nouveau rythme de sommeil, nous devons planifier les deux,",
+			"explanationLine2": "afin que la transition soit plus facile pour toi.",
+			"letsDoThis": "C'est parti"
+		},
+		"currentSchedule": {
+			"title": "Et en ce moment ?",
+			"wakeQuestion": "À quelle heure te réveilles-tu habituellement ?",
+			"sleepQuestion": "À quelle heure t'endors-tu habituellement ?",
+			"wakeHintLine1": "Si tu n'as pas d'heure de réveil constante,",
+			"sleepHintLine1": "Si tu n'as pas d'heure de coucher constante,",
+			"hintLine2": "pense simplement aux 1 ou 2 derniers jours."
+		},
+		"idealSchedule": {
+			"title": "Fixons-nous un objectif.",
+			"wakeQuestion": "À quelle heure veux-tu te réveiller ?",
+			"sleepQuestion": "Quelle est ton heure de coucher idéale ?",
+			"wakeHintLine1": "Ton heure de réveil doit être réaliste pour toi.",
+			"wakeHintLine2": "Choisis une heure qui s'intègre au mieux à ton emploi du temps actuel.",
+			"sleepHintLine1": "Pour 8 heures de sommeil, ton heure de coucher doit être avant {time}.",
+			"sleepHintLine2": "N'oublie pas de tenir compte du temps qu'il te faut pour t'endormir."
+		},
+		"melatoninScreening": {
+			"title": "Quelques rapides questions de sécurité.",
+			"over18Question": "As-tu 18 ans ou plus ?",
+			"pregnantQuestion": "Es-tu actuellement enceinte ?",
+			"medicationsQuestion": "Prends-tu actuellement des médicaments sur ordonnance ou d'autres compléments ?",
+			"introHint": "Les chronobiotiques (mélatonine) ne conviennent pas à tout le monde — nous devons juste vérifier quelques points d'abord.",
+			"disqualifiedHint": "Nous laisserons les chronobiotiques en dehors de ton plan — le timing de la lumière vive reste inclus.",
+			"qualifiedHint": "Merci — nous allons inclure des conseils généraux sur les chronobiotiques dans ton plan."
+		}
+	},
+	"plan": {
+		"title": "Choisis tes stratégies fondées sur des preuves.",
+		"bedtime": {
+			"label": "Planification de l'heure de coucher",
+			"text": "est essentielle pour décaler ton horloge circadienne. Cela consiste à avancer ou reculer progressivement ton heure de coucher de 30 minutes par nuit, selon ton objectif."
+		},
+		"light": {
+			"label": "Exposition à la lumière vive",
+			"text": "aide à décaler ton horloge circadienne dans la bonne direction — nous la programmerons le matin ou le soir selon ton plan — et la lumière du matin te donne aussi un coup de fouet de vigilance."
+		},
+		"chronobiotics": {
+			"label": "Chronobiotiques",
+			"text": "utilisent une petite dose de mélatonine, généralement programmée en fonction de ton plan — il s'agit de conseils généraux, pas d'une prescription personnalisée. Consulte un professionnel de santé si tu es enceinte, sous d'autres médicaments, ou si tu as un problème de santé."
+		},
+		"hint": {
+			"line1": "Choisis les stratégies supplémentaires que tu veux utiliser.",
+			"line2": "Tu pourras modifier cela plus tard."
+		},
+		"modal": {
+			"bedtime": {
+				"title": "Planification de l'heure de coucher",
+				"paragraph1": "Décaler ton heure de coucher (et de réveil) de 30 minutes par jour est un rythme prudent — le décalage de phase le plus rapide atteignable avec une combinaison optimalement programmée de lumière, d'horaire et de mélatonine plafonne autour d'1 heure par jour, et les avances sont généralement plus difficiles à obtenir que les retards. Rester à 30 minutes par jour maintient le plan confortablement en dessous de ce plafond, ce qui est la direction où il vaut mieux se tromper.",
+				"paragraph2": "À lui seul, un horaire veille-sommeil prescrit comme celui-ci n'a pas été démontré de façon indépendante comme décalant ton horloge circadienne — les preuves cliniques sont les plus solides pour l'exposition à la lumière. Considère donc cet horaire comme l'échafaudage à travers lequel s'articulent les étapes de lumière vive (et, si activée, de mélatonine), plutôt que comme un traitement en soi."
+			},
+			"light": {
+				"title": "Exposition à la lumière vive",
+				"paragraph1": "La lumière est le levier le mieux étayé par les preuves dans ce plan. La lumière du matin après ton heure de réveil cible aide à décaler ton horloge plus tôt ; la lumière du soir, avant le coucher, aide à la décaler plus tard — nous choisissons la direction automatiquement selon que ton plan est une avance ou un retard.",
+				"paragraph2": "Pour un plan plus précoce (avance), la lumière du matin implique aussi de garder les quelques heures avant le coucher relativement tamisées, car la lumière du soir contrarie le décalage que tu vises. Pour un plan plus tardif (retard), éviter la lumière juste après ton ancienne heure de réveil compte au moins autant que de recevoir de la lumière le soir.",
+				"paragraph3": "Si ton plan vise surtout à obtenir plus d'occasions de dormir plutôt qu'à décaler ton horloge, la lumière du matin reste utile — juste pour la vigilance, pas comme signal de décalage de l'horloge."
+			},
+			"chronobiotics": {
+				"title": "Chronobiotiques",
+				"paragraph1": "Le timing de la mélatonine diffère selon que tu décales ton horaire plus tôt, plus tard, ou que tu as surtout besoin de plus d'occasions de dormir — nous choisissons l'approche générale qui correspond à ton plan.",
+				"paragraph2": "Si ton objectif est surtout de dormir davantage plutôt que de décaler ton horloge, une heure de coucher régulière, une chambre sombre et fraîche, et la réduction de la lumière du matin comptent généralement plus que la mélatonine, c'est pourquoi nous la considérons comme optionnelle dans ce cas.",
+				"paragraph3": "Ce n'est pas une recommandation de dosage personnelle, et cela ne remplace pas une consultation avec un professionnel de santé, surtout si tu es enceinte, sous d'autres médicaments, ou si tu as un problème de santé. Les références complètes sont en attente d'une revue scientifique en cours."
+			}
+		}
+	},
+	"schedulePreview": {
+		"title": "Voici le plan.",
+		"dayWord": {
+			"singular": "jour",
+			"plural": "jours"
+		},
+		"summary": {
+			"delay": "Au cours des {days} prochains {dayWord}, tu vas décaler ton horloge circadienne plus tard, jusqu'à 30 minutes chaque jour. Cela te facilitera de t'endormir plus tard et de te réveiller plus tard. En même temps, un plan prudent t'aidera à maintenir ton niveau d'énergie. Pas de hauts et de bas spectaculaires.",
+			"advance": "Au cours des {days} prochains {dayWord}, tu vas décaler ton horloge circadienne plus tôt, jusqu'à 30 minutes chaque jour. Cela te facilitera de t'endormir plus tôt et de te réveiller plus tôt. En même temps, un plan prudent t'aidera à maintenir ton niveau d'énergie. Pas de hauts et de bas spectaculaires.",
+			"extension": "Au cours des {days} prochains {dayWord}, tu vas ajuster progressivement tes heures de coucher et de réveil, jusqu'à 30 minutes chaque jour. Un plan prudent comme celui-ci t'aide à maintenir ton niveau d'énergie. Pas de hauts et de bas spectaculaires."
+		},
+		"dailyDetails": {
+			"title": "Détails quotidiens",
+			"previousDay": "Jour précédent",
+			"nextDay": "Jour suivant",
+			"goToDay": "Aller au jour {day}",
+			"hint": "Ton rythme de sommeil est planifié par jours. Il est possible d'avoir des heures de coucher fluctuantes. Fais simplement de ton mieux pour t'en tenir à l'heure de réveil.",
+			"inBed": "{duration} au lit"
+		},
+		"calendar": {
+			"title": "Calendrier",
+			"subscribeTitle": "Abonne-toi à ton calendrier",
+			"subscribeDescription": "Saisis ton e-mail pour obtenir un lien de calendrier qui se met à jour automatiquement à mesure que ton plan s'ajuste, plus un point quotidien — si tu as du mal à suivre le plan, les jours suivants seront ajustés automatiquement pour te remettre sur les rails.",
+			"successIntro": "C'est bon. Nous ferons un point avec toi par e-mail chaque jour.",
+			"subscribeCta": "Abonne-toi à ton calendrier :",
+			"openInCalendarApp": "Ouvrir dans l'app Calendrier",
+			"copyLink": "Copier le lien",
+			"copied": "Copié !",
+			"addSubscriptionHint": "Ajoute ceci comme abonnement dans Google/Apple/Outlook Calendar — il se met à jour automatiquement à mesure que ton plan s'ajuste.",
+			"emailLabel": "E-mail",
+			"emailPlaceholder": "toi@exemple.com",
+			"signingUp": "Inscription…",
+			"update": "Mettre à jour",
+			"signupError": "Une erreur s'est produite — vérifie ton e-mail et réessaie.",
+			"preferNotToShare": "Tu préfères ne pas partager ton e-mail ?",
+			"downloadOneTime": "Télécharge un fichier de calendrier ponctuel",
+			"downloadHint": "à la place — il ne se mettra pas à jour automatiquement et n'enverra pas de points quotidiens."
+		}
+	},
+	"checkin": {
+		"question": "As-tu suivi ton plan hier ?",
+		"thanksTitle": "Merci !",
+		"thanksBody": "C'est noté — ton plan a été mis à jour en fonction de ce que tu nous as dit. Tu peux fermer cette page.",
+		"bedtimeQuestion": "À peu près à quelle heure t'es-tu réellement couché ?",
+		"submitting": "Envoi…",
+		"submitAndAdjust": "Envoyer et ajuster mon plan",
+		"error": "Une erreur s'est produite — réessaie."
+	},
+	"unsubscribe": {
+		"notFoundTitle": "Lien introuvable",
+		"notFoundBody": "Ce lien de désabonnement ne correspond à aucun plan actif.",
+		"doneTitle": "Tu es désabonné",
+		"doneBody": "Nous n'enverrons plus d'e-mails de point quotidien pour ce plan. Ton abonnement au calendrier (si tu en utilises un) continuera de fonctionner.",
+		"confirmTitle": "Se désabonner des e-mails de point quotidien ?",
+		"confirmBody": "Tu ne recevras plus les e-mails quotidiens « as-tu suivi ton plan ? ». Ton abonnement au calendrier (si tu en utilises un) continuera de fonctionner.",
+		"cta": "Se désabonner"
+	},
+	"components": {
+		"dayCard": {
+			"dayOf": "Jour {day} sur {total}",
+			"bedtime": "Coucher",
+			"wake": "Réveil",
+			"brightLight": "Lumière vive",
+			"around": "vers {time}",
+			"melatonin": "Mélatonine",
+			"melatoninOptional": "Mélatonine (optionnelle)",
+			"doseRange": "{min}–{max} mg",
+			"sleepOpportunityHint": "Surtout une nuit d'occasion de dormir — une heure de coucher régulière et une chambre sombre et fraîche aident généralement plus que ceci."
+		},
+		"infoModal": {
+			"close": "Fermer"
+		},
+		"timeField": {
+			"hourFirstDigit": "Heure, premier chiffre",
+			"hourSecondDigit": "Heure, deuxième chiffre",
+			"minuteFirstDigit": "Minute, premier chiffre",
+			"minuteSecondDigit": "Minute, deuxième chiffre",
+			"am": "AM",
+			"pm": "PM",
+			"didYouMean": "Voulais-tu dire {time} ?"
+		}
+	},
+	"email": {
+		"checkin": {
+			"subject": "As-tu suivi ton plan hier ?",
+			"question": "As-tu suivi ton plan hier ?",
+			"intro": "Si oui — bien joué, tu n'as rien à faire. Voici le plan d'aujourd'hui :",
+			"bedtimeLine": "Heure de coucher de ce soir : {time}",
+			"bltLine": "Luminothérapie : vers {time}",
+			"melatoninChronobioticLine": "Mélatonine : couramment {minDose}–{maxDose} mg vers {time} — parle à un professionnel de santé de ce qui te convient. {safetyWarning}",
+			"melatoninSleepAidLine": "Aide au sommeil optionnelle (pas une dose de décalage d'horloge) : couramment {minDose}–{maxDose} mg vers {time} si tu le souhaites — une heure de coucher régulière et une chambre sombre et fraîche aident généralement plus. {safetyWarning}",
+			"fellOffTrack": "Si tu as dévié, dis-le-nous pour que nous puissions ajuster le reste de ton plan : {checkinUrl}",
+			"fellOffTrackHtml": "Si tu as dévié, <a href=\"{checkinUrl}\">dis-le-nous</a> pour que nous puissions ajuster le reste de ton plan.",
+			"unsubscribeLine": "Se désabonner de ces e-mails : {unsubscribeUrl}",
+			"unsubscribeLineHtml": "<a href=\"{unsubscribeUrl}\">Se désabonner</a> de ces e-mails."
+		}
+	},
+	"ical": {
+		"calendarName": "Protocole d'intervention",
+		"sleep": {
+			"summary": "Sommeil",
+			"description": "Essaie de dormir pendant cette période ;) Décalage TZ = {offset}"
+		},
+		"blt": {
+			"summary": "Luminothérapie",
+			"delay": "Expose-toi à la lumière vive le soir pour aider à décaler ton horloge circadienne plus tard. Évite la lumière vive après le réveil, jusqu'à ton heure de réveil cible.",
+			"extension": "Expose-toi à la lumière vive peu après le réveil pour la vigilance. Ton plan a surtout besoin de plus d'occasions de dormir plutôt que d'un décalage d'horloge, donc cette étape est optionnelle.",
+			"advance": "Expose-toi à la lumière vive peu après le réveil pour aider à décaler ton horloge circadienne plus tôt. Garde les 2-3 heures avant ton coucher tamisées pour renforcer le décalage."
+		},
+		"melatonin": {
+			"summary": "Mélatonine ({minDose}–{maxDose} mg)",
+			"sleepAid": "C'est surtout une nuit d'occasion de dormir, pas une nuit de décalage d'horloge — une heure de coucher régulière, une chambre sombre et fraîche, et la réduction de la lumière et du bruit le matin aident généralement plus que tout ce que tu peux prendre. Si tu le souhaites quand même, la mélatonine dans une fourchette de {minDose}–{maxDose} mg est parfois utilisée comme aide au sommeil optionnelle vers cette heure — pour s'endormir, pas pour décaler ton horloge. Parle à un professionnel de santé de ce qui te convient. {safetyWarning} {disclaimer}",
+			"delay": "La mélatonine dans une fourchette de {minDose}–{maxDose} mg est couramment utilisée vers cette heure, juste au réveil, pour aider à décaler ton horloge circadienne plus tard (optionnelle — la lumière est le signal le plus fort pour un retard). Évite la lumière vive après le réveil jusqu'à ton heure de réveil cible. Parle à un professionnel de santé de ce qui te convient. {safetyWarning} {disclaimer}",
+			"advance": "La mélatonine dans une fourchette de {minDose}–{maxDose} mg est couramment utilisée vers cette heure pour aider à décaler ton horloge circadienne plus tôt. Garde les lumières tamisées pendant les 2-3 heures suivantes, surtout à l'approche du coucher. Parle à un professionnel de santé de ce qui te convient. {safetyWarning} {disclaimer}",
+			"disclaimer": "Estimation générale, pas un avis médical — consulte un professionnel de santé si tu es enceinte, sous d'autres médicaments, ou si tu as un problème de santé."
+		}
+	}
+}

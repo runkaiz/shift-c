@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { _ } from 'svelte-i18n';
 
 	export let title = '';
 
@@ -48,7 +49,7 @@
 				type="button"
 				class="shrink-0 text-stone-400 hover:text-stone-600"
 				on:click={close}
-				aria-label="Close"
+				aria-label={$_('components.infoModal.close')}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

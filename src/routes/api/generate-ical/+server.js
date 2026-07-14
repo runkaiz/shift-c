@@ -3,9 +3,13 @@ import moment from 'moment/moment';
 import { computeIntervention } from '$lib/schedule';
 import { buildScheduleIcs } from '$lib/ical';
 import { MELATONIN_FEATURE_ENABLED } from '$lib/featureFlags';
+import { DEFAULT_LOCALE, isSupportedLocale } from '$lib/i18n/constants';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
+	const locale = isSupportedLocale(url.searchParams.get('locale'))
+		? url.searchParams.get('locale')
+		: DEFAULT_LOCALE;
 	const n = url.searchParams.get('n');
 	const cWake = url.searchParams.get('cWake');
 	const cSleep = url.searchParams.get('cSleep');
@@ -72,7 +76,7 @@ export async function GET({ url }) {
 		return new Response(null, { status: 204 });
 	}
 
-	const ics = buildScheduleIcs({ uidPrefix: 'adhoc', result, tzOffsetMinutes: tz });
+	const ics = buildScheduleIcs({ uidPrefix: 'adhoc', result, tzOffsetMinutes: tz, locale });
 
 	return new Response(ics, { headers: { 'Content-Type': 'text/calendar;charset=utf-8' } });
 }

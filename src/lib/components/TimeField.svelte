@@ -1,4 +1,6 @@
 <script>
+	import { _ } from 'svelte-i18n';
+
 	export let time = '00:00';
 	export let placeholder = '00:00';
 	// 'wake' | 'bedtime' | null - drives the 12h preview's "unusual for a
@@ -20,7 +22,7 @@
 
 	function formatAmPm(hhmm) {
 		const [h, m] = hhmm.split(':').map(Number);
-		const period = h < 12 ? 'AM' : 'PM';
+		const period = h < 12 ? $_('components.timeField.am') : $_('components.timeField.pm');
 		const h12 = h % 12 === 0 ? 12 : h % 12;
 		return `${h12}:${String(m).padStart(2, '0')} ${period}`;
 	}
@@ -43,7 +45,11 @@
 	}
 
 	$: isValidTime = timeValidRegex.test(time);
-	$: period = isValidTime ? (Number(time.split(':')[0]) < 12 ? 'AM' : 'PM') : '';
+	$: period = isValidTime
+		? Number(time.split(':')[0]) < 12
+			? $_('components.timeField.am')
+			: $_('components.timeField.pm')
+		: '';
 	$: unusualRange = kind ? UNUSUAL_HOUR_RANGES[kind] : null;
 	$: isUnusual =
 		isValidTime &&
@@ -55,26 +61,31 @@
 	// can show a brief, non-disruptive invalid cue on just that input.
 	let invalidInputId = null;
 
-	const segments = [
+	$: segments = [
 		{
 			id: 'goal-bedtime-hour-1',
 			charIndex: 0,
 			nextId: 'goal-bedtime-hour-2',
-			label: 'Hour, first digit'
+			label: $_('components.timeField.hourFirstDigit')
 		},
 		{
 			id: 'goal-bedtime-hour-2',
 			charIndex: 1,
 			nextId: 'goal-bedtime-minute-1',
-			label: 'Hour, second digit'
+			label: $_('components.timeField.hourSecondDigit')
 		},
 		{
 			id: 'goal-bedtime-minute-1',
 			charIndex: 3,
 			nextId: 'goal-bedtime-minute-2',
-			label: 'Minute, first digit'
+			label: $_('components.timeField.minuteFirstDigit')
 		},
-		{ id: 'goal-bedtime-minute-2', charIndex: 4, nextId: null, label: 'Minute, second digit' }
+		{
+			id: 'goal-bedtime-minute-2',
+			charIndex: 4,
+			nextId: null,
+			label: $_('components.timeField.minuteSecondDigit')
+		}
 	];
 
 	function flagInvalid(id) {
@@ -147,10 +158,9 @@
 	<p class="mt-2 text-sm text-stone-400 text-center">{period}</p>
 	{#if isUnusual}
 		<p class="mt-1 text-sm text-amber-600 text-center">
-			did you mean
 			<button type="button" class="underline underline-offset-2 font-medium" on:click={applyFlip}>
-				{formatAmPm(flip12h(time))}</button
-			>?
+				{$_('components.timeField.didYouMean', { values: { time: formatAmPm(flip12h(time)) } })}
+			</button>
 		</p>
 	{/if}
 {/if}

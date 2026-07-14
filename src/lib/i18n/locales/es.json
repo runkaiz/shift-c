@@ -1,0 +1,234 @@
+{
+	"common": {
+		"learnMore": "Más información",
+		"next": "Siguiente",
+		"no": "No",
+		"yes": "Sí"
+	},
+	"nav": {
+		"languageSwitcher": {
+			"label": "Cambiar idioma"
+		}
+	},
+	"melatonin": {
+		"safetyWarning": "La melatonina puede provocar somnolencia; evita conducir o manejar maquinaria durante unas horas después de tomarla."
+	},
+	"landing": {
+		"hero": {
+			"greeting": "Hola, noctámbulo.",
+			"prompt": "¿Listo para un cambio?",
+			"description": "Existe una forma basada en la evidencia de desplazar tu ritmo circadiano, para que puedas dormirte y despertarte más temprano sin sufrir.",
+			"cta": "Empezar"
+		}
+	},
+	"learn": {
+		"layout": {
+			"continue": "Continuar"
+		},
+		"circadian": {
+			"title": "Tu ritmo circadiano.",
+			"intro": "La clave para dominar tu horario de sueño (o el jet lag) es entender que tu ritmo circadiano es... ¡en realidad dos cosas! Trabajan juntas para darte sueño o quitártelo.",
+			"biologicalClock": "Tu reloj biológico. Si la hora a la que te duermes y te despiertas es relativamente constante, tu reloj biológico hará que te sientas más o menos alerta de forma predecible. Si sueles despertarte a las 7:00 a. m. y dormirte a las 10:00 p. m., tu reloj biológico hará que te sientas alerta alrededor de las 7:00 a. m. y menos alerta alrededor de las 10:00 p. m. Pero tu reloj biológico por sí solo normalmente no puede dormirte. También vas a necesitar tu presión de sueño.",
+			"sleepPressure": "Tu presión de sueño se acumula a medida que pasas más tiempo despierto. Normalmente, empezamos a sentirnos cansados después de estar despiertos durante 16 horas seguidas. La presión de sueño es como una batería que se agota. Por eso, después de una noche larga y de dormir hasta tarde, puede que sientas que no puedes dormirte a tu hora habitual. No has estado despierto el tiempo suficiente para acumular tu presión de sueño, así que una bajada de alerta no basta para dormirte. Es difícil dormirse cuando aún tienes el 50 % de tu batería.",
+			"batteryAnalogy": "Así que tu presión de sueño y tu reloj biológico funcionan un poco como una batería y un cargador. Para apagarte, necesitas tener la batería casi vacía y el cargador desenchufado. Tu reloj biológico controla el momento de tirar del enchufe, pero solo te da una pequeña ventana de tiempo antes de empezar a cargar de nuevo durante tu horario de sueño habitual. Por eso tiendes a sentirte menos somnoliento a medida que pasa tu hora habitual de dormir (al menos por un rato).",
+			"adjustment": "Mmm... Pero ¿qué pasa si empiezas a despertarte a las 11:00 a. m. y a dormirte a las 3:00 a. m.? Tu reloj biológico se ajustará para que te sientas alerta alrededor de las 11:00 a. m. y con sueño alrededor de las 3:00 a. m. Realmente no le importa la hora objetiva del día. Todo gira en torno a tu hora personal del día. Por eso, después de un tiempo, notarás que cuesta volver a dormirte a las 11 p. m.; tu reloj biológico piensa que las 11 p. m. son apenas el comienzo de tu noche. ¡Hora de fiEsTa!"
+		}
+	},
+	"survey": {
+		"start": {
+			"title": "Tu ciclo de sueño y vigilia está gobernado por dos fuerzas.",
+			"pressure": {
+				"label": "Tu presión de sueño",
+				"text": "se acumula a medida que pasas más tiempo despierto. Cuanto más tiempo estés despierto, más sueño sentirás."
+			},
+			"clock": {
+				"label": "Tu reloj biológico",
+				"text": "te hace estar más alerta alrededor de la hora en que sueles despertarte, y menos alerta alrededor de tu hora de dormir."
+			},
+			"explanationLine1": "Para establecer un nuevo horario de sueño, tenemos que planificar para ambos,",
+			"explanationLine2": "así la transición te resultará más fácil.",
+			"letsDoThis": "Manos a la obra"
+		},
+		"currentSchedule": {
+			"title": "¿Y ahora mismo?",
+			"wakeQuestion": "¿A qué hora sueles despertarte?",
+			"sleepQuestion": "¿A qué hora sueles dormirte?",
+			"wakeHintLine1": "Si no tienes una hora de despertar constante,",
+			"sleepHintLine1": "Si no tienes una hora de dormir constante,",
+			"hintLine2": "solo piensa en los últimos 1 o 2 días."
+		},
+		"idealSchedule": {
+			"title": "Fijemos una meta.",
+			"wakeQuestion": "¿A qué hora quieres despertarte?",
+			"sleepQuestion": "¿Cuál es tu hora ideal para dormir?",
+			"wakeHintLine1": "Tu hora de despertar debería ser factible para ti.",
+			"wakeHintLine2": "Elige una hora que encaje mejor con tu horario actual.",
+			"sleepHintLine1": "Para dormir 8 horas, tu hora de dormir debería ser antes de las {time}.",
+			"sleepHintLine2": "Asegúrate de tener en cuenta el tiempo que necesitas para quedarte dormido."
+		},
+		"melatoninScreening": {
+			"title": "Un par de preguntas rápidas de seguridad.",
+			"over18Question": "¿Tienes 18 años o más?",
+			"pregnantQuestion": "¿Estás embarazada actualmente?",
+			"medicationsQuestion": "¿Estás tomando actualmente algún medicamento con receta u otros suplementos?",
+			"introHint": "Los cronobióticos (la melatonina) no son adecuados para todo el mundo; solo necesitamos comprobar algunas cosas primero.",
+			"disqualifiedHint": "Dejaremos los cronobióticos fuera de tu plan; el uso de la luz brillante sigue incluido.",
+			"qualifiedHint": "Gracias; incluiremos orientación general sobre cronobióticos en tu plan."
+		}
+	},
+	"plan": {
+		"title": "Elige tus estrategias basadas en la evidencia.",
+		"bedtime": {
+			"label": "Planificación de la hora de dormir",
+			"text": "es esencial para desplazar tu reloj circadiano. Consiste en mover gradualmente tu hora de dormir 30 minutos por noche, antes o después según tu meta."
+		},
+		"light": {
+			"label": "Exposición a la luz brillante",
+			"text": "ayuda a desplazar tu reloj circadiano en la dirección correcta; la programaremos para la mañana o la noche según tu plan, y la luz matutina también te da un impulso de alerta."
+		},
+		"chronobiotics": {
+			"label": "Cronobióticos",
+			"text": "usan una pequeña dosis de melatonina, generalmente programada en torno a tu plan; esto es orientación general, no una receta personalizada. Consulta con un profesional de la salud si estás embarazada, tomas otros medicamentos o tienes una condición de salud."
+		},
+		"hint": {
+			"line1": "Elige estrategias adicionales que quieras usar.",
+			"line2": "Puedes cambiar esto más tarde."
+		},
+		"modal": {
+			"bedtime": {
+				"title": "Planificación de la hora de dormir",
+				"paragraph1": "Mover tu hora de dormir (y de despertar) 30 minutos al día es un ritmo conservador; el desplazamiento de fase más rápido que se puede lograr con una combinación óptimamente programada de luz, horario y melatonina alcanza como máximo alrededor de 1 hora al día, y los adelantos suelen ser más difíciles de lograr que los retrasos. Mantenerte en 30 minutos al día conserva el plan cómodamente por debajo de ese límite, que es la dirección más segura hacia la que inclinarse.",
+				"paragraph2": "Por sí solo, un horario de sueño y vigilia prescrito como este no ha demostrado de forma independiente desplazar tu reloj circadiano; la evidencia clínica es más sólida para la exposición a la luz. Así que piensa en este horario como la estructura a través de la cual actúan los pasos de la luz brillante (y, si está activada, la melatonina), en lugar de un tratamiento por sí mismo."
+			},
+			"light": {
+				"title": "Exposición a la luz brillante",
+				"paragraph1": "La luz es la palanca con mejor evidencia de este plan. La luz matutina, después de tu hora objetivo de despertar, ayuda a adelantar tu reloj; la luz por la noche, antes de dormir, ayuda a retrasarlo; elegimos la dirección automáticamente según si tu plan es un adelanto o un retraso.",
+				"paragraph2": "Para un plan más temprano (adelanto), la luz matutina también significa mantener relativamente tenue las pocas horas antes de dormir, ya que la luz de la noche va en contra del desplazamiento que buscas. Para un plan más tardío (retraso), evitar la luz justo después de tu antigua hora de despertar importa al menos tanto como recibir luz por la noche.",
+				"paragraph3": "Si tu plan trata principalmente de conseguir más oportunidad de sueño en lugar de desplazar tu reloj, la luz matutina sigue siendo útil, solo que para la alerta, no como señal para desplazar el reloj."
+			},
+			"chronobiotics": {
+				"title": "Cronobióticos",
+				"paragraph1": "La programación de la melatonina difiere según si estás desplazando tu horario más temprano, más tarde, o si principalmente necesitas más oportunidad de sueño; elegimos el enfoque general que coincide con tu plan.",
+				"paragraph2": "Si tu meta es principalmente dormir más en lugar de desplazar el reloj, una hora de dormir constante, una habitación oscura y fresca, y reducir la luz y el ruido de la mañana suelen importar más que la melatonina, por eso la tratamos como opcional en ese caso.",
+				"paragraph3": "Esto no es una recomendación de dosis personal, ni sustituye hablar con un profesional de la salud, especialmente si estás embarazada, tomas otros medicamentos o tienes una condición de salud. Las citas completas están pendientes de una revisión científica en curso."
+			}
+		}
+	},
+	"schedulePreview": {
+		"title": "Aquí está el plan.",
+		"dayWord": {
+			"singular": "día",
+			"plural": "días"
+		},
+		"summary": {
+			"delay": "Durante los próximos {days} {dayWord}, desplazarás tu reloj circadiano más tarde hasta 30 minutos cada día. Esto hará que te resulte más fácil dormirte más tarde y despertarte más tarde. Al mismo tiempo, un plan conservador te ayudará a mantener tu nivel de energía. Sin altibajos drásticos.",
+			"advance": "Durante los próximos {days} {dayWord}, desplazarás tu reloj circadiano más temprano hasta 30 minutos cada día. Esto hará que te resulte más fácil dormirte más temprano y despertarte más temprano. Al mismo tiempo, un plan conservador te ayudará a mantener tu nivel de energía. Sin altibajos drásticos.",
+			"extension": "Durante los próximos {days} {dayWord}, ajustarás gradualmente tus horas de sueño y despertar hasta 30 minutos cada día. Un plan conservador como este te ayuda a mantener tu nivel de energía. Sin altibajos drásticos."
+		},
+		"dailyDetails": {
+			"title": "Detalles diarios",
+			"previousDay": "Día anterior",
+			"nextDay": "Día siguiente",
+			"goToDay": "Ir al día {day}",
+			"hint": "Tu horario de sueño está planificado por días. Es posible que las horas de dormir fluctúen. Solo haz tu mejor esfuerzo por respetar la hora de despertar.",
+			"inBed": "{duration} en la cama"
+		},
+		"calendar": {
+			"title": "Calendario",
+			"subscribeTitle": "Suscríbete a tu calendario",
+			"subscribeDescription": "Introduce tu correo electrónico para obtener un enlace de calendario que se actualiza automáticamente a medida que tu plan se ajusta, además de un registro diario; si te resulta difícil seguir el plan, los días siguientes se ajustarán automáticamente para volver a encaminarte.",
+			"successIntro": "Todo listo. Nos pondremos en contacto contigo por correo electrónico cada día.",
+			"subscribeCta": "Suscríbete a tu calendario:",
+			"openInCalendarApp": "Abrir en la app de Calendario",
+			"copyLink": "Copiar enlace",
+			"copied": "¡Copiado!",
+			"addSubscriptionHint": "Añade esto como una suscripción en Google/Apple/Outlook Calendar; se actualiza automáticamente a medida que tu plan se ajusta.",
+			"emailLabel": "Correo electrónico",
+			"emailPlaceholder": "tu@ejemplo.com",
+			"signingUp": "Registrando…",
+			"update": "Actualizar",
+			"signupError": "Algo salió mal; revisa tu correo electrónico e inténtalo de nuevo.",
+			"preferNotToShare": "¿Prefieres no compartir tu correo electrónico?",
+			"downloadOneTime": "Descarga un archivo de calendario de una sola vez",
+			"downloadHint": "en su lugar; no se actualizará automáticamente ni enviará registros."
+		}
+	},
+	"checkin": {
+		"question": "¿Seguiste tu plan ayer?",
+		"thanksTitle": "¡Gracias!",
+		"thanksBody": "Entendido; tu plan se ha actualizado según lo que nos contaste. Puedes cerrar esta página.",
+		"bedtimeQuestion": "¿A qué hora te acostaste realmente, más o menos?",
+		"submitting": "Enviando…",
+		"submitAndAdjust": "Enviar y ajustar mi plan",
+		"error": "Algo salió mal; inténtalo de nuevo."
+	},
+	"unsubscribe": {
+		"notFoundTitle": "Enlace no encontrado",
+		"notFoundBody": "Este enlace para cancelar la suscripción no coincide con un plan activo.",
+		"doneTitle": "Has cancelado la suscripción",
+		"doneBody": "No enviaremos más correos de registro diario para este plan. Tu suscripción al calendario (si estás usando una) seguirá funcionando.",
+		"confirmTitle": "¿Cancelar la suscripción a los correos de registro diario?",
+		"confirmBody": "Dejarás de recibir los correos diarios de «¿seguiste tu plan?». Tu suscripción al calendario (si estás usando una) seguirá funcionando.",
+		"cta": "Cancelar suscripción"
+	},
+	"components": {
+		"dayCard": {
+			"dayOf": "Día {day} de {total}",
+			"bedtime": "Hora de dormir",
+			"wake": "Despertar",
+			"brightLight": "Luz brillante",
+			"around": "alrededor de las {time}",
+			"melatonin": "Melatonina",
+			"melatoninOptional": "Melatonina (opcional)",
+			"doseRange": "{min}–{max} mg",
+			"sleepOpportunityHint": "Principalmente una noche de oportunidad de sueño; una hora de dormir constante y una habitación oscura y fresca suelen ayudar más que esto."
+		},
+		"infoModal": {
+			"close": "Cerrar"
+		},
+		"timeField": {
+			"hourFirstDigit": "Hora, primer dígito",
+			"hourSecondDigit": "Hora, segundo dígito",
+			"minuteFirstDigit": "Minuto, primer dígito",
+			"minuteSecondDigit": "Minuto, segundo dígito",
+			"am": "a. m.",
+			"pm": "p. m.",
+			"didYouMean": "¿Quisiste decir {time}?"
+		}
+	},
+	"email": {
+		"checkin": {
+			"subject": "¿Seguiste tu plan ayer?",
+			"question": "¿Seguiste tu plan ayer?",
+			"intro": "Si es así, buen trabajo, no necesitas hacer nada. Aquí está el plan de hoy:",
+			"bedtimeLine": "Hora de dormir de esta noche: {time}",
+			"bltLine": "Terapia de luz brillante: alrededor de las {time}",
+			"melatoninChronobioticLine": "Melatonina: comúnmente {minDose}–{maxDose} mg alrededor de las {time}; habla con un profesional de la salud sobre lo que es adecuado para ti. {safetyWarning}",
+			"melatoninSleepAidLine": "Ayuda para dormir opcional (no una dosis para desplazar el reloj): comúnmente {minDose}–{maxDose} mg alrededor de las {time} si la quieres; una hora de dormir constante y una habitación oscura y fresca suelen ayudar más. {safetyWarning}",
+			"fellOffTrack": "Si te desviaste del plan, avísanos para que podamos ajustar el resto de tu plan: {checkinUrl}",
+			"fellOffTrackHtml": "Si te desviaste del plan, <a href=\"{checkinUrl}\">avísanos</a> para que podamos ajustar el resto de tu plan.",
+			"unsubscribeLine": "Cancela la suscripción a estos correos: {unsubscribeUrl}",
+			"unsubscribeLineHtml": "<a href=\"{unsubscribeUrl}\">Cancela la suscripción</a> a estos correos."
+		}
+	},
+	"ical": {
+		"calendarName": "Protocolo de intervención",
+		"sleep": {
+			"summary": "Sueño",
+			"description": "Por favor, intenta dormir durante este tiempo ;) Desfase de zona horaria = {offset}"
+		},
+		"blt": {
+			"summary": "Terapia de luz brillante",
+			"delay": "Recibe algo de exposición a la luz brillante por la noche para ayudar a retrasar tu reloj circadiano. Evita la luz brillante después de despertarte, hasta tu hora objetivo de despertar.",
+			"extension": "Recibe algo de exposición a la luz brillante poco después de despertarte para la alerta. Tu plan necesita principalmente más oportunidad de sueño en lugar de un desplazamiento del reloj, así que este paso es opcional.",
+			"advance": "Recibe algo de exposición a la luz brillante poco después de despertarte para ayudar a adelantar tu reloj circadiano. Mantén tenues las 2-3 horas antes de dormir para reforzar el desplazamiento."
+		},
+		"melatonin": {
+			"summary": "Melatonina ({minDose}–{maxDose} mg)",
+			"sleepAid": "Esta es principalmente una noche de oportunidad de sueño, no una noche para desplazar el reloj; una hora de dormir constante, una habitación oscura y fresca, y reducir la luz y el ruido de la mañana suelen ayudar más que cualquier cosa que tomes. Si aun así la quieres, a veces se usa melatonina en el rango de {minDose}–{maxDose} mg como ayuda opcional para dormir alrededor de esta hora, para conciliar el sueño, no para desplazar tu reloj. Habla con un profesional de la salud sobre lo que es adecuado para ti. {safetyWarning} {disclaimer}",
+			"delay": "La melatonina en el rango de {minDose}–{maxDose} mg se usa comúnmente alrededor de esta hora, justo al despertar, para ayudar a retrasar tu reloj circadiano (opcional; la luz es la señal más fuerte para un retraso). Evita la luz brillante después de despertarte hasta tu hora objetivo de despertar. Habla con un profesional de la salud sobre lo que es adecuado para ti. {safetyWarning} {disclaimer}",
+			"advance": "La melatonina en el rango de {minDose}–{maxDose} mg se usa comúnmente alrededor de esta hora para ayudar a adelantar tu reloj circadiano. Mantén las luces tenues durante las próximas 2-3 horas, especialmente cerca de la hora de dormir. Habla con un profesional de la salud sobre lo que es adecuado para ti. {safetyWarning} {disclaimer}",
+			"disclaimer": "Estimación general, no consejo médico; consulta con un profesional de la salud si estás embarazada, tomas otros medicamentos o tienes una condición de salud."
+		}
+	}
+}

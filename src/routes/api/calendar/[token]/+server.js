@@ -3,6 +3,7 @@ import moment from 'moment/moment';
 import { computeIntervention } from '$lib/schedule';
 import { buildScheduleIcs, buildIcs } from '$lib/ical';
 import { MELATONIN_FEATURE_ENABLED } from '$lib/featureFlags';
+import { t } from '$lib/i18n/server';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, platform }) {
@@ -38,10 +39,10 @@ export async function GET({ params, platform }) {
 		const tzOffsetMinutes = moment().utcOffset() - plan.utc_offset_minutes;
 
 		ics = result.changed
-			? buildScheduleIcs({ uidPrefix: token, result, tzOffsetMinutes })
-			: buildIcs({ name: 'Intervention Protocol', events: [] });
+			? buildScheduleIcs({ uidPrefix: token, result, tzOffsetMinutes, locale: plan.locale })
+			: buildIcs({ name: t(plan.locale, 'ical.calendarName'), events: [] });
 	} catch {
-		ics = buildIcs({ name: 'Intervention Protocol', events: [] });
+		ics = buildIcs({ name: t(plan.locale, 'ical.calendarName'), events: [] });
 	}
 
 	return new Response(ics, {

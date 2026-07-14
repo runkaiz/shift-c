@@ -6,45 +6,57 @@
 // rest of the check-in flow can be developed/verified without live
 // credentials.
 
-import { MELATONIN_SAFETY_WARNING } from '../melatonin';
+import { melatoninSafetyWarning } from '../melatonin';
+import { t } from '../i18n/server';
 
 function formatTime(momentInstance) {
 	return momentInstance.format('h:mm A');
 }
 
-function buildBody({ today, checkinUrl, unsubscribeUrl }) {
-	const bedtimeLine = `Tonight's bedtime: ${formatTime(today.sleep)}`;
+function buildBody({ today, checkinUrl, unsubscribeUrl, locale }) {
+	const safetyWarning = melatoninSafetyWarning(locale);
+	const bedtimeLine = t(locale, 'email.checkin.bedtimeLine', { time: formatTime(today.sleep) });
 	const [minDose, maxDose] = today.melatonin?.doseRangeMg ?? [];
 	const melatoninLine = today.melatonin
 		? today.melatonin.chronobiotic
-			? `Melatonin: commonly ${minDose}–${maxDose} mg around ${formatTime(
-					today.melatonin.time
-			  )} — talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING}`
-			: `Optional sleep aid (not a clock-shift dose): commonly ${minDose}–${maxDose} mg around ${formatTime(
-					today.melatonin.time
-			  )} if you want it — a consistent bedtime and a dark, cool room usually help more. ${MELATONIN_SAFETY_WARNING}`
+			? t(locale, 'email.checkin.melatoninChronobioticLine', {
+					minDose,
+					maxDose,
+					time: formatTime(today.melatonin.time),
+					safetyWarning
+			  })
+			: t(locale, 'email.checkin.melatoninSleepAidLine', {
+					minDose,
+					maxDose,
+					time: formatTime(today.melatonin.time),
+					safetyWarning
+			  })
 		: null;
-	const bltLine = today.blt ? `Bright light therapy: around ${formatTime(today.blt)}` : null;
+	const bltLine = today.blt
+		? t(locale, 'email.checkin.bltLine', { time: formatTime(today.blt) })
+		: null;
 
 	const reminderLines = [bedtimeLine, bltLine, melatoninLine].filter(Boolean);
 
 	const text = [
-		'Did you stick with your plan yesterday?',
+		t(locale, 'email.checkin.question'),
 		'',
-		`If yes — nice work, no need to do anything. Here's today's plan:`,
+		t(locale, 'email.checkin.intro'),
 		...reminderLines.map((line) => `- ${line}`),
 		'',
-		`If you fell off track, let us know so we can adjust the rest of your plan: ${checkinUrl}`,
+		t(locale, 'email.checkin.fellOffTrack', { checkinUrl }),
 		'',
-		`Unsubscribe from these emails: ${unsubscribeUrl}`
+		t(locale, 'email.checkin.unsubscribeLine', { unsubscribeUrl })
 	].join('\n');
 
 	const html = `
-		<p>Did you stick with your plan yesterday?</p>
-		<p>If yes — nice work, no need to do anything. Here's today's plan:</p>
+		<p>${t(locale, 'email.checkin.question')}</p>
+		<p>${t(locale, 'email.checkin.intro')}</p>
 		<ul>${reminderLines.map((line) => `<li>${line}</li>`).join('')}</ul>
-		<p>If you fell off track, <a href="${checkinUrl}">let us know</a> so we can adjust the rest of your plan.</p>
-		<p style="color:#888;font-size:12px;"><a href="${unsubscribeUrl}">Unsubscribe</a> from these emails.</p>
+		<p>${t(locale, 'email.checkin.fellOffTrackHtml', { checkinUrl })}</p>
+		<p style="color:#888;font-size:12px;">${t(locale, 'email.checkin.unsubscribeLineHtml', {
+			unsubscribeUrl
+		})}</p>
 	`.trim();
 
 	return { text, html };
@@ -57,10 +69,11 @@ function buildBody({ today, checkinUrl, unsubscribeUrl }) {
  * @param {{ sleep: moment.Moment, wake: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseRangeMg: [number, number], chronobiotic: boolean}|null }} params.today
  * @param {string} params.checkinUrl
  * @param {string} params.unsubscribeUrl
+ * @param {string} params.locale
  */
-export async function sendCheckInEmail(env, { to, today, checkinUrl, unsubscribeUrl }) {
-	const subject = 'Did you stick with your plan yesterday?';
-	const { text, html } = buildBody({ today, checkinUrl, unsubscribeUrl });
+export async function sendCheckInEmail(env, { to, today, checkinUrl, unsubscribeUrl, locale }) {
+	const subject = t(locale, 'email.checkin.subject');
+	const { text, html } = buildBody({ today, checkinUrl, unsubscribeUrl, locale });
 
 	if (env.DRY_RUN_EMAIL === '1' || !env.EMAIL) {
 		console.log('[DRY_RUN_EMAIL] would send:', { to, subject, text });

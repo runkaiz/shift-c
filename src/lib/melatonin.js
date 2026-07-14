@@ -1,5 +1,7 @@
 import moment from 'moment/moment';
 
+import { t } from './i18n/server';
+
 // Dosing/timing defaults derived from the melatonin PRC literature (Burgess,
 // Revell & Eastman 2008/2010; see the science note this module implements).
 // Kept as named constants rather than inlined so the source numbers are easy
@@ -41,8 +43,9 @@ export const EVENING_LIGHT_OFFSET_MINUTES = 90;
 // constant rather than per-regime copy. See science note §7 (screen-first,
 // don't just append a footnote) — this pairs with the screening gate, it
 // doesn't replace it.
-export const MELATONIN_SAFETY_WARNING =
-	'Melatonin can cause drowsiness — avoid driving or operating machinery for a few hours after taking it.';
+export function melatoninSafetyWarning(locale) {
+	return t(locale, 'melatonin.safetyWarning');
+}
 
 // wakeShiftMinutes/sleepShiftMinutes arrive here already independently
 // folded by the caller (schedule.js's WRAPAROUND_THRESHOLD_HOURS) into

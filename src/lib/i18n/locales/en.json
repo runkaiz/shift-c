@@ -1,0 +1,234 @@
+{
+	"common": {
+		"learnMore": "Learn more",
+		"next": "Next",
+		"no": "No",
+		"yes": "Yes"
+	},
+	"nav": {
+		"languageSwitcher": {
+			"label": "Change language"
+		}
+	},
+	"melatonin": {
+		"safetyWarning": "Melatonin can cause drowsiness — avoid driving or operating machinery for a few hours after taking it."
+	},
+	"landing": {
+		"hero": {
+			"greeting": "Hey, night owl.",
+			"prompt": "Ready for a change?",
+			"description": "There's an evidence-based way to shift your circadian rhythm, so you can go to sleep and wake up earlier without the struggle.",
+			"cta": "Get started"
+		}
+	},
+	"learn": {
+		"layout": {
+			"continue": "Continue"
+		},
+		"circadian": {
+			"title": "Your circadian rhythm.",
+			"intro": "The key to mastering your sleep schedule (or jet lag) is understanding that your circadian rhythm is... actually two things! They work together to make you sleepy or sleepless.",
+			"biologicalClock": "Your biological clock. If the time you go to sleep and wake up is relatively consistent, your biological clock will make you feel more or less alert in a predictable way. If you usually wake up at 7:00 am and go to sleep at 10:00 pm, your biological clock will make you feel alert around 7:00 am and less alert around 10:00 pm. But your biological clock alone usually can't put you to sleep. You will need your sleep pressure too.",
+			"sleepPressure": "Your sleep pressure builds up as you spend more time being awake. Usually, we start to feel tired after staying awake for 16 consecutive hours. Sleep pressure is kind of like a battery that runs out. This is why after a late night and sleep-in, you might feel like you can't fall asleep at your usual bedtime. You haven't been awake for a long enough time to build up your sleep pressure, so a dip in alertness isn't enough to put you asleep. It's hard to fall asleep when you still have 50% of your battery left.",
+			"batteryAnalogy": "So, your sleep pressure and your biological clock work kind of like a battery and a charger. For you to power off, you need to have a near-empty battery and the charger unplugged. Your biological clock controls the time to pull the plug, but it only gives your a small time window before starting to charge again over your usual sleep time. This is why you tend to feel less sleepy as you pass your usual bedtime (at least for a while).",
+			"adjustment": "Hmmm... But what if you start waking up at 11:00 am and going to sleep at 3:00 am? Your biological clock will adjust to make you feel alert around 11:00 am and sleepy around 3:00 am. It really doesn't care about the objective time of day. It's all about your personal time of day. That's why after a while, you'll notice it's tough to fall asleep at 11 pm again; biological clock thinks 11 pm is just the beginning of your evening. Time to pArTay!"
+		}
+	},
+	"survey": {
+		"start": {
+			"title": "Your sleep-wake cycle is governed by two forces.",
+			"pressure": {
+				"label": "Your sleep pressure",
+				"text": "builds up as you spend more time awake. The longer you stay awake, the sleepier you feel."
+			},
+			"clock": {
+				"label": "Your biological clock",
+				"text": "makes you more alert around the time you usually wake up, and less alert around your bedtime."
+			},
+			"explanationLine1": "To establish a new sleep schedule, we need to plan for both,",
+			"explanationLine2": "so the transition will be easier for you.",
+			"letsDoThis": "Let's do this"
+		},
+		"currentSchedule": {
+			"title": "What about right now?",
+			"wakeQuestion": "When do you usually wake up?",
+			"sleepQuestion": "When do you usually go to sleep?",
+			"wakeHintLine1": "If you do not have a consistent wake-up time,",
+			"sleepHintLine1": "If you do not have a consistent bed time,",
+			"hintLine2": "just think about the last 1 or 2 days."
+		},
+		"idealSchedule": {
+			"title": "Let's set a goal.",
+			"wakeQuestion": "When do you want to wake up?",
+			"sleepQuestion": "What's your ideal bedtime?",
+			"wakeHintLine1": "Your wakeup time should be feasible for you.",
+			"wakeHintLine2": "Pick a time that can best fit your existing schedule.",
+			"sleepHintLine1": "For 8 hours of sleep, your bedtime should be earlier than {time}.",
+			"sleepHintLine2": "Be sure to consider the time you need to fall asleep."
+		},
+		"melatoninScreening": {
+			"title": "A couple of quick safety questions.",
+			"over18Question": "Are you 18 or older?",
+			"pregnantQuestion": "Are you currently pregnant?",
+			"medicationsQuestion": "Are you currently taking any prescription medications or other supplements?",
+			"introHint": "Chronobiotics (melatonin) aren't right for everyone — we just need to check a few things first.",
+			"disqualifiedHint": "We'll leave chronobiotics out of your plan — bright light timing is still included.",
+			"qualifiedHint": "Thanks — we'll go ahead and include general chronobiotic guidance in your plan."
+		}
+	},
+	"plan": {
+		"title": "Pick your evidence-based strategies.",
+		"bedtime": {
+			"label": "Bed time planning",
+			"text": "is essential for shifting your circadian clock. It means gradually moving your bedtime by 30 minutes a night, earlier or later depending on your goal."
+		},
+		"light": {
+			"label": "Bright light exposure",
+			"text": "helps shift your circadian clock in the right direction — we'll time it for morning or evening based on your plan — and morning light also gives you a boost of alertness."
+		},
+		"chronobiotics": {
+			"label": "Chronobiotics",
+			"text": "use a small dose of melatonin, generally timed around your plan — this is general guidance, not a personalized prescription. Check with a clinician if you're pregnant, on other medications, or have a health condition."
+		},
+		"hint": {
+			"line1": "Pick additional strategies you want to use.",
+			"line2": "You can change this later."
+		},
+		"modal": {
+			"bedtime": {
+				"title": "Bed time planning",
+				"paragraph1": "Moving your bedtime (and wake time) by 30 minutes a day is a conservative pace — the fastest phase shift achievable with an optimally-timed combination of light, schedule, and melatonin tops out around 1 hour a day, and advances are generally harder to achieve than delays. Staying at 30 minutes a day keeps the plan comfortably inside that ceiling, which is the safer direction to err.",
+				"paragraph2": "On its own, a prescribed sleep/wake schedule like this one hasn't been independently shown to shift your circadian clock — the clinical evidence is strongest for light exposure. So think of this schedule as the scaffold that the bright light (and, if enabled, melatonin) steps work through, rather than a treatment by itself."
+			},
+			"light": {
+				"title": "Bright light exposure",
+				"paragraph1": "Light is the best-evidenced lever in this plan. Morning light after your target wake time helps shift your clock earlier; light in the evening, before bedtime, helps shift it later — we pick the direction automatically based on whether your plan is an advance or a delay.",
+				"paragraph2": "For an earlier (advance) plan, morning light also means keeping the few hours before bedtime relatively dim, since evening light works against the shift you're going for. For a later (delay) plan, avoiding light right after your old wake time matters at least as much as getting evening light.",
+				"paragraph3": "If your plan is mainly about getting more sleep opportunity rather than shifting your clock, morning light is still useful — just for alertness, not as a clock-shifting signal."
+			},
+			"chronobiotics": {
+				"title": "Chronobiotics",
+				"paragraph1": "Melatonin timing differs depending on whether you're shifting your schedule earlier, later, or mainly need more sleep opportunity — we pick the general approach that matches your plan.",
+				"paragraph2": "If your goal is mainly more sleep rather than a clock shift, a consistent bedtime, a dark and cool room, and cutting morning light/noise usually matter more than melatonin does, which is why we treat it as optional in that case.",
+				"paragraph3": "This isn't a personal dosing recommendation, and it isn't a substitute for talking to a clinician, especially if you're pregnant, on other medications, or have a health condition. Full citations are pending an in-progress science review."
+			}
+		}
+	},
+	"schedulePreview": {
+		"title": "Here's the plan.",
+		"dayWord": {
+			"singular": "day",
+			"plural": "days"
+		},
+		"summary": {
+			"delay": "Over the next {days} {dayWord}, you will be shifting your circadian clock later by up to 30 minutes each day. This will be easier for you to go to sleep later and wake up later. At the same time, a conservative plan will help you to maintain your energy level. No dramatic ups and downs.",
+			"advance": "Over the next {days} {dayWord}, you will be shifting your circadian clock earlier by up to 30 minutes each day. This will be easier for you to go to sleep earlier and wake up earlier. At the same time, a conservative plan will help you to maintain your energy level. No dramatic ups and downs.",
+			"extension": "Over the next {days} {dayWord}, you will be gradually adjusting your sleep and wake times by up to 30 minutes each day. A conservative plan like this helps you maintain your energy level. No dramatic ups and downs."
+		},
+		"dailyDetails": {
+			"title": "Daily details",
+			"previousDay": "Previous day",
+			"nextDay": "Next day",
+			"goToDay": "Go to day {day}",
+			"hint": "Your sleep schedule is planned by days. It is possible to have fluctuating bedtimes. Just try your best to stick to the wake up time.",
+			"inBed": "{duration} in bed"
+		},
+		"calendar": {
+			"title": "Calendar",
+			"subscribeTitle": "Subscribe to your calendar",
+			"subscribeDescription": "Enter your email to get a calendar link that updates automatically as your plan adjusts, plus a daily check-in — if you find it difficult to stay with the plan, the following days will be adjusted automatically to get you back on track.",
+			"successIntro": "You're set. We'll check in with you by email each day.",
+			"subscribeCta": "Subscribe to your calendar:",
+			"openInCalendarApp": "Open in Calendar app",
+			"copyLink": "Copy link",
+			"copied": "Copied!",
+			"addSubscriptionHint": "Add this as a subscription in Google/Apple/Outlook Calendar — it updates automatically as your plan adjusts.",
+			"emailLabel": "Email",
+			"emailPlaceholder": "you@example.com",
+			"signingUp": "Signing up…",
+			"update": "Update",
+			"signupError": "Something went wrong — please check your email and try again.",
+			"preferNotToShare": "Prefer not to share your email?",
+			"downloadOneTime": "Download a one-time calendar file",
+			"downloadHint": "instead — it won't update automatically or send check-ins."
+		}
+	},
+	"checkin": {
+		"question": "Did you stick with your plan yesterday?",
+		"thanksTitle": "Thanks!",
+		"thanksBody": "Got it — your plan has been updated based on what you told us. You can close this page.",
+		"bedtimeQuestion": "Roughly what time did you actually go to bed?",
+		"submitting": "Submitting…",
+		"submitAndAdjust": "Submit and adjust my plan",
+		"error": "Something went wrong — please try again."
+	},
+	"unsubscribe": {
+		"notFoundTitle": "Link not found",
+		"notFoundBody": "This unsubscribe link doesn't match an active plan.",
+		"doneTitle": "You're unsubscribed",
+		"doneBody": "We won't send any more daily check-in emails for this plan. Your calendar subscription (if you're using one) will keep working.",
+		"confirmTitle": "Unsubscribe from daily check-in emails?",
+		"confirmBody": "You'll stop getting the daily \"did you stick with your plan?\" emails. Your calendar subscription (if you're using one) will keep working.",
+		"cta": "Unsubscribe"
+	},
+	"components": {
+		"dayCard": {
+			"dayOf": "Day {day} of {total}",
+			"bedtime": "Bedtime",
+			"wake": "Wake",
+			"brightLight": "Bright light",
+			"around": "around {time}",
+			"melatonin": "Melatonin",
+			"melatoninOptional": "Melatonin (optional)",
+			"doseRange": "{min}–{max} mg",
+			"sleepOpportunityHint": "Mainly a sleep-opportunity night — a consistent bedtime and a dark, cool room usually help more than this."
+		},
+		"infoModal": {
+			"close": "Close"
+		},
+		"timeField": {
+			"hourFirstDigit": "Hour, first digit",
+			"hourSecondDigit": "Hour, second digit",
+			"minuteFirstDigit": "Minute, first digit",
+			"minuteSecondDigit": "Minute, second digit",
+			"am": "AM",
+			"pm": "PM",
+			"didYouMean": "Did you mean {time}?"
+		}
+	},
+	"email": {
+		"checkin": {
+			"subject": "Did you stick with your plan yesterday?",
+			"question": "Did you stick with your plan yesterday?",
+			"intro": "If yes — nice work, no need to do anything. Here's today's plan:",
+			"bedtimeLine": "Tonight's bedtime: {time}",
+			"bltLine": "Bright light therapy: around {time}",
+			"melatoninChronobioticLine": "Melatonin: commonly {minDose}–{maxDose} mg around {time} — talk to a clinician about what's right for you. {safetyWarning}",
+			"melatoninSleepAidLine": "Optional sleep aid (not a clock-shift dose): commonly {minDose}–{maxDose} mg around {time} if you want it — a consistent bedtime and a dark, cool room usually help more. {safetyWarning}",
+			"fellOffTrack": "If you fell off track, let us know so we can adjust the rest of your plan: {checkinUrl}",
+			"fellOffTrackHtml": "If you fell off track, <a href=\"{checkinUrl}\">let us know</a> so we can adjust the rest of your plan.",
+			"unsubscribeLine": "Unsubscribe from these emails: {unsubscribeUrl}",
+			"unsubscribeLineHtml": "<a href=\"{unsubscribeUrl}\">Unsubscribe</a> from these emails."
+		}
+	},
+	"ical": {
+		"calendarName": "Intervention Protocol",
+		"sleep": {
+			"summary": "Sleep",
+			"description": "Please try to sleep during this time ;) TZ offset = {offset}"
+		},
+		"blt": {
+			"summary": "Bright Light Therapy",
+			"delay": "Get some bright light exposure in the evening to help shift your circadian clock later. Avoid bright light after waking, until your target wake time.",
+			"extension": "Get some bright light exposure shortly after waking for alertness. Your plan mainly needs more sleep opportunity rather than a clock shift, so this step is optional.",
+			"advance": "Get some bright light exposure shortly after waking to help shift your circadian clock earlier. Keep the 2-3 hours before your bedtime dim to reinforce the shift."
+		},
+		"melatonin": {
+			"summary": "Melatonin ({minDose}–{maxDose} mg)",
+			"sleepAid": "This is mainly a sleep-opportunity night, not a clock-shift night — a consistent bedtime, a dark/cool room, and cutting morning light and noise usually help more than anything you take. If you still want it, melatonin in the range of {minDose}–{maxDose} mg is sometimes used as an optional sleep aid around this time — for falling asleep, not for shifting your clock. Talk to a clinician about what's right for you. {safetyWarning} {disclaimer}",
+			"delay": "Melatonin in the range of {minDose}–{maxDose} mg is commonly used around this time, right on waking, to help shift your circadian clock later (optional — light is the stronger signal for a delay). Avoid bright light after waking until your target wake time. Talk to a clinician about what's right for you. {safetyWarning} {disclaimer}",
+			"advance": "Melatonin in the range of {minDose}–{maxDose} mg is commonly used around this time to help shift your circadian clock earlier. Keep lights dim for the next 2-3 hours, especially close to bedtime. Talk to a clinician about what's right for you. {safetyWarning} {disclaimer}",
+			"disclaimer": "General estimate, not medical advice — check with a clinician if you are pregnant, on other medications, or have a health condition."
+		}
+	}
+}

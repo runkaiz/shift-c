@@ -1,35 +1,40 @@
 import moment from 'moment/moment';
 
-import { MELATONIN_SAFETY_WARNING } from './melatonin';
+import { melatoninSafetyWarning } from './melatonin';
+import { t } from './i18n/server';
 
 const BLT_DURATION_MINUTES = 15;
 const MELATONIN_DURATION_MINUTES = 5;
-const MELATONIN_DISCLAIMER =
-	'General estimate, not medical advice — check with a clinician if you are pregnant, on other medications, or have a health condition.';
 
 // BLT/melatonin descriptions are keyed off the regime computeIntervention()
 // already classified (see src/lib/melatonin.js) rather than recomputed here,
 // so the light/dose guidance always matches the actual timing that was used.
-function describeBlt(regime) {
+function describeBlt(regime, locale) {
 	if (regime === 'delay') {
-		return 'Get some bright light exposure in the evening to help shift your circadian clock later. Avoid bright light after waking, until your target wake time.';
+		return t(locale, 'ical.blt.delay');
 	}
 	if (regime === 'extension') {
-		return 'Get some bright light exposure shortly after waking for alertness. Your plan mainly needs more sleep opportunity rather than a clock shift, so this step is optional.';
+		return t(locale, 'ical.blt.extension');
 	}
-	return 'Get some bright light exposure shortly after waking to help shift your circadian clock earlier. Keep the 2-3 hours before your bedtime dim to reinforce the shift.';
+	return t(locale, 'ical.blt.advance');
 }
 
-function describeMelatonin(melatonin, regime) {
+function describeMelatonin(melatonin, regime, locale) {
 	const [minDose, maxDose] = melatonin.doseRangeMg;
+	const values = {
+		minDose,
+		maxDose,
+		safetyWarning: melatoninSafetyWarning(locale),
+		disclaimer: t(locale, 'ical.melatonin.disclaimer')
+	};
 
 	if (!melatonin.chronobiotic) {
-		return `This is mainly a sleep-opportunity night, not a clock-shift night — a consistent bedtime, a dark/cool room, and cutting morning light and noise usually help more than anything you take. If you still want it, melatonin in the range of ${minDose}–${maxDose} mg is sometimes used as an optional sleep aid around this time — for falling asleep, not for shifting your clock. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
+		return t(locale, 'ical.melatonin.sleepAid', values);
 	}
 	if (regime === 'delay') {
-		return `Melatonin in the range of ${minDose}–${maxDose} mg is commonly used around this time, right on waking, to help shift your circadian clock later (optional — light is the stronger signal for a delay). Avoid bright light after waking until your target wake time. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
+		return t(locale, 'ical.melatonin.delay', values);
 	}
-	return `Melatonin in the range of ${minDose}–${maxDose} mg is commonly used around this time to help shift your circadian clock earlier. Keep lights dim for the next 2-3 hours, especially close to bedtime. Talk to a clinician about what's right for you. ${MELATONIN_SAFETY_WARNING} ${MELATONIN_DISCLAIMER}`;
+	return t(locale, 'ical.melatonin.advance', values);
 }
 
 // Minimal RFC 5545 text escaping: backslash, semicolon, comma, then newlines.
@@ -112,6 +117,7 @@ export function buildIcs({ name, events }) {
  * @param {string} params.uidPrefix - Stable per-plan/download identifier, e.g. a plan token.
  * @param {{ regime: string, days: Array<{ wake: moment.Moment, sleep: moment.Moment, blt: moment.Moment|null, melatonin: {time: moment.Moment, doseRangeMg: [number, number], chronobiotic: boolean}|null }> }} params.result - Output of computeIntervention().
  * @param {number} params.tzOffsetMinutes - Minutes to add to the (server-local) computed times to get the user's actual local wall-clock instant.
+ * @param {string} [params.locale] - Drives the language of event summaries/descriptions; falls back to English.
  * @param {string} [params.calendarName]
  * @param {string} [params.eventUrl]
  */
@@ -119,7 +125,8 @@ export function buildScheduleIcs({
 	uidPrefix,
 	result,
 	tzOffsetMinutes,
-	calendarName = 'Intervention Protocol',
+	locale = 'en',
+	calendarName = t(locale, 'ical.calendarName'),
 	eventUrl = 'https://shiftc.app/'
 }) {
 	const events = [];
@@ -133,8 +140,8 @@ export function buildScheduleIcs({
 			uid: `${uidPrefix}-sleep-${dateKey}@shiftc.app`,
 			start: sleep.toDate(),
 			end: wake.toDate(),
-			summary: 'Sleep',
-			description: `Please try to sleep during this time ;) TZ offset = ${tzOffsetMinutes}`,
+			summary: t(locale, 'ical.sleep.summary'),
+			description: t(locale, 'ical.sleep.description', { offset: tzOffsetMinutes }),
 			url: eventUrl
 		});
 
@@ -146,8 +153,8 @@ export function buildScheduleIcs({
 				uid: `${uidPrefix}-blt-${dateKey}@shiftc.app`,
 				start: bltStart.toDate(),
 				end: bltEnd.toDate(),
-				summary: 'Bright Light Therapy',
-				description: describeBlt(result.regime),
+				summary: t(locale, 'ical.blt.summary'),
+				description: describeBlt(result.regime, locale),
 				url: eventUrl
 			});
 		}
@@ -160,8 +167,11 @@ export function buildScheduleIcs({
 				uid: `${uidPrefix}-melatonin-${dateKey}@shiftc.app`,
 				start: melatoninStart.toDate(),
 				end: melatoninEnd.toDate(),
-				summary: `Melatonin (${day.melatonin.doseRangeMg[0]}–${day.melatonin.doseRangeMg[1]} mg)`,
-				description: describeMelatonin(day.melatonin, result.regime),
+				summary: t(locale, 'ical.melatonin.summary', {
+					minDose: day.melatonin.doseRangeMg[0],
+					maxDose: day.melatonin.doseRangeMg[1]
+				}),
+				description: describeMelatonin(day.melatonin, result.regime, locale),
 				url: eventUrl
 			});
 		}

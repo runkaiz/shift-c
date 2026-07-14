@@ -3,6 +3,7 @@ import moment from 'moment/moment';
 import { computeIntervention } from '$lib/schedule';
 import { MELATONIN_FEATURE_ENABLED } from '$lib/featureFlags';
 import { MELATONIN_ALLOWED_COUNTRIES, MELATONIN_SCREENING_VERSION } from '$lib/melatoninPolicy';
+import { DEFAULT_LOCALE, isSupportedLocale } from '$lib/i18n/constants';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -20,6 +21,7 @@ export async function POST({ request, platform }) {
 	}
 
 	const { email, cWake, cSleep, gWake, gSleep, tz } = body ?? {};
+	const locale = isSupportedLocale(body?.locale) ? body.locale : DEFAULT_LOCALE;
 	const enableBLT = body?.blt === true;
 	const screeningPassed = body?.melatoninScreeningPassed === true;
 	// Fail closed: request.cf is only populated with real geolocation on
@@ -88,8 +90,9 @@ export async function POST({ request, platform }) {
 			goal_wake, goal_sleep,
 			baseline_wake, baseline_sleep, baseline_date,
 			unsubscribed,
-			melatonin_screening_passed, melatonin_screening_version, melatonin_consented_at
-		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)`
+			melatonin_screening_passed, melatonin_screening_version, melatonin_consented_at,
+			locale
+		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 	)
 		.bind(
 			token,
@@ -105,7 +108,8 @@ export async function POST({ request, platform }) {
 			now,
 			melatoninScreeningPassedValue,
 			melatoninScreeningVersionValue,
-			melatoninConsentedAtValue
+			melatoninConsentedAtValue,
+			locale
 		)
 		.run();
 

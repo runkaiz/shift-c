@@ -92,8 +92,9 @@ export async function POST({ request, platform }) {
 		await sendCheckInEmail(platform.env, {
 			to: plan.email,
 			today,
-			checkinUrl: `${origin}/checkin/${plan.token}?date=${todayStr}`,
-			unsubscribeUrl: `${origin}/unsubscribe/${plan.token}`
+			checkinUrl: `${origin}/${plan.locale}/checkin/${plan.token}?date=${todayStr}`,
+			unsubscribeUrl: `${origin}/${plan.locale}/unsubscribe/${plan.token}`,
+			locale: plan.locale
 		});
 
 		await db
