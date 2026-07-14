@@ -46,7 +46,7 @@
 				}}
 			>
 				<h3 class="font-medium text-gray-800">When do you usually wake up?</h3>
-				<TimeField bind:time={data.current.wakeup} placeholder={data.current.wakeup} />
+				<TimeField bind:time={data.current.wakeup} placeholder={data.current.wakeup} kind="wake" />
 			</div>
 		{:else if step === 1}
 			<div
@@ -54,7 +54,11 @@
 				in:fly={{ x: 8, duration: 500 }}
 			>
 				<h3 class="font-medium text-gray-800">When do you usually go to sleep?</h3>
-				<TimeField bind:time={data.current.bedtime} placeholder={data.current.bedtime} />
+				<TimeField
+					bind:time={data.current.bedtime}
+					placeholder={data.current.bedtime}
+					kind="bedtime"
+				/>
 			</div>
 		{/if}
 	</div>

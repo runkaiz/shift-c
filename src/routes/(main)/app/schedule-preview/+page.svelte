@@ -3,7 +3,8 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 
-	import { lightTreatment, bioTreatment } from '$lib/stores';
+	import { lightTreatment, bioTreatment, melatoninScreeningPassed } from '$lib/stores';
+	import { MELATONIN_FEATURE_ENABLED } from '$lib/featureFlags';
 
 	import moment from 'moment/moment';
 	import DayCard from '$lib/components/DayCard.svelte';
@@ -48,7 +49,7 @@
 				goalSleep: data.goal.bedtime,
 				startDate: new Date(),
 				enableBLT: $lightTreatment,
-				enableMelatonin: $bioTreatment
+				enableMelatonin: MELATONIN_FEATURE_ENABLED && $bioTreatment
 			});
 		} catch {
 			goto('/app/start');
@@ -111,7 +112,7 @@
 		let now = new Date();
 		let calendarURL = new URLSearchParams();
 		calendarURL.append('blt', $lightTreatment ? '1' : '0');
-		calendarURL.append('bio', $bioTreatment ? '1' : '0');
+		calendarURL.append('bio', MELATONIN_FEATURE_ENABLED && $bioTreatment ? '1' : '0');
 		calendarURL.append('cWake', data.current.wakeup);
 		calendarURL.append('cSleep', data.current.bedtime);
 		calendarURL.append('gWake', data.goal.wakeup);
@@ -120,6 +121,52 @@
 		calendarURL.append('n', now.toISOString());
 
 		goto('/api/generate-ical?' + calendarURL.toString());
+	}
+
+	let email = '';
+	let signupStatus = 'idle'; // 'idle' | 'submitting' | 'success' | 'error'
+	let signupError = '';
+	let subscribeUrl = '';
+	let webcalUrl = '';
+	let copyLabel = 'Copy link';
+
+	async function signUpForTracking(data) {
+		signupStatus = 'submitting';
+		signupError = '';
+
+		const payload = {
+			email,
+			blt: $lightTreatment,
+			bio: MELATONIN_FEATURE_ENABLED && $bioTreatment,
+			melatoninScreeningPassed: $melatoninScreeningPassed,
+			cWake: data.current.wakeup,
+			cSleep: data.current.bedtime,
+			gWake: data.goal.wakeup,
+			gSleep: data.goal.bedtime,
+			tz: new moment().utcOffset()
+		};
+
+		try {
+			const res = await fetch('/api/plans', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+			if (!res.ok) throw new Error(await res.text());
+			const { token } = await res.json();
+			subscribeUrl = `${location.origin}/api/calendar/${token}.ics`;
+			webcalUrl = subscribeUrl.replace(/^https?:\/\//, 'webcal://');
+			signupStatus = 'success';
+		} catch {
+			signupError = 'Something went wrong — please check your email and try again.';
+			signupStatus = 'error';
+		}
+	}
+
+	function copySubscribeUrl() {
+		navigator.clipboard?.writeText(subscribeUrl)?.catch(() => {});
+		copyLabel = 'Copied!';
+		setTimeout(() => (copyLabel = 'Copy link'), 1500);
 	}
 
 	onMount(() => {
@@ -167,11 +214,7 @@
 	>
 		<h2 class="text-xl font-bold mb-6">Daily details</h2>
 
-		<div
-			class="relative touch-pan-y"
-			on:touchstart={handleTouchStart}
-			on:touchend={handleTouchEnd}
-		>
+		<div class="relative touch-pan-y" on:touchstart={handleTouchStart} on:touchend={handleTouchEnd}>
 			{#key position}
 				<div in:fly={{ x: direction * 24, duration: 250 }}>
 					<DayCard
@@ -185,9 +228,12 @@
 						melatoninTime={melatoninIntervention[position]
 							? melatoninIntervention[position].time.format('HH:mm')
 							: null}
-						melatoninDoseMg={melatoninIntervention[position]
-							? melatoninIntervention[position].doseMg
+						melatoninDoseRangeMg={melatoninIntervention[position]
+							? melatoninIntervention[position].doseRangeMg
 							: null}
+						melatoninChronobiotic={melatoninIntervention[position]
+							? melatoninIntervention[position].chronobiotic
+							: true}
 					/>
 				</div>
 			{/key}
@@ -215,7 +261,9 @@
 				</svg>
 			</button>
 
-			<div class="flex-1 flex items-center gap-1.5 overflow-x-auto snap-x snap-mandatory no-scrollbar py-1">
+			<div
+				class="flex-1 flex items-center gap-1.5 overflow-x-auto snap-x snap-mandatory no-scrollbar py-1"
+			>
 				{#each Array(interventionDays) as _, i}
 					<button
 						type="button"
@@ -264,52 +312,89 @@
 		in:fly={{ y: 5, duration: 1000 }}
 		out:fade={{ y: -5, duration: 400 }}
 	>
-		<h2 class="text-xl font-bold">Add to calendar</h2>
-		<button class="underline underline-offset-3" on:click={() => downloadSchedule(read().data)}
-			>Download</button
-		> your schedule and add it to your calendar. The iCal file contains your sleep schedule and you can
-		easily copy it to other devices should you need to.
-	</div>
-
-	<!-- <div
-		class="relative max-w-md my-8"
-		in:fly={{ y: 5, duration: 1000 }}
-		out:fade={{ y: -5, duration: 400 }}
-	>
-		<h2 class="text-xl font-bold">Preferences</h2>
+		<h2 class="text-xl font-bold">Calendar</h2>
 		<div
 			class="flex flex-col rounded-lg shadow bg-stone-50 p-6 mx-auto my-8"
 			in:fly={{ x: 8, duration: 500 }}
 		>
-			<h3 class="text-lg font-medium leading-6 text-gray-900 mb-3">
-				Track your progress with email
-			</h3>
+			<h3 class="text-lg font-medium leading-6 text-gray-900 mb-3">Subscribe to your calendar</h3>
 			<div class="mt-2 max-w-xl text-gray-500">
 				<p>
-					Filling in your email will automatically sign you up for a daily email-based tracking
-					system. If you find it difficult to stay with the plan, the following days will be
-					adjusted automatically to get you back on track.
+					Enter your email to get a calendar link that updates automatically as your plan adjusts,
+					plus a daily check-in — if you find it difficult to stay with the plan, the following days
+					will be adjusted automatically to get you back on track.
 				</p>
 			</div>
-			<form class="mt-5 sm:flex sm:items-center">
-				<div class="w-full sm:max-w-xs">
-					<label for="email" class="sr-only">Email</label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						class="bg-transparent p-2 border-2 border-stone-200 rounded-lg items-center placeholder:text-stone-400 w-full"
-						placeholder="you@example.com"
-					/>
+
+			{#if signupStatus === 'success'}
+				<div class="mt-5 text-sm text-gray-700">
+					<p>You're set. We'll check in with you by email each day.</p>
+					<p class="mt-3 font-medium text-gray-900">Subscribe to your calendar:</p>
+					<a
+						href={webcalUrl}
+						class="mt-2 inline-block text-indigo-700 underline underline-offset-2"
+					>
+						Open in Calendar app
+					</a>
+					<div class="mt-2 flex items-center gap-2">
+						<input
+							type="text"
+							readonly
+							value={subscribeUrl}
+							class="bg-white p-2 border-2 border-stone-200 rounded-lg w-full text-xs text-stone-600"
+							on:click={(e) => e.currentTarget.select()}
+						/>
+						<button
+							type="button"
+							class="shrink-0 rounded-md bg-indigo-600 border-2 border-indigo-600 px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-700"
+							on:click={copySubscribeUrl}>{copyLabel}</button
+						>
+					</div>
+					<p class="mt-2 text-xs text-stone-400">
+						Add this as a subscription in Google/Apple/Outlook Calendar — it updates automatically
+						as your plan adjusts.
+					</p>
 				</div>
-				<button
-					type="submit"
-					class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 border-2 border-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-					>Update</button
+			{:else}
+				<form
+					class="mt-5 sm:flex sm:items-center"
+					on:submit|preventDefault={() => signUpForTracking(read().data)}
 				>
-			</form>
+					<div class="w-full sm:max-w-xs">
+						<label for="email" class="sr-only">Email</label>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							required
+							bind:value={email}
+							disabled={signupStatus === 'submitting'}
+							class="bg-transparent p-2 border-2 border-stone-200 rounded-lg items-center placeholder:text-stone-400 w-full"
+							placeholder="you@example.com"
+						/>
+					</div>
+					<button
+						type="submit"
+						disabled={signupStatus === 'submitting'}
+						class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 border-2 border-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+						>{signupStatus === 'submitting' ? 'Signing up…' : 'Update'}</button
+					>
+				</form>
+				{#if signupStatus === 'error'}
+					<p class="mt-2 text-sm text-red-600">{signupError}</p>
+				{/if}
+				<p class="mt-4 text-xs text-stone-400">
+					Prefer not to share your email?
+					<button
+						type="button"
+						class="underline underline-offset-2"
+						on:click={() => downloadSchedule(read().data)}>Download a one-time calendar file</button
+					>
+					instead — it won't update automatically or send check-ins.
+				</p>
+			{/if}
 		</div>
-	</div> -->
+	</div>
 {/if}
 
 <style>

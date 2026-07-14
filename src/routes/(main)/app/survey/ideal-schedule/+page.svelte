@@ -67,7 +67,7 @@
 				}}
 			>
 				<h3 class="font-medium text-gray-800">When do you want to wake up?</h3>
-				<TimeField bind:time={data.goal.wakeup} placeholder={data.goal.wakeup} />
+				<TimeField bind:time={data.goal.wakeup} placeholder={data.goal.wakeup} kind="wake" />
 			</div>
 		{:else if step === 1}
 			<div
@@ -75,7 +75,7 @@
 				in:fly={{ x: 8, duration: 500 }}
 			>
 				<h3 class="font-medium text-gray-800">What's your ideal bedtime?</h3>
-				<TimeField bind:time={data.goal.bedtime} placeholder={data.goal.bedtime} />
+				<TimeField bind:time={data.goal.bedtime} placeholder={data.goal.bedtime} kind="bedtime" />
 			</div>
 		{/if}
 	</div>
