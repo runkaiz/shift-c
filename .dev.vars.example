@@ -1,0 +1,6 @@
+# Copy to .dev.vars for local `wrangler pages dev` runs. .dev.vars is
+# gitignored — never commit real secrets.
+
+# Shared secret the standalone cron Worker (workers/cron-checkin) must send
+# as `Authorization: Bearer <value>` when calling POST /api/cron/send-checkins.
+CRON_SECRET=dev-secret-change-me

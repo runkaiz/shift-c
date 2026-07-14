@@ -1,0 +1,24 @@
+name = "shift-c"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "shift-c-db"
+database_id = "0f35d7bb-2f31-49e9-84e0-beb28f002506"
+
+# shiftc.app has Email Sending enabled (DKIM/SPF/DMARC live under
+# cf-bounce.shiftc.app). `remote = true` so this binding hits the real
+# service even under local `wrangler pages dev`, in case DRY_RUN_EMAIL is
+# ever unset locally — src/lib/server/email.js falls back to DRY_RUN_EMAIL
+# logging by default so this binding being live doesn't mean dev sends
+# real mail unless that var is explicitly turned off.
+[[send_email]]
+name = "EMAIL"
+allowed_sender_addresses = ["notifications@shiftc.app"]
+remote = true
+
+[vars]
+DRY_RUN_EMAIL = "1"
+EMAIL_FROM_ADDRESS = "notifications@shiftc.app"
