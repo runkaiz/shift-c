@@ -13,6 +13,25 @@
 	"melatonin": {
 		"safetyWarning": "La mélatonine peut provoquer une somnolence — évite de conduire ou d'utiliser des machines pendant quelques heures après en avoir pris."
 	},
+	"seo": {
+		"app": {
+			"title": "Créez votre plan — Shift"
+		},
+		"checkin": {
+			"title": "Suivi quotidien — Shift"
+		},
+		"unsubscribe": {
+			"title": "Se désabonner — Shift"
+		},
+		"landing": {
+			"title": "Shift — Réinitialisez votre rythme de sommeil, la méthode fondée sur des preuves",
+			"description": "Shift aide les oiseaux de nuit à avancer leur cycle veille-sommeil grâce à des méthodes circadiennes fondées sur des preuves. Gratuit, sans inscription pour commencer."
+		},
+		"learnCircadian": {
+			"title": "Votre rythme circadien, expliqué — Shift",
+			"description": "Découvrez comment votre horloge biologique et votre pression de sommeil agissent ensemble pour déterminer quand vous vous sentez somnolent ou alerte, et comment les décaler en toute sécurité."
+		}
+	},
 	"landing": {
 		"hero": {
 			"greeting": "Salut, oiseau de nuit.",

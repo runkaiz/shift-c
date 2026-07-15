@@ -4,12 +4,16 @@
 	import { fade, fly } from 'svelte/transition';
 	import { _ } from 'svelte-i18n';
 
+	import Seo from '$lib/components/Seo.svelte';
+
 	let shouldShow = false;
 
 	onMount(() => {
 		shouldShow = true;
 	});
 </script>
+
+<Seo title={$_('seo.landing.title')} description={$_('seo.landing.description')} path="" />
 
 {#if shouldShow}
 	<h1

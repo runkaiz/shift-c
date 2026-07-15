@@ -3,12 +3,20 @@
 	import { fade, fly } from 'svelte/transition';
 	import { _ } from 'svelte-i18n';
 
+	import Seo from '$lib/components/Seo.svelte';
+
 	let shouldShow = false;
 
 	onMount(() => {
 		shouldShow = true;
 	});
 </script>
+
+<Seo
+	title={$_('seo.learnCircadian.title')}
+	description={$_('seo.learnCircadian.description')}
+	path="/learn/circadian"
+/>
 
 {#if shouldShow}
 	<h2

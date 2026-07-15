@@ -13,6 +13,25 @@
 	"melatonin": {
 		"safetyWarning": "Melatonin can cause drowsiness — avoid driving or operating machinery for a few hours after taking it."
 	},
+	"seo": {
+		"app": {
+			"title": "Build your plan — Shift"
+		},
+		"checkin": {
+			"title": "Daily check-in — Shift"
+		},
+		"unsubscribe": {
+			"title": "Unsubscribe — Shift"
+		},
+		"landing": {
+			"title": "Shift — Reset your sleep schedule, the evidence-based way",
+			"description": "Shift helps night owls move their sleep-wake cycle earlier using evidence-based circadian methods. Free, no signup required to get started."
+		},
+		"learnCircadian": {
+			"title": "Your circadian rhythm, explained — Shift",
+			"description": "Learn how your biological clock and sleep pressure work together to control when you feel sleepy or alert — and how to shift them safely."
+		}
+	},
 	"landing": {
 		"hero": {
 			"greeting": "Hey, night owl.",

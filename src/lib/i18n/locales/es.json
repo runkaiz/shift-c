@@ -13,6 +13,25 @@
 	"melatonin": {
 		"safetyWarning": "La melatonina puede provocar somnolencia; evita conducir o manejar maquinaria durante unas horas después de tomarla."
 	},
+	"seo": {
+		"app": {
+			"title": "Crea tu plan — Shift"
+		},
+		"checkin": {
+			"title": "Registro diario — Shift"
+		},
+		"unsubscribe": {
+			"title": "Cancelar suscripción — Shift"
+		},
+		"landing": {
+			"title": "Shift — Reinicia tu horario de sueño con un método basado en la evidencia",
+			"description": "Shift ayuda a los noctámbulos a adelantar su ciclo de sueño-vigilia con métodos circadianos basados en la evidencia. Gratis, sin necesidad de registro para empezar."
+		},
+		"learnCircadian": {
+			"title": "Tu ritmo circadiano, explicado — Shift",
+			"description": "Descubre cómo tu reloj biológico y tu presión de sueño trabajan juntos para controlar cuándo te sientes somnoliento o alerta, y cómo ajustarlos de forma segura."
+		}
+	},
 	"landing": {
 		"hero": {
 			"greeting": "Hola, noctámbulo.",

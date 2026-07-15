@@ -5,6 +5,11 @@
 	export let form;
 </script>
 
+<svelte:head>
+	<title>{$_('seo.unsubscribe.title')}</title>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <div class="max-w-md mx-auto my-16 px-4 text-center">
 	{#if !data.found}
 		<h1 class="text-2xl font-semibold text-gray-800">{$_('unsubscribe.notFoundTitle')}</h1>

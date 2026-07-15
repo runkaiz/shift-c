@@ -13,6 +13,25 @@
 	"melatonin": {
 		"safetyWarning": "メラトニンは眠気を引き起こすことがあります。服用後の数時間は、運転や機械の操作を避けてください。"
 	},
+	"seo": {
+		"app": {
+			"title": "プランを作成 — Shift"
+		},
+		"checkin": {
+			"title": "デイリーチェックイン — Shift"
+		},
+		"unsubscribe": {
+			"title": "配信停止 — Shift"
+		},
+		"landing": {
+			"title": "Shift — 科学的根拠にもとづいて睡眠スケジュールをリセット",
+			"description": "Shiftは科学的根拠にもとづいた体内時計調整法で、夜ふかしの人が睡眠サイクルを早める手助けをします。無料・登録不要ですぐに始められます。"
+		},
+		"learnCircadian": {
+			"title": "体内時計を知る — Shift",
+			"description": "体内時計と睡眠圧がどのように働いて眠気や覚醒を生み出すのか、そして安全にずらす方法を学びましょう。"
+		}
+	},
 	"landing": {
 		"hero": {
 			"greeting": "こんにちは、夜ふかしさん。",

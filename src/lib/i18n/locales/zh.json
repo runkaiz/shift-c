@@ -13,6 +13,25 @@
 	"melatonin": {
 		"safetyWarning": "褪黑素可能引起困倦——服用后几小时内请勿驾车或操作机械。"
 	},
+	"seo": {
+		"app": {
+			"title": "制定你的计划 — Shift"
+		},
+		"checkin": {
+			"title": "每日打卡 — Shift"
+		},
+		"unsubscribe": {
+			"title": "取消订阅 — Shift"
+		},
+		"landing": {
+			"title": "Shift — 用科学方法重置你的睡眠时间表",
+			"description": "Shift 运用基于科学证据的昼夜节律方法，帮助夜猫子把睡眠时间提前。免费使用，无需注册即可开始。"
+		},
+		"learnCircadian": {
+			"title": "认识你的昼夜节律 — Shift",
+			"description": "了解生物钟和睡眠压力如何共同决定你何时犯困、何时清醒，以及如何安全地调整它们。"
+		}
+	},
 	"landing": {
 		"hero": {
 			"greeting": "嘿，夜猫子。",
