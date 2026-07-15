@@ -1,6 +1,12 @@
-# Copy to .dev.vars for local `wrangler pages dev` runs. .dev.vars is
-# gitignored — never commit real secrets.
+# Copy to .dev.vars for local `wrangler dev` runs. .dev.vars is gitignored —
+# never commit real secrets.
 
-# Shared secret the standalone cron Worker (workers/cron-checkin) must send
-# as `Authorization: Bearer <value>` when calling POST /api/cron/send-checkins.
+# Shared secret worker-entry.js's Cron Trigger sends as
+# `Authorization: Bearer <value>` when it self-invokes POST /api/cron/send-checkins.
 CRON_SECRET=dev-secret-change-me
+
+# Logs check-in emails instead of sending them. Kept out of wrangler.toml's
+# [vars] since it must differ between local dev and the deployed Worker (set
+# there via `wrangler secret put DRY_RUN_EMAIL`), and Cloudflare won't let a
+# var and a secret share a binding name.
+DRY_RUN_EMAIL=1

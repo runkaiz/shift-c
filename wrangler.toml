@@ -1,7 +1,21 @@
 name = "shift-c"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".svelte-kit/cloudflare"
+main = "worker-entry.js"
+
+[[routes]]
+pattern = "shiftc.app"
+custom_domain = true
+
+[assets]
+directory = ".svelte-kit/cloudflare"
+binding = "ASSETS"
+
+# Runs the send-checkins sweep on a schedule; worker-entry.js re-enters the
+# fetch handler below with a synthetic request instead of duplicating the
+# logic in a second Worker.
+[triggers]
+crons = ["*/15 * * * *"]
 
 [[d1_databases]]
 binding = "DB"
@@ -10,7 +24,7 @@ database_id = "0f35d7bb-2f31-49e9-84e0-beb28f002506"
 
 # shiftc.app has Email Sending enabled (DKIM/SPF/DMARC live under
 # cf-bounce.shiftc.app). `remote = true` so this binding hits the real
-# service even under local `wrangler pages dev`, in case DRY_RUN_EMAIL is
+# service even under local `wrangler dev`, in case DRY_RUN_EMAIL is
 # ever unset locally — src/lib/server/email.js falls back to DRY_RUN_EMAIL
 # logging by default so this binding being live doesn't mean dev sends
 # real mail unless that var is explicitly turned off.
@@ -20,5 +34,11 @@ allowed_sender_addresses = ["notifications@shiftc.app"]
 remote = true
 
 [vars]
-DRY_RUN_EMAIL = "1"
+# DRY_RUN_EMAIL is deliberately NOT set here: Cloudflare doesn't allow a var
+# and a secret to share a binding name, and it needs to differ between local
+# dev (.dev.vars, safe default "1") and the deployed Worker (secret, "0" in
+# production). See .dev.vars.example.
 EMAIL_FROM_ADDRESS = "notifications@shiftc.app"
+# The Cron Trigger has no incoming request to derive an origin from, so
+# worker-entry.js's synthetic send-checkins request uses this instead.
+SITE_ORIGIN = "https://shiftc.app"

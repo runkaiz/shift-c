@@ -25,7 +25,7 @@ export async function POST({ request, platform }) {
 	const enableBLT = body?.blt === true;
 	const screeningPassed = body?.melatoninScreeningPassed === true;
 	// Fail closed: request.cf is only populated with real geolocation on
-	// Cloudflare's edge (absent under plain local `wrangler pages dev`), and a
+	// Cloudflare's edge (absent under plain local `wrangler dev`), and a
 	// missing/unrecognized country must never be treated as allowed.
 	const countryAllowed = MELATONIN_ALLOWED_COUNTRIES.includes(request.cf?.country);
 	// Chronobiotics (melatonin) forced off — never persisted as enabled while

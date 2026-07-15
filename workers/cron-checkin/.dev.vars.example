@@ -1,3 +1,0 @@
-# Copy to .dev.vars for local `wrangler dev`. Must match the Pages app's
-# CRON_SECRET (see ../../.dev.vars.example) so send-checkins accepts the call.
-CRON_SECRET=dev-secret-change-me
