@@ -26,6 +26,19 @@ jobs:
 
       - run: npm run build
 
+      # TEMPORARY debug step — checks secret length/whitespace without
+      # printing contents, to rule out a stray newline from copy-paste.
+      # Remove once the D1 step below is confirmed working.
+      - name: Debug secret shape
+        run: |
+          echo "token length: ${#CLOUDFLARE_API_TOKEN}"
+          echo "token has trailing whitespace: $(printf '%s' "$CLOUDFLARE_API_TOKEN" | grep -cE '[[:space:]]$' || true)"
+          echo "account id length: ${#CLOUDFLARE_ACCOUNT_ID}"
+          echo "account id has trailing whitespace: $(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | grep -cE '[[:space:]]$' || true)"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       # Applies any migration files not yet recorded as applied on the
       # remote D1 database — a no-op when there's nothing new.
       - name: Apply D1 migrations
