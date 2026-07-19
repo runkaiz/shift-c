@@ -73,7 +73,15 @@ export async function POST({ request, platform }) {
 			continue;
 		}
 
-		const target = plan.enable_blt && today.blt ? today.blt : today.wake;
+		// Gate the morning check-in on this morning's wake, always. The day
+		// object is keyed by its wake date, so `today.wake` is reliably this
+		// morning; `today.blt` is not a safe target because for a delay regime
+		// BLT is *evening* light anchored to that day's sleep (the previous
+		// night's bedtime, hours before now) — using it skipped delay+BLT users
+		// every day. The check-in is a morning reminder, not the light action,
+		// so wake is the right anchor for every regime; for morning-light
+		// regimes BLT is only ~30min after wake anyway, well inside the window.
+		const target = today.wake;
 		const minutesPastTarget = nowNaive.diff(target, 'minutes');
 		if (minutesPastTarget < 0 || minutesPastTarget > SEND_WINDOW_MINUTES) {
 			skipped++;
