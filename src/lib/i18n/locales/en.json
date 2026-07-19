@@ -219,6 +219,7 @@
 		"checkin": {
 			"subject": "Did you stick with your plan yesterday?",
 			"question": "Did you stick with your plan yesterday?",
+			"recap": "Yesterday's plan was to be in bed by {time}.",
 			"intro": "If yes — nice work, no need to do anything. Here's today's plan:",
 			"bedtimeLine": "Tonight's bedtime: {time}",
 			"bltLine": "Bright light therapy: around {time}",

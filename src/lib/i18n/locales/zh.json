@@ -219,6 +219,7 @@
 		"checkin": {
 			"subject": "昨天你坚持你的方案了吗？",
 			"question": "昨天你坚持你的方案了吗？",
+			"recap": "昨天的方案是在 {time} 之前就寝。",
 			"intro": "如果坚持了——干得漂亮，无需做任何事。以下是今天的方案：",
 			"bedtimeLine": "今晚就寝时间：{time}",
 			"bltLine": "亮光疗法：{time} 左右",

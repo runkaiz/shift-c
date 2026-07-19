@@ -66,12 +66,18 @@ export async function POST({ request, platform }) {
 		const tzOffsetMinutes = moment().utcOffset() - plan.utc_offset_minutes;
 		const nowNaive = moment.utc().subtract(tzOffsetMinutes, 'minutes');
 		const todayStr = nowNaive.format('YYYY-MM-DD');
+		const tomorrowStr = moment(nowNaive).add(1, 'day').format('YYYY-MM-DD');
 
 		const today = findDayForDate(result.days, todayStr);
 		if (!today) {
 			skipped++;
 			continue;
 		}
+		// Tonight's sleep lives in the *next* day object (keyed by tomorrow's
+		// wake date); null on the last transition day. The email uses it for
+		// "tonight's bedtime" and, together with `today`, for regime-correct
+		// light/melatonin timing.
+		const nextDay = findDayForDate(result.days, tomorrowStr);
 
 		// Gate the morning check-in on this morning's wake, always. The day
 		// object is keyed by its wake date, so `today.wake` is reliably this
@@ -100,6 +106,12 @@ export async function POST({ request, platform }) {
 		await sendCheckInEmail(platform.env, {
 			to: plan.email,
 			today,
+			nextDay,
+			regime: result.regime,
+			// Used as tonight's bedtime on the final transition day, when there's
+			// no nextDay. goal_sleep is already validated (computeIntervention
+			// succeeded above); parse it the same way schedule.js does.
+			goalSleep: moment(plan.goal_sleep, 'HH:mm'),
 			checkinUrl: `${origin}/${plan.locale}/checkin/${plan.token}?date=${todayStr}`,
 			unsubscribeUrl: `${origin}/${plan.locale}/unsubscribe/${plan.token}`,
 			locale: plan.locale

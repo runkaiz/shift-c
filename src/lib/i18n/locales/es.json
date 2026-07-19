@@ -219,6 +219,7 @@
 		"checkin": {
 			"subject": "¿Seguiste tu plan ayer?",
 			"question": "¿Seguiste tu plan ayer?",
+			"recap": "El plan de ayer era acostarte a las {time}.",
 			"intro": "Si es así, buen trabajo, no necesitas hacer nada. Aquí está el plan de hoy:",
 			"bedtimeLine": "Hora de dormir de esta noche: {time}",
 			"bltLine": "Terapia de luz brillante: alrededor de las {time}",

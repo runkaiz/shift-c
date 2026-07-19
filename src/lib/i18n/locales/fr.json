@@ -219,6 +219,7 @@
 		"checkin": {
 			"subject": "As-tu suivi ton plan hier ?",
 			"question": "As-tu suivi ton plan hier ?",
+			"recap": "Le plan d'hier était de te coucher à {time}.",
 			"intro": "Si oui — bien joué, tu n'as rien à faire. Voici le plan d'aujourd'hui :",
 			"bedtimeLine": "Heure de coucher de ce soir : {time}",
 			"bltLine": "Luminothérapie : vers {time}",
