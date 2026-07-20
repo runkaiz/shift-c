@@ -222,6 +222,7 @@
 			"recap": "Yesterday's plan was to be in bed by {time}.",
 			"intro": "If yes — nice work, no need to do anything. Here's today's plan:",
 			"bedtimeLine": "Tonight's bedtime: {time}",
+			"goalReached": "That's your goal schedule — you've made the full shift. From here it's about holding it steady.",
 			"bltLine": "Bright light therapy: around {time}",
 			"melatoninChronobioticLine": "Melatonin: commonly {minDose}–{maxDose} mg around {time} — talk to a clinician about what's right for you. {safetyWarning}",
 			"melatoninSleepAidLine": "Optional sleep aid (not a clock-shift dose): commonly {minDose}–{maxDose} mg around {time} if you want it — a consistent bedtime and a dark, cool room usually help more. {safetyWarning}",

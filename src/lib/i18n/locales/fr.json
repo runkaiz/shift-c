@@ -222,6 +222,7 @@
 			"recap": "Le plan d'hier était de te coucher à {time}.",
 			"intro": "Si oui — bien joué, tu n'as rien à faire. Voici le plan d'aujourd'hui :",
 			"bedtimeLine": "Heure de coucher de ce soir : {time}",
+			"goalReached": "C'est ton horaire cible — tu as fait tout le décalage. À partir de maintenant, il s'agit de le maintenir.",
 			"bltLine": "Luminothérapie : vers {time}",
 			"melatoninChronobioticLine": "Mélatonine : couramment {minDose}–{maxDose} mg vers {time} — parle à un professionnel de santé de ce qui te convient. {safetyWarning}",
 			"melatoninSleepAidLine": "Aide au sommeil optionnelle (pas une dose de décalage d'horloge) : couramment {minDose}–{maxDose} mg vers {time} si tu le souhaites — une heure de coucher régulière et une chambre sombre et fraîche aident généralement plus. {safetyWarning}",

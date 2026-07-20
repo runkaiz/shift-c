@@ -222,6 +222,7 @@
 			"recap": "昨天的方案是在 {time} 之前就寝。",
 			"intro": "如果坚持了——干得漂亮，无需做任何事。以下是今天的方案：",
 			"bedtimeLine": "今晚就寝时间：{time}",
+			"goalReached": "这就是你的目标作息——你已经完成了整个调整。接下来就是保持稳定。",
 			"bltLine": "亮光疗法：{time} 左右",
 			"melatoninChronobioticLine": "褪黑素：通常在 {time} 左右服用 {minDose}–{maxDose} 毫克——请就适合你的用量咨询临床医生。{safetyWarning}",
 			"melatoninSleepAidLine": "可选助眠剂（并非用于调整生物钟的剂量）：如果你需要，通常在 {time} 左右服用 {minDose}–{maxDose} 毫克——不过固定的就寝时间和黑暗、凉爽的房间通常更有帮助。{safetyWarning}",

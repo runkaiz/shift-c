@@ -222,6 +222,7 @@
 			"recap": "昨日のプランは{time}までに就寝することでした。",
 			"intro": "守れたなら、よくできました。特に何もする必要はありません。こちらが今日のプランです：",
 			"bedtimeLine": "今夜の就寝時間：{time}",
+			"goalReached": "これがあなたの目標スケジュールです。移行はすべて完了しました。これからは、それを保つことが目標です。",
 			"bltLine": "高照度光療法：{time}ごろ",
 			"melatoninChronobioticLine": "メラトニン：一般的に{time}ごろに{minDose}〜{maxDose} mg。あなたに合った方法については医療従事者に相談してください。{safetyWarning}",
 			"melatoninSleepAidLine": "任意の睡眠補助（体内時計をずらす用量ではありません）：ご希望であれば、一般的に{time}ごろに{minDose}〜{maxDose} mg。ただし、一定の就寝時間と暗く涼しい部屋のほうが役立つことが多いです。{safetyWarning}",

@@ -70,6 +70,14 @@ function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeU
 
 	const reminderLines = [tonightBedtimeLine, bltLine, melatoninLine].filter(Boolean);
 
+	// No next day object means this is the final transition day and the bedtime
+	// above came from the goal fallback — say so, otherwise "tonight's bedtime"
+	// silently matching last night's reads like the schedule stopped moving by
+	// accident. Gated on the bedtime line actually rendering, since the copy
+	// refers to it.
+	const goalReachedLine =
+		!nextDay && tonightBedtimeLine ? t(locale, 'email.checkin.goalReached') : null;
+
 	// On the final transition day there's no next day object (tonight's target
 	// is the goal schedule, which isn't a row in `days`), so the forward-looking
 	// section can be empty — omit it rather than print an empty "today's plan".
@@ -80,6 +88,9 @@ function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeU
 			t(locale, 'email.checkin.intro'),
 			...reminderLines.map((line) => `- ${line}`)
 		);
+	}
+	if (goalReachedLine) {
+		textParts.push('', goalReachedLine);
 	}
 	textParts.push(
 		'',
@@ -93,10 +104,12 @@ function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeU
 		? `<p>${t(locale, 'email.checkin.intro')}</p>
 		<ul>${reminderLines.map((line) => `<li>${line}</li>`).join('')}</ul>`
 		: '';
+	const goalReachedHtml = goalReachedLine ? `<p>${goalReachedLine}</p>` : '';
 	const html = `
 		<p>${t(locale, 'email.checkin.question')}</p>
 		<p>${recap}</p>
 		${todayHtml}
+		${goalReachedHtml}
 		<p>${t(locale, 'email.checkin.fellOffTrackHtml', { checkinUrl })}</p>
 		<p style="color:#888;font-size:12px;">${t(locale, 'email.checkin.unsubscribeLineHtml', {
 			unsubscribeUrl

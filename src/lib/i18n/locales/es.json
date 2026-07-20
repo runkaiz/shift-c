@@ -222,6 +222,7 @@
 			"recap": "El plan de ayer era acostarte a las {time}.",
 			"intro": "Si es así, buen trabajo, no necesitas hacer nada. Aquí está el plan de hoy:",
 			"bedtimeLine": "Hora de dormir de esta noche: {time}",
+			"goalReached": "Ese es tu horario objetivo: has completado todo el cambio. A partir de ahora se trata de mantenerlo.",
 			"bltLine": "Terapia de luz brillante: alrededor de las {time}",
 			"melatoninChronobioticLine": "Melatonina: comúnmente {minDose}–{maxDose} mg alrededor de las {time}; habla con un profesional de la salud sobre lo que es adecuado para ti. {safetyWarning}",
 			"melatoninSleepAidLine": "Ayuda para dormir opcional (no una dosis para desplazar el reloj): comúnmente {minDose}–{maxDose} mg alrededor de las {time} si la quieres; una hora de dormir constante y una habitación oscura y fresca suelen ayudar más. {safetyWarning}",
