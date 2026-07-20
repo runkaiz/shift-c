@@ -68,7 +68,29 @@ export async function POST({ request, platform }) {
 		const todayStr = nowNaive.format('YYYY-MM-DD');
 		const tomorrowStr = moment(nowNaive).add(1, 'day').format('YYYY-MM-DD');
 
-		const today = findDayForDate(result.days, todayStr);
+		// The transition days cover every night except the last one: the final
+		// night is spent on the goal schedule, which has no day object, so it
+		// would otherwise never be checked in on. The morning after the last
+		// day object we send one terminal check-in built from the goal times.
+		// Keyed to that single date, so it fires exactly once and then the plan
+		// goes quiet for good.
+		let today = findDayForDate(result.days, todayStr);
+		let terminal = false;
+		if (!today) {
+			const lastDay = result.days[result.days.length - 1];
+			if (todayStr === moment(lastDay.wake).add(1, 'day').format('YYYY-MM-DD')) {
+				const wake = moment(`${todayStr} ${plan.goal_wake}`, 'YYYY-MM-DD HH:mm');
+				const sleep = moment(`${todayStr} ${plan.goal_sleep}`, 'YYYY-MM-DD HH:mm');
+				// Mirror schedule.js's wake-before-sleep correction: a PM bedtime
+				// belongs to the previous evening, an after-midnight one to this
+				// same morning.
+				if (sleep.isAfter(wake)) {
+					sleep.subtract(1, 'day');
+				}
+				today = { sleep, wake, blt: null, melatonin: null };
+				terminal = true;
+			}
+		}
 		if (!today) {
 			skipped++;
 			continue;
@@ -112,6 +134,7 @@ export async function POST({ request, platform }) {
 			// no nextDay. goal_sleep is already validated (computeIntervention
 			// succeeded above); parse it the same way schedule.js does.
 			goalSleep: moment(plan.goal_sleep, 'HH:mm'),
+			terminal,
 			checkinUrl: `${origin}/${plan.locale}/checkin/${plan.token}?date=${todayStr}`,
 			unsubscribeUrl: `${origin}/${plan.locale}/unsubscribe/${plan.token}`,
 			locale: plan.locale

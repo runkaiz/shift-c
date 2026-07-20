@@ -13,9 +13,16 @@ function formatTime(momentInstance) {
 	return momentInstance.format('h:mm A');
 }
 
-function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeUrl, locale }) {
-	const safetyWarning = melatoninSafetyWarning(locale);
-
+function buildBody({
+	today,
+	nextDay,
+	regime,
+	goalSleep,
+	terminal,
+	checkinUrl,
+	unsubscribeUrl,
+	locale
+}) {
 	// Retrospective reminder for "Did you stick with your plan yesterday?".
 	// `today` is the day object keyed by *this morning's* wake date (see
 	// send-checkins/+server.js findDayForDate), so `today.sleep` is the bedtime
@@ -25,6 +32,41 @@ function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeU
 	// unambiguously belongs to "yesterday" (today.wake already happened this
 	// morning), so the recap leads with it alone.
 	const recap = t(locale, 'email.checkin.recap', { time: formatTime(today.sleep) });
+
+	// The terminal check-in, sent the morning after the last transition day. It
+	// asks about the final night — planned at the goal schedule, so it has no
+	// day object of its own and would otherwise never be asked about. This is
+	// the last email a plan ever sends, so it deliberately carries no
+	// forward-looking section (a "tonight's bedtime" here would need its own
+	// follow-up tomorrow, and so on forever) and no "adjust the rest of your
+	// plan" — there is no rest.
+	if (terminal) {
+		const text = [
+			t(locale, 'email.checkin.question'),
+			'',
+			recap,
+			'',
+			t(locale, 'email.checkin.finalSignoff'),
+			'',
+			t(locale, 'email.checkin.finalFellOffTrack', { checkinUrl }),
+			'',
+			t(locale, 'email.checkin.unsubscribeLine', { unsubscribeUrl })
+		].join('\n');
+
+		const html = `
+		<p>${t(locale, 'email.checkin.question')}</p>
+		<p>${recap}</p>
+		<p>${t(locale, 'email.checkin.finalSignoff')}</p>
+		<p>${t(locale, 'email.checkin.finalFellOffTrackHtml', { checkinUrl })}</p>
+		<p style="color:#888;font-size:12px;">${t(locale, 'email.checkin.unsubscribeLineHtml', {
+			unsubscribeUrl
+		})}</p>
+	`.trim();
+
+		return { text, html };
+	}
+
+	const safetyWarning = melatoninSafetyWarning(locale);
 
 	// Prospective "today's plan": the actions still ahead of the user today.
 	// Tonight's real bedtime is the *next* day object's sleep — today.sleep is
@@ -136,13 +178,16 @@ function buildBody({ today, nextDay, regime, goalSleep, checkinUrl, unsubscribeU
  *   object's bright-light/melatonin timing counts as "today's" (see buildBody).
  * @param {moment.Moment} params.goalSleep - The plan's goal bedtime, used as
  *   tonight's bedtime on the final transition day (when nextDay is null).
+ * @param {boolean} [params.terminal] - True for the one-off check-in sent the
+ *   morning after the last transition day, which asks about the final night and
+ *   sends no forward-looking plan. See buildBody.
  * @param {string} params.checkinUrl
  * @param {string} params.unsubscribeUrl
  * @param {string} params.locale
  */
 export async function sendCheckInEmail(
 	env,
-	{ to, today, nextDay, regime, goalSleep, checkinUrl, unsubscribeUrl, locale }
+	{ to, today, nextDay, regime, goalSleep, terminal, checkinUrl, unsubscribeUrl, locale }
 ) {
 	const subject = t(locale, 'email.checkin.subject');
 	const { text, html } = buildBody({
@@ -150,6 +195,7 @@ export async function sendCheckInEmail(
 		nextDay,
 		regime,
 		goalSleep,
+		terminal,
 		checkinUrl,
 		unsubscribeUrl,
 		locale
